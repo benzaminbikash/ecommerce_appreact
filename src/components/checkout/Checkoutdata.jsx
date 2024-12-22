@@ -4,8 +4,8 @@ import Payment from "./Payment";
 
 function Checkoutdata() {
   return (
-    <div className="container-fluid py-5">
-      <div className="container py-5">
+    <div className="">
+      <div className=" ">
         <h1 className="mb-4">Billing details</h1>
         <form action="#">
           <div className="row g-5">
@@ -16,7 +16,7 @@ function Checkoutdata() {
                     <label className="form-label my-3">
                       First Name<sup>*</sup>
                     </label>
-                    <input type="text" className="form-control" />
+                    <input type="text" className="form-control py-3" />
                   </div>
                 </div>
                 <div className="col-md-12 col-lg-6">
@@ -24,7 +24,7 @@ function Checkoutdata() {
                     <label className="form-label my-3">
                       Last Name<sup>*</sup>
                     </label>
-                    <input type="text" className="form-control" />
+                    <input type="text" className="form-control py-3" />
                   </div>
                 </div>
               </div>
@@ -32,7 +32,7 @@ function Checkoutdata() {
                 <label className="form-label my-3">
                   Company Name<sup>*</sup>
                 </label>
-                <input type="text" className="form-control" />
+                <input type="text" className="form-control py-3" />
               </div>
               <div className="form-item">
                 <label className="form-label my-3">
@@ -48,36 +48,36 @@ function Checkoutdata() {
                 <label className="form-label my-3">
                   Town/City<sup>*</sup>
                 </label>
-                <input type="text" className="form-control" />
+                <input type="text" className="form-control py-3" />
               </div>
               <div className="form-item">
                 <label className="form-label my-3">
                   Country<sup>*</sup>
                 </label>
-                <input type="text" className="form-control" />
+                <input type="text" className="form-control py-3" />
               </div>
               <div className="form-item">
                 <label className="form-label my-3">
                   Postcode/Zip<sup>*</sup>
                 </label>
-                <input type="text" className="form-control" />
+                <input type="text" className="form-control py-3" />
               </div>
               <div className="form-item">
                 <label className="form-label my-3">
                   Mobile<sup>*</sup>
                 </label>
-                <input type="tel" className="form-control" />
+                <input type="tel" className="form-control py-3" />
               </div>
               <div className="form-item">
                 <label className="form-label my-3">
                   Email Address<sup>*</sup>
                 </label>
-                <input type="email" className="form-control" />
+                <input type="email" className="form-control py-3" />
               </div>
-              <div className="form-check my-3">
+              <div className="my-3 d-flex  flex-row  gap-2 align-items-center">
                 <input
+                  className="mycustomcheckbox"
                   type="checkbox"
-                  className="form-check-input"
                   id="Account-1"
                   name="Accounts"
                   value="Accounts"
@@ -87,15 +87,15 @@ function Checkoutdata() {
                 </label>
               </div>
               <hr />
-              <div className="form-check my-3">
+              <div className="my-3 d-flex  flex-row  gap-2 align-items-center">
                 <input
-                  className="form-check-input"
+                  className=""
                   type="checkbox"
                   id="Address-1"
                   name="Address"
                   value="Address"
                 />
-                <label className="form-check-label" for="Address-1">
+                <label className="form-check-label r-3 " for="Address-1">
                   Ship to a different address?
                 </label>
               </div>
@@ -103,7 +103,6 @@ function Checkoutdata() {
                 <textarea
                   name="text"
                   className="form-control"
-                  // spellcheck="false"
                   cols="30"
                   rows="11"
                   placeholder="Oreder Notes (Optional)"

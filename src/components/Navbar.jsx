@@ -21,15 +21,15 @@ function Navbar() {
             </small>
           </div>
           <div className="top-link pe-2">
-            <a href="#" className="text-white">
-              <small className="text-white mx-2">Privacy Policy</small>/
-            </a>
-            <a href="#" className="text-white">
-              <small className="text-white mx-2">Terms of Use</small>/
-            </a>
-            <a href="#" className="text-white">
-              <small className="text-white ms-2">Sales and Refunds</small>
-            </a>
+            <NavLink to="#" className="mx-2 policy">
+              Privacy Policy
+            </NavLink>
+            <NavLink href="#" className="mx-2 policy">
+              Terms of Use
+            </NavLink>
+            <NavLink href="#" className="ms-2  policy ">
+              Sales and Refunds
+            </NavLink>
           </div>
         </div>
       </div>
@@ -88,15 +88,15 @@ function Navbar() {
             </div>
             <div className="d-flex m-3 me-0">
               <button
-                className="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4"
+                className="btn-search  border border-secondary btn-md-square rounded-circle bg-white me-4"
                 data-bs-toggle="modal"
                 data-bs-target="#searchModal"
               >
                 <i className="fas fa-search text-primary"></i>
               </button>
               <NavLink to="/cart" className="position-relative me-4 my-auto">
-                <i className="fa fa-shopping-bag fa-2x"></i>
-                <span className="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1 cartnumber">
+                <i className="fas fa-shopping-bag fa-2x"></i>
+                <span className="position-absolute bg-danger rounded-circle d-flex align-items-center justify-content-center text-dark px-1 cartnumber">
                   3
                 </span>
               </NavLink>

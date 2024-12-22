@@ -5,10 +5,10 @@ function Payment() {
     <>
       <div className="row g-4 text-center align-items-center justify-content-center border-bottom py-3">
         <div className="col-12">
-          <div className="form-check text-start my-3">
+          <div className="my-3 d-flex  flex-row  gap-2 align-items-center">
             <input
               type="checkbox"
-              className="form-check-input bg-primary border-0"
+              className=""
               id="Transfer-1"
               name="Transfer"
               value="Transfer"
@@ -26,10 +26,10 @@ function Payment() {
       </div>
       <div className="row g-4 text-center align-items-center justify-content-center border-bottom py-3">
         <div className="col-12">
-          <div className="form-check text-start my-3">
+          <div className="my-3 d-flex  flex-row  gap-2 align-items-center">
             <input
               type="checkbox"
-              className="form-check-input bg-primary border-0"
+              className=""
               id="Payments-1"
               name="Payments"
               value="Payments"
@@ -42,10 +42,10 @@ function Payment() {
       </div>
       <div className="row g-4 text-center align-items-center justify-content-center border-bottom py-3">
         <div className="col-12">
-          <div className="form-check text-start my-3">
+          <div className="my-3 d-flex  flex-row  gap-2 align-items-center">
             <input
               type="checkbox"
-              className="form-check-input bg-primary border-0"
+              className=""
               id="Delivery-1"
               name="Delivery"
               value="Delivery"
@@ -58,10 +58,10 @@ function Payment() {
       </div>
       <div className="row g-4 text-center align-items-center justify-content-center border-bottom py-3">
         <div className="col-12">
-          <div className="form-check text-start my-3">
+          <div className="my-3 d-flex  flex-row  gap-2 align-items-center">
             <input
               type="checkbox"
-              className="form-check-input bg-primary border-0"
+              className=""
               id="Paypal-1"
               name="Paypal"
               value="Paypal"

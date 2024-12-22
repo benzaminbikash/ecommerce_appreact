@@ -3,7 +3,7 @@ import React from "react";
 function Productinfo() {
   return (
     <div className="table-responsive">
-      <table className="table">
+      <table className="table border-1">
         <thead>
           <tr>
             <th scope="col">Products</th>

@@ -17,7 +17,7 @@ function LoginForm() {
         onChange={(e) => setEmail(e.target.value)}
         required
         type="email"
-        className="w-100 form-control border-0 py-3 mb-4"
+        className="w-100 form-control border-1 py-3 mb-4"
         placeholder="Enter Your Email *"
       />
       <input
@@ -25,7 +25,7 @@ function LoginForm() {
         onChange={(e) => setPassword(e.target.value)}
         required
         type="password"
-        className="w-100 form-control border-0 py-3 mb-4"
+        className="w-100 form-control border-1 py-3 mb-4"
         placeholder="Enter Your Password *"
       />
       <div className="d-flex justify-content-between align-items-center mb-2">

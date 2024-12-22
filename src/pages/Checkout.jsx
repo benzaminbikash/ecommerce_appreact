@@ -4,17 +4,17 @@ import Checkoutdata from "../components/checkout/Checkoutdata";
 import SearchModal from "../components/SearchModal";
 
 function Checkout() {
-  useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "instant",
-    });
-  }, []);
+  // useEffect(() => {
+  //   window.scrollTo({
+  //     top: 0,
+  //     left: 0,
+  //     behavior: "instant",
+  //   });
+  // }, []);
   return (
     <>
       <SearchModal />
-      <Header title={"Checkout"} />
+      {/* <Header title={"Checkout"} /> */}
       <Checkoutdata />
     </>
   );

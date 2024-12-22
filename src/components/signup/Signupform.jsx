@@ -15,28 +15,28 @@ function Signupform() {
         name="name"
         onChange={handleOnChange}
         type="text"
-        className="w-100 form-control border-0 py-3 mb-4"
+        className="w-100 form-control border-1 py-3 mb-4"
         placeholder="Full Name *"
       />
       <input
         name="email"
         onChange={handleOnChange}
         type="email"
-        className="w-100 form-control border-0 py-3 mb-4"
+        className="w-100 form-control border-1 py-3 mb-4"
         placeholder="Email *"
       />
       <input
         name="phone"
         onChange={handleOnChange}
         type="tel"
-        className="w-100 form-control border-0 py-3 mb-4"
+        className="w-100 form-control border-1 py-3 mb-4"
         placeholder="Phone Number *"
       />
       <input
         name="password"
         onChange={handleOnChange}
         type="password"
-        className="w-100 form-control border-0 py-3 mb-4"
+        className="w-100 form-control border-1 py-3 mb-4"
         placeholder="Password *"
       />
 
@@ -44,7 +44,7 @@ function Signupform() {
         name="confirmationpassword"
         onChange={handleOnChange}
         type="password"
-        className="w-100 form-control border-0 py-3 mb-4"
+        className="w-100 form-control border-1 py-3 mb-4"
         placeholder="Confirmation Password *"
       />
       <div className="d-flex flex-row align-items-center gap-2 mb-2">

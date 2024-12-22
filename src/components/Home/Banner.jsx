@@ -3,20 +3,22 @@ import Banner1 from "../../img/baner-1.png";
 
 function Banner() {
   return (
-    <div className="container-fluid banner bg-secondary my-5">
+    <div className="container-fluid banner bg-danger my-5">
       <div className="container py-5">
         <div className="row g-4 align-items-center">
           <div className="col-lg-6">
             <div className="py-4">
               <h1 className="display-3 text-white">Fresh Exotic Fruits</h1>
-              <p className="fw-normal display-3 text-dark mb-4">in Our Store</p>
-              <p className="mb-4 text-dark">
+              <p className="fw-normal display-3 text-light mb-4">
+                in Our Store
+              </p>
+              <p className="mb-4 text-light">
                 The generated Lorem Ipsum is therefore always free from
                 repetition injected humour, or non-characteristic words etc.
               </p>
               <a
                 href="#"
-                className="banner-btn btn border-2 border-white rounded-pill text-dark py-3 px-5"
+                className="banner-btn btn border-2 border-white rounded-pill text-white py-3 px-5"
               >
                 BUY
               </a>

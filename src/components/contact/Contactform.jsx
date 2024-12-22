@@ -6,16 +6,16 @@ function Contactform() {
       <form action="" className="">
         <input
           type="text"
-          className="w-100 form-control border-0 py-3 mb-4"
+          className="w-100 form-control border-1 py-3 mb-4"
           placeholder="Your Name"
         />
         <input
           type="email"
-          className="w-100 form-control border-0 py-3 mb-4"
+          className="w-100 form-control border-1 py-3 mb-4"
           placeholder="Enter Your Email"
         />
         <textarea
-          className="w-100 form-control border-0 mb-4"
+          className="w-100 form-control border-1 mb-4"
           rows="5"
           cols="10"
           placeholder="Your Message"

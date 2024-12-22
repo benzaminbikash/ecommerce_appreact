@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
-import { Link, NavLink } from "react-router";
+import { Link } from "react-router";
 
-function Forgetpassword() {
+function Changepassword() {
   const [email, setEmail] = useState("");
   const handleForgetPassword = (e) => {
     e.preventDefault();
@@ -16,7 +16,7 @@ function Forgetpassword() {
   }, []);
   return (
     <>
-      <Header title={"Forget Password"} />
+      <Header title={"Change Password"} />
       <div className="container-fluid contact py-5">
         <div className="container pt-5">
           <div className="p-5 bg-light rounded">
@@ -55,4 +55,4 @@ function Forgetpassword() {
   );
 }
 
-export default Forgetpassword;
+export default Changepassword;

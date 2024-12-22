@@ -1,6 +1,5 @@
 import React from "react";
 import Hero1 from "../../img/hero-img-1.png";
-// import Hero2 from "../../img/hero-img-2.png";
 
 function Hero() {
   return (

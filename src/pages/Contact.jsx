@@ -15,7 +15,7 @@ function Contact() {
     <>
       <SearchModal />
       <Header title={"Contact"} />
-      <div className="container-fluid contact py-5">
+      <div className="container contact py-5">
         <div className="container py-5">
           <div className="p-5 bg-light rounded">
             <div className="row g-4">
