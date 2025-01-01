@@ -59,14 +59,14 @@ function Signupform() {
         <p style={{ margin: 0 }}>I agree to terms and policy.</p>
       </div>
       <button
-        className="w-100 btn form-control border-secondary py-3 bg-white text-primary "
+        className="w-100 btn form-control border-secondary py-3 bg-white text-dark"
         type="submit"
       >
         Submit
       </button>
       <div className="mt-2 text-center">
         Already have an account?{" "}
-        <NavLink to="/login" className="text-primary createhere ">
+        <NavLink to="/login" className=" createhere ">
           Login
         </NavLink>
       </div>

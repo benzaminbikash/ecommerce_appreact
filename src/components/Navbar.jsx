@@ -8,14 +8,14 @@ function Navbar() {
         <div className="d-flex justify-content-between">
           <div className="top-info ps-2">
             <small className="me-3">
-              <i className="fas fa-map-marker-alt me-2 text-secondary"></i>{" "}
-              <a href="#" className="text-white">
-                123 Street, New York
+              <i className="fas fa-map-marker-alt me-2 text-white"></i>{" "}
+              <a href="" className="text-white">
+                Gwarko, Lalitpur
               </a>
             </small>
             <small className="me-3">
-              <i className="fas fa-envelope me-2 text-secondary"></i>
-              <a href="#" className="text-white">
+              <i className="fas fa-envelope me-2 text-white"></i>
+              <a href="" className="text-white">
                 Email@Example.com
               </a>
             </small>
@@ -34,7 +34,7 @@ function Navbar() {
         </div>
       </div>
 
-      <div className="container px-0">
+      <div className=" container px-0">
         <nav className="navbar navbar-light bg-white navbar-expand-xl">
           <Link to="/" className="navbar-brand">
             <h1 className="text-primary display-6">Fruitables</h1>

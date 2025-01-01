@@ -570,6 +570,7 @@
 }
 .createhere:hover {
   text-decoration: underline;
+  color: red;
 }
 .linecustom {
   width: 60px;
@@ -644,13 +645,13 @@ p {
   transition: transform 0.5s ease-in-out, visibility 0.5s ease-in-out;
 }
 
-body {
+/* body {
   position: relative;
   margin: 0;
   padding: 0;
-}
+} */
 
-body::before {
+/* body::before {
   content: "";
   position: absolute;
   top: 0;
@@ -664,11 +665,124 @@ body::before {
   opacity: 0.09;
   z-index: -1;
   pointer-events: none;
-}
+} */
 .policy {
   font-size: 13px;
   color: white;
 }
 .policy:hover {
   color: red;
+}
+.lottie-container {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: none;
+}
+
+.notfound-text {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #6c757d;
+}
+.customerrorimage {
+  width: 24px;
+  height: 24px;
+}
+
+.adminlogin {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+  align-items: center;
+  gap: 10px;
+}
+
+.titleofsidebar {
+  font-size: 10px;
+  font-weight: bold;
+  color: rgb(140, 135, 135);
+}
+.adminactionupdate:hover {
+  color: blue;
+  cursor: pointer;
+}
+
+.adminactiondelete {
+  color: red;
+  cursor: pointer;
+}
+
+.productinput {
+  padding: 6px;
+  border-radius: 6px;
+  width: 300px;
+}
+
+.productbotton {
+  width: 100px;
+  border: none;
+
+  border-radius: 6px;
+}
+
+.no-padding {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+.sidebar {
+  background-color: #2a3042;
+}
+.navitemofsidebar {
+  color: gray;
+  font-size: 15px;
+  align-items: center;
+}
+
+.navitemofsidebar:hover {
+  color: white;
+}
+
+.card {
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.form-header {
+  background-color: #eaf1ff;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  padding: 20px;
+  text-align: center;
+}
+.form-header h3 {
+  margin: 0;
+  font-weight: bold;
+  color: #3742fa;
+}
+.form-header p {
+  color: #57606f;
+}
+.form-body {
+  padding: 20px;
+}
+.form-body .form-label {
+  font-weight: bold;
+  color: #2f3542;
+}
+.btn-primary {
+  background-color: #3742fa;
+  border: none;
+}
+.btn-primary:hover {
+  background-color: #2b34c9;
+}
+.illustration {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 10px;
 }

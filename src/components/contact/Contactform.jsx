@@ -21,7 +21,7 @@ function Contactform() {
           placeholder="Your Message"
         ></textarea>
         <button
-          className="w-100 btn form-control border-secondary py-3 bg-white text-primary "
+          className="w-100 btn form-control border-secondary py-3 bg-white text-dark "
           type="submit"
         >
           Submit

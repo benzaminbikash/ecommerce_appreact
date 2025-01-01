@@ -47,14 +47,14 @@ function LoginForm() {
         </NavLink>
       </div>
       <button
-        className="w-100 btn form-control border-secondary py-3 bg-white text-primary "
+        className="w-100 btn form-control border-secondary py-3 bg-white text-dark "
         type="submit"
       >
         Submit
       </button>
       <div className="mt-2 text-center">
         Don't have any account?{" "}
-        <NavLink to="/signup" className="text-primary createhere ">
+        <NavLink to="/signup" className=" createhere ">
           Create here
         </NavLink>
       </div>

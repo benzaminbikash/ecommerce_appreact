@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import { Link } from "react-router";
+import Lottie from "react-lottie";
+import changepassword from "../img/changepassword.json";
 
 function Changepassword() {
-  const [email, setEmail] = useState("");
-  const handleForgetPassword = (e) => {
+  const [password, setPassword] = useState("");
+  const [confirmationpassword, setConfirmationPassword] = useState("");
+  const handleChangePassword = (e) => {
     e.preventDefault();
-    console.log(email);
   };
   useEffect(() => {
     window.scrollTo({
@@ -21,23 +23,38 @@ function Changepassword() {
         <div className="container pt-5">
           <div className="p-5 bg-light rounded">
             <div className="row g-4">
-              <div className="col-12">
-                <p className="fw-bold mb-1 fs-2 text-black">Forget Password?</p>
-                <p className="mb-2">
-                  Enter your e-mail address, and we'll give you reset
-                  instruction.
+              <div className=" col-6">
+                <Lottie
+                  width={370}
+                  options={{
+                    animationData: changepassword,
+                  }}
+                />
+              </div>
+              <div className=" col-6">
+                <p className="fw-bold mb-1 fs-2 text-black">
+                  Change your password
                 </p>
-                <form action="" onSubmit={handleForgetPassword}>
+                <p className="mb-2"></p>
+                <form action="" onSubmit={handleChangePassword}>
                   <input
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     required
                     type="text"
-                    className="  w-50 w-lg-100 form-control border-1 py-3 mb-3"
-                    placeholder="Your Email"
+                    className="  w-100 w-lg-100 form-control border-1 py-3 mb-3"
+                    placeholder="New Password"
+                  />
+                  <input
+                    value={confirmationpassword}
+                    onChange={(e) => setConfirmationPassword(e.target.value)}
+                    required
+                    type="text"
+                    className="  w-100 w-lg-100 form-control border-1 py-3 mb-3"
+                    placeholder="Confirmation Password"
                   />
                   <button
-                    className="mx-auto w-25 mb-2 btn form-control border-secondary py-3 bg-white text-primary "
+                    className="mx-auto w-25 mb-2 btn form-control border-secondary py-3 bg-white text-dark "
                     type="submit"
                   >
                     Submit
