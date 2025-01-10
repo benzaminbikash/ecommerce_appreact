@@ -4,7 +4,7 @@ import { Link } from "react-router";
 function Header() {
   return (
     <header
-      className=" d-flex align-items-center justify-content-between text-dark "
+      className=" mylayout d-flex align-items-center justify-content-between text-dark "
       style={{
         height: "80px",
         borderBottom: "1px solid red",

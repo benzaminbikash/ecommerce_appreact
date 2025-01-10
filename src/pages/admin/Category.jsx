@@ -1,53 +1,17 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
+import { useGetCategoryQuery } from "../../redux/Api/admin/AdminCategory";
 
 function Category() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 2;
+  const { data: Api } = useGetCategoryQuery();
+  const products = Api?.data;
 
-  // Mock data for products
-  const products = [
-    {
-      id: 1,
-      customer: "John Doe",
-      product: "Laptop",
-      status: "Delivered",
-      total: "$1200",
-    },
-    {
-      id: 2,
-      customer: "Jane Smith",
-      product: "Headphones",
-      status: "Processing",
-      total: "$200",
-    },
-    {
-      id: 3,
-      customer: "Mike Johnson",
-      product: "Smartphone",
-      status: "Shipped",
-      total: "$800",
-    },
-    {
-      id: 4,
-      customer: "Alice Brown",
-      product: "Tablet",
-      status: "Pending",
-      total: "$500",
-    },
-    {
-      id: 5,
-      customer: "Bob White",
-      product: "Monitor",
-      status: "Delivered",
-      total: "$300",
-    },
-  ];
-
-  const totalPages = Math.ceil(products.length / itemsPerPage);
+  const totalPages = Math.ceil(products?.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const displayedProducts = products.slice(startIndex, endIndex);
+  const displayedProducts = products?.slice(startIndex, endIndex);
 
   const handleNext = () => {
     if (currentPage < totalPages) setCurrentPage(currentPage + 1);
@@ -82,18 +46,25 @@ function Category() {
             </tr>
           </thead>
           <tbody>
-            {displayedProducts.map((product, index) => (
-              <tr key={product.id}>
-                <td>{startIndex + index + 1}</td>
-                <td>{product.customer}</td>
-                <td>{product.product}</td>
-                <td>{product.total}</td>
-                <td>
-                  <i className="bi bi-pencil-square adminactionupdate"></i>
-                  <i className="bi bi-trash ps-3 adminactiondelete"></i>
-                </td>
-              </tr>
-            ))}
+            {displayedProducts &&
+              displayedProducts?.map((product, index) => (
+                <tr key={product.id}>
+                  <td>{startIndex + index + 1}</td>
+                  <td>{product?.title}</td>
+                  <Link to={`http://localhost:8000/uploads/${product?.image}`}>
+                    <img
+                      className="adminImage"
+                      src={`http://localhost:8000/uploads/${product?.image}`}
+                      alt="randomImage"
+                    />
+                  </Link>
+                  <td>1</td>
+                  <td>
+                    <i className="bi bi-pencil-square adminactionupdate"></i>
+                    <i className="bi bi-trash ps-3 adminactiondelete"></i>
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>

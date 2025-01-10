@@ -61,9 +61,9 @@ function AddCarousel() {
             {selectedImages.length > 0 && (
               <div className="mt-3">
                 <h6>Selected Images:</h6>
-                <div className="row g-2">
+                <div className="row ">
                   {selectedImages.map((image, index) => (
-                    <div className="col-3" key={index}>
+                    <div className="col-1" key={index}>
                       <img
                         src={URL.createObjectURL(image)}
                         alt="Selected"

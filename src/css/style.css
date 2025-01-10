@@ -595,7 +595,7 @@ p {
 .forgetpassword:hover {
   text-decoration: underline;
 }
-.backtologin {
+.backtod {
   cursor: pointer;
   color: gray;
   margin-top: 10px;
@@ -701,6 +701,9 @@ p {
   height: 100vh;
   align-items: center;
   gap: 10px;
+  background-image: url("https://img.freepik.com/free-vector/digital-grid-technology-background-white-tone_53876-117509.jpg?t=st=1736234078~exp=1736237678~hmac=db151a6249fa5d8d9fd316fc93fb4cba9f8841b84ddcf87e009d84767f2ba167&w=740");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .titleofsidebar {
@@ -785,4 +788,38 @@ p {
   width: 100px;
   height: 100px;
   margin: 0 auto 10px;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: gray;
+  border-radius: 10px;
+}
+
+.adminselection {
+  border: none;
+  padding: 5px;
+  width: 100%;
+  background-color: transparent;
+  outline: none;
+  color: grey;
+}
+
+.adminselection:focus {
+  border: 0.3px;
+}
+.loginaftersuccess {
+  background-color: transparent;
+  border: none;
+  text-decoration: underline;
+  padding-left: 10px;
+}
+.adminImage {
+  /* width: 150px; */
+  max-height: 150px;
+  object-fit: contain;
+  margin: 2px;
 }

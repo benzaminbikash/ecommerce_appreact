@@ -3,9 +3,9 @@ import React from "react";
 function Showmessage({ status, message }) {
   return (
     <div
-      className="showmessage w-75 d-flex gap-2 py-3 px-2 align-items-center rounded "
+      className="showmessage w-100 mb-3 d-flex gap-2 py-3 px-2 align-items-center rounded "
       style={{
-        backgroundColor: status == "success" ? "#4CAF50" : " #FF0000",
+        backgroundColor: status == "success" ? "#4CAF50" : "rgb(222, 45, 45)",
       }}
     >
       {status == "success" ? (
@@ -23,7 +23,6 @@ function Showmessage({ status, message }) {
           }}
         ></i>
       )}
-
       <p className="text-white ">{message}</p>
     </div>
   );

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router";
+import BannerModal from "../../components/admin/dashboard/AdminDataModal";
 
-function Product() {
+function User() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 2;
 
@@ -44,9 +45,13 @@ function Product() {
   ];
 
   const totalPages = Math.ceil(products.length / itemsPerPage);
+  console.log(totalPages);
   const startIndex = (currentPage - 1) * itemsPerPage;
+  console.log("startIndex", startIndex);
   const endIndex = startIndex + itemsPerPage;
+  console.log("endIndex", endIndex);
   const displayedProducts = products.slice(startIndex, endIndex);
+  console.log(displayedProducts);
 
   const handleNext = () => {
     if (currentPage < totalPages) setCurrentPage(currentPage + 1);
@@ -58,13 +63,18 @@ function Product() {
 
   return (
     <main className="">
+      <BannerModal
+        data={{
+          name: "zendaya",
+        }}
+      />
       <div className="d-flex justify-content-between align-items-center mt-5 mb-4">
-        <h1 className="fs-5 fw-bold mt-3">Product List</h1>
+        <h1 className="fs-5 fw-bold mt-3">Users List</h1>
         <Link
-          to="/admin/product/addproduct"
+          to="/admin/users/adduser"
           className="btn btn-primary  text-white py-2"
         >
-          <i className="bi bi-plus me-2"></i>Add Product
+          <i className="bi bi-plus me-2"></i>Add User
         </Link>
       </div>
 
@@ -72,7 +82,7 @@ function Product() {
         <input
           type="text"
           className="productinput my-2"
-          placeholder="Search for a product..."
+          placeholder="Search for a user..."
           aria-label="Search"
         />
         <button
@@ -87,11 +97,12 @@ function Product() {
         <table className="table table-bordered table-sm">
           <thead>
             <tr>
-              <th>#</th>
-              <th>Customer</th>
-              <th>Product</th>
-              <th>Status</th>
-              <th>Total</th>
+              <th>SN</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Is User</th>
+              <th>Is Admin</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -100,12 +111,18 @@ function Product() {
               <tr key={product.id}>
                 <td>{startIndex + index + 1}</td>
                 <td>{product.customer}</td>
-                <td>{product.product}</td>
+                <td>Lorem ipsum dolor sit amet consectetur.</td>
+                <td>Hello</td>
                 <td>{product.status}</td>
                 <td>{product.total}</td>
                 <td>
                   <i className="bi bi-pencil-square adminactionupdate"></i>
                   <i className="bi bi-trash ps-3 adminactiondelete"></i>
+                  <i
+                    class="fas fa-eye ps-3 adminactionupdate"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                  ></i>
                 </td>
               </tr>
             ))}
@@ -136,4 +153,4 @@ function Product() {
   );
 }
 
-export default Product;
+export default User;

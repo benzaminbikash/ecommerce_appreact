@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router";
 
-function Product() {
+function AllOrder() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 2;
 
@@ -58,28 +58,18 @@ function Product() {
 
   return (
     <main className="">
-      <div className="d-flex justify-content-between align-items-center mt-5 mb-4">
-        <h1 className="fs-5 fw-bold mt-3">Product List</h1>
-        <Link
-          to="/admin/product/addproduct"
-          className="btn btn-primary  text-white py-2"
-        >
-          <i className="bi bi-plus me-2"></i>Add Product
-        </Link>
+      <div className="mt-5">
+        <h1 className="fs-5 fw-bold mt-3">Order List</h1>
       </div>
 
       <div className="d-flex gap-2 w-50 mb-4">
-        <input
-          type="text"
-          className="productinput my-2"
-          placeholder="Search for a product..."
-          aria-label="Search"
-        />
+        <input type="date" className="productinput my-2" aria-label="Search" />
+        <input type="date" className="productinput my-2" aria-label="Search" />
         <button
           className="btn-primary text-white productbotton my-2"
           type="button"
         >
-          Search
+          Filter
         </button>
       </div>
 
@@ -87,12 +77,16 @@ function Product() {
         <table className="table table-bordered table-sm">
           <thead>
             <tr>
-              <th>#</th>
+              <th>S.N</th>
+              <th>Order Code</th>
               <th>Customer</th>
-              <th>Product</th>
-              <th>Status</th>
-              <th>Total</th>
-              <th>Actions</th>
+              <th>Date</th>
+              <th>Payment Method</th>
+              <th>Payment Image</th>
+              <th>Total Price</th>
+              <th>Message</th>
+              <th>Order Status</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -102,10 +96,16 @@ function Product() {
                 <td>{product.customer}</td>
                 <td>{product.product}</td>
                 <td>{product.status}</td>
+                <td>{product.status}</td>
+                <td>{product.status}</td>
+                <td>{product.status}</td>
+                <td>{product.status}</td>
                 <td>{product.total}</td>
                 <td>
-                  <i className="bi bi-pencil-square adminactionupdate"></i>
-                  <i className="bi bi-trash ps-3 adminactiondelete"></i>
+                  <i class="fas fa-eye adminactionupdate"></i>
+                  <br />
+                  <i className="bi bi-trash  adminactiondelete"></i>
+                  <br />
                 </td>
               </tr>
             ))}
@@ -136,4 +136,4 @@ function Product() {
   );
 }
 
-export default Product;
+export default AllOrder;

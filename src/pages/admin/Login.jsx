@@ -1,19 +1,42 @@
-import React, { useState } from "react";
-import { NavLink } from "react-router";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
+
+import Showmessage from "../../components/common/Showmessage";
+import LoadingButton from "../../components/common/LoadingButton";
+import { useLoginAdminMutation } from "../../redux/Api/admin/AdminLogin";
 
 function LoginAdmin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [LOGINUSER, { isLoading }] = useLoginAdminMutation();
+  const navigate = useNavigate();
+  const token = document.cookie.includes("token=");
 
-  const handleLoginform = (e) => {
+  const handleLoginform = async (e) => {
     e.preventDefault();
-    console.log(email, password);
+    const api = await LOGINUSER({
+      email,
+      password,
+    });
+    if (api.error) {
+      setError(api.error?.data?.message);
+    } else {
+      setError("");
+      navigate("/admin/");
+    }
   };
+  useEffect(() => {
+    if (token) {
+      navigate("/admin/");
+    }
+  }, []);
 
   return (
     <div className="adminlogin">
       <h2>Login for Dashboard</h2>
       <form className="w-50" action="" onSubmit={handleLoginform}>
+        {error != "" && <Showmessage message={error} status="fail" />}
         <input
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -40,19 +63,12 @@ function LoginAdmin() {
             />
             <p style={{ margin: 0 }}>Remember me</p>
           </div>
-          <NavLink
-            to="/forget-password"
-            style={{ margin: 0 }}
-            className="forgetpassword"
-          >
-            Forget Password?
-          </NavLink>
         </div>
         <button
           className="w-100 btn form-control border-secondary py-3 bg-white text-dark "
           type="submit"
         >
-          Submit
+          {isLoading ? <LoadingButton /> : "Submit"}
         </button>
       </form>
     </div>

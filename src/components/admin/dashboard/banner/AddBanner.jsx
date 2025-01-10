@@ -1,63 +1,78 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 
-import Showmessage from "../../../common/Showmessage";
-import { useAddCategoryMutation } from "../../../../redux/Api/admin/AdminCategory";
-
-function AddCategory() {
+function AddBanner() {
   const [selectImage, setSelectImage] = useState(null);
-  const [title, setTitle] = useState("");
-  const [order, setOrder] = useState(0);
-  const [CATEGORY] = useAddCategoryMutation();
-  const [success, setSuccess] = useState("");
-  const [error, setError] = useState("");
-  // const imageRef = useRef();
-
-  const addCategoryForm = async (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("order", order);
-    formData.append("image", selectImage[0]);
-    const api = await CATEGORY(formData);
-    if (api?.error) {
-      setError(api?.error?.data?.message);
-    } else {
-      setSuccess(api?.data?.message);
-      if (selectImage) {
-        URL.revokeObjectURL(selectImage[0]);
-      }
-      setTitle("");
-      setOrder("");
-    }
-  };
 
   return (
     <main className="">
       <div className="card shadow-sm  mt-4">
         <div className="card-header bg-white ">
-          <h5 className="text-primary  my-3 ">Add New Category</h5>
+          <h5 className="text-primary  my-3 ">Add Banner</h5>
         </div>
-        {error != "" && <Showmessage status={"fail"} message={error} />}
-        {success != "" && <Showmessage status={"success"} message={success} />}
-
         <div className="card-body">
-          <form onSubmit={addCategoryForm}>
+          <form>
             <div className="row g-3">
               <div className="col-md-6">
                 <label htmlFor="categoryName" className="form-label">
-                  Category Name
+                  Title
                 </label>
                 <input
                   type="text"
                   id="categoryName"
                   className="form-control p-3 bg-light"
-                  placeholder="Enter category name"
-                  onChange={(e) => setTitle(e.target.value)}
-                  value={title}
+                  placeholder="Enter title"
                   required
                 />
               </div>
 
+              <div className="col-md-6">
+                <label htmlFor="categoryName" className="form-label">
+                  Sub Title
+                </label>
+                <input
+                  type="text"
+                  id="categoryName"
+                  className="form-control p-3 bg-light"
+                  placeholder="Enter sub-title"
+                  required
+                />
+              </div>
+              <div className="col-md-6">
+                <label htmlFor="categoryName" className="form-label">
+                  Description
+                </label>
+                <input
+                  type="text"
+                  id="Description"
+                  className="form-control p-3 bg-light"
+                  placeholder="Enter description"
+                  required
+                />
+              </div>
+              <div className="col-md-6">
+                <label htmlFor="categoryName" className="form-label">
+                  Price
+                </label>
+                <input
+                  type="number"
+                  id="categoryName"
+                  className="form-control p-3 bg-light"
+                  placeholder="Enter price"
+                  required
+                />
+              </div>
+              <div className="col-md-6">
+                <label htmlFor="categoryName" className="form-label">
+                  Weight
+                </label>
+                <input
+                  type="number"
+                  id="weight"
+                  className="form-control p-3 bg-light"
+                  placeholder="Enter weight"
+                  required
+                />
+              </div>
               <div className="col-md-6">
                 <label htmlFor="iconImage" className="form-label">
                   Image
@@ -70,7 +85,6 @@ function AddCategory() {
                     id="iconImage"
                     aria-label="Upload"
                     required
-                    ref={imageRef}
                   />
                 </div>
               </div>
@@ -92,23 +106,22 @@ function AddCategory() {
 
               <div className="col-md-6">
                 <label htmlFor="orderNumber" className="form-label">
-                  Order Number
+                  Submit Name
                 </label>
                 <input
-                  value={order}
-                  type="number"
-                  id="orderNumber "
+                  type="text"
+                  id="submitname "
                   className="form-control p-3 bg-light"
-                  placeholder="Enter order_number"
-                  onChange={(e) => setOrder(e.target.value)}
+                  placeholder="Enter submit name"
                   required
                 />
               </div>
             </div>
 
+            {/* Submit Button */}
             <div className="mt-4">
               <button type="submit" className="btn btn-primary text-white py-2">
-                Add Category
+                Add Banner
               </button>
             </div>
           </form>
@@ -118,4 +131,4 @@ function AddCategory() {
   );
 }
 
-export default AddCategory;
+export default AddBanner;

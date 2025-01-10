@@ -8,7 +8,15 @@ function Dashboardlayout() {
     <>
       <div class="container-fluid">
         <div class="row gap-0">
-          <nav class="col-md-2 d-none d-md-block  h-full sidebar ">
+          <nav
+            className="p-0 d-none d-md-block bg-light"
+            style={{
+              width: "250px",
+              height: "100vh",
+              position: "sticky",
+              top: "0",
+            }}
+          >
             <Sidebar />
           </nav>
           <div className="col-md-9  col-lg-10 ">

@@ -2,17 +2,17 @@ import React from "react";
 import { NavLink } from "react-router";
 import BannerModal from "../../components/admin/dashboard/AdminDataModal";
 
-function Banner() {
+function Testimonial() {
   return (
     <main className="">
       <BannerModal />
       <div className="d-flex justify-content-between align-items-center mt-5 mb-4 ">
-        <h1 className="fs-5 fw-bold mt-3">Banner List</h1>
+        <h1 className="fs-5 fw-bold mt-3">Testimonial List</h1>
         <NavLink
-          to="/admin/banner/addbanner"
+          to="/admin/testimonial/addtestimonial"
           className="btn btn-primary text-white py-2"
         >
-          <i className="bi bi-plus me-2"></i>Add Banner
+          <i className="bi bi-plus me-2"></i>Add Testimonial
         </NavLink>
       </div>
 
@@ -21,10 +21,10 @@ function Banner() {
           <thead>
             <tr>
               <th className="text-dark">S.N</th>
-              <th className="text-dark">Title</th>
-              <th className="text-dark">Subtitle</th>
-              <th className="text-dark">Price</th>
-              <th className="text-dark">Weight</th>
+              <th className="text-dark">Name</th>
+              <th className="text-dark">Profession</th>
+              <th className="text-dark">Description</th>
+              <th className="text-dark">Rating</th>
               <th className="text-dark">Image</th>
               <th className="text-dark">Action</th>
             </tr>
@@ -55,4 +55,4 @@ function Banner() {
   );
 }
 
-export default Banner;
+export default Testimonial;

@@ -1,18 +1,16 @@
 import React from "react";
 import { NavLink } from "react-router";
-import BannerModal from "../../components/admin/dashboard/AdminDataModal";
 
-function Banner() {
+function Attributes() {
   return (
     <main className="">
-      <BannerModal />
       <div className="d-flex justify-content-between align-items-center mt-5 mb-4 ">
-        <h1 className="fs-5 fw-bold mt-3">Banner List</h1>
+        <h1 className="fs-5 fw-bold mt-3">Attributes</h1>
         <NavLink
-          to="/admin/banner/addbanner"
+          to="/admin/attribute/addattribute"
           className="btn btn-primary text-white py-2"
         >
-          <i className="bi bi-plus me-2"></i>Add Banner
+          <i className="bi bi-plus me-2"></i>Add New Attributes
         </NavLink>
       </div>
 
@@ -22,30 +20,16 @@ function Banner() {
             <tr>
               <th className="text-dark">S.N</th>
               <th className="text-dark">Title</th>
-              <th className="text-dark">Subtitle</th>
-              <th className="text-dark">Price</th>
-              <th className="text-dark">Weight</th>
-              <th className="text-dark">Image</th>
-              <th className="text-dark">Action</th>
+              <th className="text-dark">Actions</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>1</td>
-              <td>Meat Shop</td>
-              <td>This is my meat shop</td>
-              <td>$1230</td>
-              <td>1</td>
-              <td>fsdfsd</td>
+              <td>Color</td>
               <td>
                 <i className="bi bi-pencil-square adminactionupdate"></i>
                 <i className="bi bi-trash ps-3 adminactiondelete"></i>
-
-                <i
-                  class="fas ps-3 fa-eye adminactionupdate"
-                  data-bs-toggle="modal"
-                  data-bs-target="#exampleModal"
-                ></i>
               </td>
             </tr>
           </tbody>
@@ -55,4 +39,4 @@ function Banner() {
   );
 }
 
-export default Banner;
+export default Attributes;

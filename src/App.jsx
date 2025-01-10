@@ -31,12 +31,27 @@ import ChangepasswordAdmin from "./pages/admin/Changepassword";
 import Banner from "./pages/admin/Banner";
 import Carousel from "./pages/admin/Carousel";
 import AddCarousel from "./components/admin/dashboard/carousel/AddCarousel";
+import AddBanner from "./components/admin/dashboard/banner/AddBanner";
+import User from "./pages/admin/User";
+import AddUser from "./components/admin/dashboard/user/AddUser";
+import AllOrder from "./pages/admin/orders/AllOrder";
+import CancelOrder from "./pages/admin/orders/CancelOrder";
+import DeliveredOrder from "./pages/admin/orders/DeliveredOrder";
+import PendingOrder from "./pages/admin/orders/PendingOrder";
+import Attributes from "./pages/admin/Attributes";
+import SubAttributes from "./pages/admin/SubAttributes";
+import AddAttributes from "./components/admin/dashboard/attributes/AddAttributes";
+import AddSubAttributes from "./components/admin/dashboard/subattributes/AddSubAttributes";
+import Testimonial from "./pages/admin/Testimonial";
+import AddTestimonial from "./components/admin/dashboard/testimonial/AddTestimonial";
+import AdminProtectRoute from "./protectroute/AdminProtectRoute";
 
 function App() {
   const location = useLocation();
   const hideNavbarAndFooter =
+    location.pathname === "/admin" ||
+    location.pathname === "/admin/" ||
     location.pathname === "/admin/login" ||
-    location.pathname === "/admin/dashboard" ||
     location.pathname === "/admin/product" ||
     location.pathname === "/admin/category" ||
     location.pathname === "/admin/category/addcategory" ||
@@ -44,7 +59,20 @@ function App() {
     location.pathname === "/admin/changepassword" ||
     location.pathname === "/admin/banner" ||
     location.pathname === "/admin/carousel" ||
-    location.pathname === "/admin/carousel/addcarousel";
+    location.pathname === "/admin/carousel/addcarousel" ||
+    location.pathname === "/admin/banner/addbanner" ||
+    location.pathname === "/admin/users" ||
+    location.pathname === "/admin/users/adduser" ||
+    location.pathname === "/admin/allorders" ||
+    location.pathname === "/admin/canceled/orders" ||
+    location.pathname === "/admin/delivered/orders" ||
+    location.pathname === "/admin/pending/orders" ||
+    location.pathname === "/admin/attribute" ||
+    location.pathname === "/admin/subattribute" ||
+    location.pathname === "/admin/attribute/addattribute" ||
+    location.pathname === "/admin/subattribute/subaddattribute" ||
+    location.pathname === "/admin/testimonial" ||
+    location.pathname === "/admin/testimonial/addtestimonial";
 
   return (
     <>
@@ -72,16 +100,38 @@ function App() {
         </Route>
 
         {/* for admin panel */}
-        <Route path="/admin" element={<Dashboardlayout />}>
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="product" element={<Product />} />
-          <Route path="category" element={<Category />} />
-          <Route path="category/addcategory" element={<AddCategory />} />
-          <Route path="product/addproduct" element={<AddProduct />} />
-          <Route path="banner" element={<Banner />} />
-          <Route path="carousel" element={<Carousel />} />
-          <Route path="carousel/addcarousel" element={<AddCarousel />} />
+        <Route element={<AdminProtectRoute />}>
+          <Route path="/admin" element={<Dashboardlayout />}>
+            <Route path="" element={<Dashboard />} />
+            <Route path="product" element={<Product />} />
+            <Route path="category" element={<Category />} />
+            <Route path="category/addcategory" element={<AddCategory />} />
+            <Route path="product/addproduct" element={<AddProduct />} />
+            <Route path="banner" element={<Banner />} />
+            <Route path="carousel" element={<Carousel />} />
+            <Route path="carousel/addcarousel" element={<AddCarousel />} />
+            <Route path="banner/addbanner" element={<AddBanner />} />
+            <Route path="users" element={<User />} />
+            <Route path="users/adduser" element={<AddUser />} />
+            <Route path="allorders" element={<AllOrder />} />
+            <Route path="canceled/orders" element={<CancelOrder />} />
+            <Route path="delivered/orders" element={<DeliveredOrder />} />
+            <Route path="pending/orders" element={<PendingOrder />} />
+            <Route path="attribute" element={<Attributes />} />
+            <Route path="subattribute" element={<SubAttributes />} />
+            <Route path="attribute/addattribute" element={<AddAttributes />} />
+            <Route
+              path="subattribute/subaddattribute"
+              element={<AddSubAttributes />}
+            />
+            <Route path="testimonial" element={<Testimonial />} />
+            <Route
+              path="testimonial/addtestimonial"
+              element={<AddTestimonial />}
+            />
+          </Route>
         </Route>
+
         <Route path="/admin/login" element={<LoginAdmin />} />
         <Route path="/admin/changepassword" element={<ChangepasswordAdmin />} />
       </Routes>
