@@ -21,7 +21,7 @@ import Otpverify from "./pages/Otpverify";
 import LoginAdmin from "./pages/admin/Login";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import Dashboard from "./pages/admin/dashboard";
+import Dashboard from "./pages/admin/Dashboard";
 import Dashboardlayout from "./components/admin/dashboard/Dashboardlayout";
 import Product from "./pages/admin/Product";
 import Category from "./pages/admin/Category";
@@ -45,39 +45,16 @@ import AddSubAttributes from "./components/admin/dashboard/subattributes/AddSubA
 import Testimonial from "./pages/admin/Testimonial";
 import AddTestimonial from "./components/admin/dashboard/testimonial/AddTestimonial";
 import AdminProtectRoute from "./protectroute/AdminProtectRoute";
+import SubCategory from "./pages/admin/SubCategory";
+import AddSubCategory from "./components/admin/dashboard/subcategory/AddSubCategory";
+import { hideNavbarandFooter } from "./components/common/constant";
+import EditUser from "./components/admin/dashboard/user/EditUser";
 
 function App() {
-  const location = useLocation();
-  const hideNavbarAndFooter =
-    location.pathname === "/admin" ||
-    location.pathname === "/admin/" ||
-    location.pathname === "/admin/login" ||
-    location.pathname === "/admin/product" ||
-    location.pathname === "/admin/category" ||
-    location.pathname === "/admin/category/addcategory" ||
-    location.pathname === "/admin/product/addproduct" ||
-    location.pathname === "/admin/changepassword" ||
-    location.pathname === "/admin/banner" ||
-    location.pathname === "/admin/carousel" ||
-    location.pathname === "/admin/carousel/addcarousel" ||
-    location.pathname === "/admin/banner/addbanner" ||
-    location.pathname === "/admin/users" ||
-    location.pathname === "/admin/users/adduser" ||
-    location.pathname === "/admin/allorders" ||
-    location.pathname === "/admin/canceled/orders" ||
-    location.pathname === "/admin/delivered/orders" ||
-    location.pathname === "/admin/pending/orders" ||
-    location.pathname === "/admin/attribute" ||
-    location.pathname === "/admin/subattribute" ||
-    location.pathname === "/admin/attribute/addattribute" ||
-    location.pathname === "/admin/subattribute/subaddattribute" ||
-    location.pathname === "/admin/testimonial" ||
-    location.pathname === "/admin/testimonial/addtestimonial";
-
   return (
     <>
       <ScrollUp />
-      {!hideNavbarAndFooter && <Navbar />}
+      {!hideNavbarandFooter && <Navbar />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/shop" element={<Shop />} />
@@ -105,6 +82,7 @@ function App() {
             <Route path="" element={<Dashboard />} />
             <Route path="product" element={<Product />} />
             <Route path="category" element={<Category />} />
+            <Route path="subcategory" element={<SubCategory />} />
             <Route path="category/addcategory" element={<AddCategory />} />
             <Route path="product/addproduct" element={<AddProduct />} />
             <Route path="banner" element={<Banner />} />
@@ -113,6 +91,7 @@ function App() {
             <Route path="banner/addbanner" element={<AddBanner />} />
             <Route path="users" element={<User />} />
             <Route path="users/adduser" element={<AddUser />} />
+            <Route path="users/updateuser" element={<EditUser />} />
             <Route path="allorders" element={<AllOrder />} />
             <Route path="canceled/orders" element={<CancelOrder />} />
             <Route path="delivered/orders" element={<DeliveredOrder />} />
@@ -129,13 +108,17 @@ function App() {
               path="testimonial/addtestimonial"
               element={<AddTestimonial />}
             />
+            <Route
+              path="subcategory/addsubcategory"
+              element={<AddSubCategory />}
+            />
           </Route>
         </Route>
 
         <Route path="/admin/login" element={<LoginAdmin />} />
         <Route path="/admin/changepassword" element={<ChangepasswordAdmin />} />
       </Routes>
-      {!hideNavbarAndFooter && <Footer />}
+      {!hideNavbarandFooter && <Footer />}
     </>
   );
 }

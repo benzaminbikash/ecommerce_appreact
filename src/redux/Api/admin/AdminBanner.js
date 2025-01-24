@@ -1,38 +1,38 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { constant } from "../../../components/common/constant";
 
-export const AdminCategory = createApi({
-  reducerPath: "AdminCategory",
+export const AdminBanner = createApi({
+  reducerPath: "AdminBanner",
   baseQuery: fetchBaseQuery({
     baseUrl: constant.APIURL,
   }),
   endpoints: (builder) => ({
-    getCategory: builder.query({
+    getBanner: builder.query({
       query: () => ({
-        url: "/category",
+        url: "/banner",
         method: "GET",
       }),
     }),
-    addCategory: builder.mutation({
+    addBanner: builder.mutation({
       query: (data) => ({
-        url: "/category",
+        url: "/banner",
         method: "POST",
         body: data,
         credentials: "include",
       }),
     }),
-    deleteCategory: builder.mutation({
+    deleteBanner: builder.mutation({
       query: (id) => ({
-        url: `/category/${id}`,
+        url: `/banner/${id}`,
         method: "DELETE",
         credentials: "include",
       }),
     }),
-    updateCategory: builder.mutation({
-      query: (category) => ({
-        url: `/category/${category.id}`,
+    updateBanner: builder.mutation({
+      query: (banner) => ({
+        url: `/banner/${banner.id}`,
         method: "PUT",
-        body: category.data,
+        body: banner.data,
         credentials: "include",
       }),
     }),
@@ -40,8 +40,8 @@ export const AdminCategory = createApi({
 });
 
 export const {
-  useGetCategoryQuery,
-  useAddCategoryMutation,
-  useDeleteCategoryMutation,
-  useUpdateCategoryMutation,
-} = AdminCategory;
+  useGetBannerQuery,
+  useAddBannerMutation,
+  useDeleteBannerMutation,
+  useUpdateBannerMutation,
+} = AdminBanner;

@@ -100,7 +100,7 @@ function PendingOrder() {
                 <td>{product.status}</td>
                 <td>{product.status}</td>
                 <td>
-                  <select class="adminselection">
+                  <select className="adminselection">
                     <option selected>select order status</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
@@ -109,7 +109,7 @@ function PendingOrder() {
                 </td>
 
                 <td>
-                  <i class="fas fa-eye adminactionupdate"></i>
+                  <i className="fas fa-eye adminactionupdate"></i>
                   <br />
                   <i className="bi bi-trash  adminactiondelete"></i>
                   <br />

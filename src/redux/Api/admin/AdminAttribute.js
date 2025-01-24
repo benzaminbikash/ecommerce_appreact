@@ -1,38 +1,38 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { constant } from "../../../components/common/constant";
 
-export const AdminCategory = createApi({
-  reducerPath: "AdminCategory",
+export const AdminAttribute = createApi({
+  reducerPath: "AdminAttribute",
   baseQuery: fetchBaseQuery({
     baseUrl: constant.APIURL,
   }),
   endpoints: (builder) => ({
-    getCategory: builder.query({
+    getAttribute: builder.query({
       query: () => ({
-        url: "/category",
+        url: "/attribute",
         method: "GET",
       }),
     }),
-    addCategory: builder.mutation({
+    addAttribute: builder.mutation({
       query: (data) => ({
-        url: "/category",
+        url: "/attribute",
         method: "POST",
         body: data,
         credentials: "include",
       }),
     }),
-    deleteCategory: builder.mutation({
+    deleteAttribute: builder.mutation({
       query: (id) => ({
-        url: `/category/${id}`,
+        url: `/attribute/${id}`,
         method: "DELETE",
         credentials: "include",
       }),
     }),
-    updateCategory: builder.mutation({
-      query: (category) => ({
-        url: `/category/${category.id}`,
+    updateAttribute: builder.mutation({
+      query: (attribute) => ({
+        url: `/attribute/${attribute.id}`,
         method: "PUT",
-        body: category.data,
+        body: attribute.data,
         credentials: "include",
       }),
     }),
@@ -40,8 +40,8 @@ export const AdminCategory = createApi({
 });
 
 export const {
-  useGetCategoryQuery,
-  useAddCategoryMutation,
-  useDeleteCategoryMutation,
-  useUpdateCategoryMutation,
-} = AdminCategory;
+  useAddAttributeMutation,
+  useDeleteAttributeMutation,
+  useGetAttributeQuery,
+  useUpdateAttributeMutation,
+} = AdminAttribute;

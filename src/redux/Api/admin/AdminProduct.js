@@ -8,9 +8,20 @@ export const AdminProduct = createApi({
   }),
   endpoints: (builder) => ({
     getProduct: builder.query({
-      query: () => ({}),
+      query: () => ({
+        url: "/product",
+        method: "GET",
+      }),
+    }),
+    addProduct: builder.mutation({
+      query: (data) => ({
+        url: "/product",
+        method: "POST",
+        body: data,
+        credentials: "include",
+      }),
     }),
   }),
 });
 
-export {};
+export const { useGetProductQuery, useAddProductMutation } = AdminProduct;

@@ -1,73 +1,64 @@
 import React, { useState } from "react";
-import { Link } from "react-router";
-import BannerModal from "../../components/admin/dashboard/AdminDataModal";
+import { Link, useNavigate } from "react-router";
+import Lottie from "react-lottie";
+import {
+  useAllUsersQuery,
+  useDeleteUserMutation,
+} from "../../redux/Api/admin/AdminUser";
+import usernotfound from "../../img/usernotfound.json";
+import Showmessage from "../../components/common/Showmessage";
 
 function User() {
+  const navigate = useNavigate();
+  const [search, setSearch] = useState("");
+  const [message, setMessage] = useState("");
+  const { data: API, refetch } = useAllUsersQuery();
+  const User = API?.data;
+  const [DELETEUSER] = useDeleteUserMutation();
+
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 2;
-
-  const products = [
-    {
-      id: 1,
-      customer: "John Doe",
-      product: "Laptop",
-      status: "Delivered",
-      total: "$1200",
-    },
-    {
-      id: 2,
-      customer: "Jane Smith",
-      product: "Headphones",
-      status: "Processing",
-      total: "$200",
-    },
-    {
-      id: 3,
-      customer: "Mike Johnson",
-      product: "Smartphone",
-      status: "Shipped",
-      total: "$800",
-    },
-    {
-      id: 4,
-      customer: "Alice Brown",
-      product: "Tablet",
-      status: "Pending",
-      total: "$500",
-    },
-    {
-      id: 5,
-      customer: "Bob White",
-      product: "Monitor",
-      status: "Delivered",
-      total: "$300",
-    },
-  ];
-
-  const totalPages = Math.ceil(products.length / itemsPerPage);
-  console.log(totalPages);
+  const itemsPerPage = 10;
+  const filteredUsers = User?.filter((item) => {
+    if (search == "") {
+      return item;
+    } else {
+      return (
+        item.fullname.toLowerCase().includes(search.toLowerCase()) ||
+        item.email.toLowerCase().includes(search.toLowerCase()) ||
+        item.phone.includes(search)
+      );
+    }
+  });
+  const totalPages = Math.ceil(filteredUsers?.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
-  console.log("startIndex", startIndex);
   const endIndex = startIndex + itemsPerPage;
-  console.log("endIndex", endIndex);
-  const displayedProducts = products.slice(startIndex, endIndex);
-  console.log(displayedProducts);
-
+  const displayUsers = filteredUsers?.slice(startIndex, endIndex);
   const handleNext = () => {
     if (currentPage < totalPages) setCurrentPage(currentPage + 1);
   };
-
   const handlePrevious = () => {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
 
+  const deletUser = async (id) => {
+    console.log(id);
+    if (confirm("Do you want to delete this User?") == true) {
+      await DELETEUSER(id);
+      setMessage("Delete Category Successfully.");
+      refetch();
+    } else {
+      setMessage("");
+    }
+  };
+
+  const selectUpdate = (data) => {
+    navigate("/admin/users/updateuser", {
+      state: data,
+    });
+  };
+
   return (
     <main className="">
-      <BannerModal
-        data={{
-          name: "zendaya",
-        }}
-      />
       <div className="d-flex justify-content-between align-items-center mt-5 mb-4">
         <h1 className="fs-5 fw-bold mt-3">Users List</h1>
         <Link
@@ -80,54 +71,59 @@ function User() {
 
       <div className="d-flex gap-2 w-50 mb-4">
         <input
+          onChange={(e) => setSearch(e.target.value)}
           type="text"
           className="productinput my-2"
           placeholder="Search for a user..."
           aria-label="Search"
         />
-        <button
-          className="btn-primary text-white productbotton my-2"
-          type="button"
-        >
-          Search
-        </button>
       </div>
-
+      {message != "" && <Showmessage message={message} status={"success"} />}
       <div className="table-responsive card p-3">
-        <table className="table table-bordered table-sm">
-          <thead>
-            <tr>
-              <th>SN</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Phone</th>
-              <th>Is User</th>
-              <th>Is Admin</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {displayedProducts.map((product, index) => (
-              <tr key={product.id}>
-                <td>{startIndex + index + 1}</td>
-                <td>{product.customer}</td>
-                <td>Lorem ipsum dolor sit amet consectetur.</td>
-                <td>Hello</td>
-                <td>{product.status}</td>
-                <td>{product.total}</td>
-                <td>
-                  <i className="bi bi-pencil-square adminactionupdate"></i>
-                  <i className="bi bi-trash ps-3 adminactiondelete"></i>
-                  <i
-                    class="fas fa-eye ps-3 adminactionupdate"
-                    data-bs-toggle="modal"
-                    data-bs-target="#exampleModal"
-                  ></i>
-                </td>
+        {displayUsers?.length == 0 && search != "" ? (
+          <>
+            <Lottie
+              style={{ width: 250 }}
+              options={{
+                animationData: usernotfound,
+              }}
+            />
+          </>
+        ) : (
+          <table className="table table-bordered table-sm">
+            <thead>
+              <tr>
+                <th>SN</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Role</th>
+                <th>Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {displayUsers?.map((item, index) => (
+                <tr key={item._id}>
+                  <td>{startIndex + index + 1}</td>
+                  <td>{item.fullname}</td>
+                  <td>{item.email}</td>
+                  <td>{item.phone}</td>
+                  <td>{item.role}</td>
+                  <td>
+                    <i
+                      onClick={() => selectUpdate(item)}
+                      className="bi bi-pencil-square adminactionupdate"
+                    ></i>
+                    <i
+                      onClick={() => deletUser(item._id)}
+                      className="bi bi-trash ps-3 adminactiondelete"
+                    ></i>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
 
       <div className="d-flex justify-content-between mt-3">

@@ -1,32 +1,77 @@
 import React, { useState } from "react";
+import { useRegistrationMutation } from "../../../../redux/Api/AuthApi";
+import Showmessage from "../../../common/Showmessage";
 
 function AddUser() {
-  const [selectImage, setSelectImage] = useState(null);
+  const [fullname, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmationpassword, setConfirmationPassword] = useState("");
+  const [role, setRole] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
+  const [USERREGISTRATION] = useRegistrationMutation();
+
+  const handleAddUser = async (e) => {
+    e.preventDefault();
+
+    const api = await USERREGISTRATION({
+      fullname,
+      email,
+      phone,
+      password,
+      confirmationpassword,
+      role: role ? "admin" : "user",
+      term: "true",
+    });
+
+    if (api.error) {
+      setError(api.error?.data?.message);
+      setSuccess("");
+    } else {
+      setError("");
+      setSuccess("User Registration Successfully.");
+      setFullName("");
+      setEmail("");
+      setPhone("");
+      setPassword("");
+      setConfirmationPassword("");
+      setRole(false);
+    }
+  };
 
   return (
     <main className="">
-      <div className="card shadow-sm  mt-4">
-        <div className="card-header bg-white ">
-          <h5 className="text-primary  my-3 ">Add User</h5>
+      <div className="card shadow-sm mt-4">
+        <div className="card-header bg-white">
+          <h5 className="text-primary my-3">Add User</h5>
         </div>
+        {error && <Showmessage message={error} status={"fail"} />}
+        {success && <Showmessage message={success} status={"success"} />}
         <div className="card-body">
-          <form>
+          <form onSubmit={handleAddUser}>
             <div className="row g-3">
+              {/* Full Name */}
               <div className="col-md-6">
-                <label htmlFor="categoryName" className="form-label">
+                <label htmlFor="fullname" className="form-label">
                   Full Name
                 </label>
                 <input
                   type="text"
-                  id="categoryName"
+                  id="fullname"
                   className="form-control p-3 bg-light"
                   placeholder="Enter full name"
                   required
+                  value={fullname}
+                  onChange={(e) => setFullName(e.target.value)}
                 />
               </div>
 
+              {/* Email */}
               <div className="col-md-6">
-                <label htmlFor="categoryName" className="form-label">
+                <label htmlFor="email" className="form-label">
                   Email
                 </label>
                 <input
@@ -35,10 +80,14 @@ function AddUser() {
                   className="form-control p-3 bg-light"
                   placeholder="Enter email"
                   required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
+
+              {/* Phone Number */}
               <div className="col-md-6">
-                <label htmlFor="categoryName" className="form-label">
+                <label htmlFor="phone" className="form-label">
                   Phone Number
                 </label>
                 <input
@@ -47,10 +96,14 @@ function AddUser() {
                   className="form-control p-3 bg-light"
                   placeholder="Enter phone number"
                   required
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
                 />
               </div>
+
+              {/* Password */}
               <div className="col-md-6">
-                <label htmlFor="categoryName" className="form-label">
+                <label htmlFor="password" className="form-label">
                   Password
                 </label>
                 <input
@@ -59,10 +112,14 @@ function AddUser() {
                   className="form-control p-3 bg-light"
                   placeholder="Enter password"
                   required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
+
+              {/* Confirmation Password */}
               <div className="col-md-6">
-                <label htmlFor="categoryName" className="form-label">
+                <label htmlFor="c_password" className="form-label">
                   Confirmation Password
                 </label>
                 <input
@@ -71,46 +128,24 @@ function AddUser() {
                   className="form-control p-3 bg-light"
                   placeholder="Enter confirmation password"
                   required
+                  value={confirmationpassword}
+                  onChange={(e) => setConfirmationPassword(e.target.value)}
                 />
               </div>
-              <div className="col-md-6">
-                <label htmlFor="iconImage" className="form-label">
-                  Image
-                </label>
-                <div className="input-group">
-                  <input
-                    onChange={(e) => setSelectImage(e.target.files)}
-                    type="file"
-                    className="form-control p-3 bg-light"
-                    id="iconImage"
-                    aria-label="Upload"
-                    required
-                  />
-                </div>
-              </div>
-              {selectImage && (
-                <div className="mt-3">
-                  <h6>Selected Image:</h6>
-                  <div className="row g-2">
-                    <div className="col-3">
-                      <img
-                        src={URL.createObjectURL(selectImage[0])}
-                        alt="Selected"
-                        className="img-thumbnail"
-                        style={{ maxHeight: "100px", objectFit: "cover" }}
-                      />
-                    </div>
-                  </div>
-                </div>
-              )}
 
-              <div class="form-check form-switch m-2">
+              {/* Role (Admin/User) */}
+              <div className="form-check form-switch m-2">
                 <input
-                  class="form-check-input "
+                  className="form-check-input"
                   type="checkbox"
                   id="flexSwitchCheckChecked"
+                  checked={role}
+                  onChange={(e) => setRole(e.target.checked)}
                 />
-                <label class="form-check-label" for="flexSwitchCheckChecked">
+                <label
+                  className="form-check-label"
+                  htmlFor="flexSwitchCheckChecked"
+                >
                   is Admin
                 </label>
               </div>

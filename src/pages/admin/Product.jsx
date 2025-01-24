@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
 
 function Product() {
   const [currentPage, setCurrentPage] = useState(1);
+
   const itemsPerPage = 2;
 
   const products = [

@@ -86,7 +86,7 @@ function CancelOrder() {
 
               <td></td>
               <td>
-                <i class="fas fa-eye adminactionupdate"></i>
+                <i className="fas fa-eye adminactionupdate"></i>
                 <br />
                 <i className="bi bi-trash  adminactiondelete"></i>
                 <br />

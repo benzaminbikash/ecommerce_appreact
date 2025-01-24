@@ -24,7 +24,7 @@ function ScrollUp() {
   return (
     <div onClick={topScroll} className={show ? "showarrow" : "hidearrow"}>
       <i
-        class="fas fa-chevron-up fa-sm"
+        className="fas fa-chevron-up fa-sm "
         style={{
           color: "#fff",
         }}

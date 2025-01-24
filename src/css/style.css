@@ -820,6 +820,7 @@ p {
 .adminImage {
   /* width: 150px; */
   max-height: 150px;
+  width: 150px;
   object-fit: contain;
   margin: 2px;
 }

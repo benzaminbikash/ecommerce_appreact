@@ -29,126 +29,134 @@ function Sidebar() {
           }}
         />
       </div>
-      <ul class="nav flex-column">
+      <ul className="nav flex-column">
         <p className=" my-3 fw-bold titleofsidebar">DASHBOARD</p>
-        <li class="nav-item  ">
+        <li className="nav-item  ">
           <Link
             to="/admin"
-            class=" d-flex align-items-center  navitemofsidebar"
+            className=" d-flex align-items-center  navitemofsidebar"
           >
-            <i class="bi bi-house me-2"></i> Dashboard
+            <i className="bi bi-house me-2"></i> Dashboard
           </Link>
         </li>
 
         <p className=" my-3 fw-bold titleofsidebar">Category</p>
-        <li class="nav-item">
+        <li className="nav-item">
           <Link
             to="/admin/category"
-            class=" d-flex align-items-center navitemofsidebar"
+            className=" d-flex align-items-center navitemofsidebar mb-2"
           >
-            <i class="bi bi-people me-2"></i> Category
+            <i className="bi bi-people me-2"></i> Category
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link
+            to="/admin/subcategory"
+            className=" d-flex align-items-center navitemofsidebar"
+          >
+            <i className="bi bi-people me-2"></i>Sub Category
           </Link>
         </li>
         <p className=" my-3 fw-bold titleofsidebar">PRODUCT</p>
-        <li class="nav-item ">
+        <li className="nav-item ">
           <Link
             to="/admin/product"
-            class=" d-flex align-items-center navitemofsidebar"
+            className=" d-flex align-items-center navitemofsidebar"
           >
-            <i class="bi bi-people me-2"></i> Product
+            <i className="bi bi-people me-2"></i> Product
           </Link>
         </li>
         <p className=" my-3 fw-bold titleofsidebar">ATTRIBUTE</p>
-        <li class="nav-item ">
+        <li className="nav-item ">
           <Link
             to="/admin/attribute"
-            class=" d-flex align-items-center navitemofsidebar mb-2"
+            className=" d-flex align-items-center navitemofsidebar mb-2"
           >
-            <i class="bi bi-people me-2"></i> Attributes
+            <i className="bi bi-people me-2"></i> Attributes
           </Link>
           <Link
             to="/admin/subattribute"
-            class=" d-flex align-items-center navitemofsidebar mb-2"
+            className=" d-flex align-items-center navitemofsidebar mb-2"
           >
-            <i class="bi bi-people me-2"></i>Sub Attributes
+            <i className="bi bi-people me-2"></i>Sub Attributes
           </Link>
         </li>
 
         <p className=" my-3 fw-bold titleofsidebar">BANNER</p>
-        <li class="nav-item ">
+        <li className="nav-item ">
           <Link
             to="/admin/carousel"
-            class=" d-flex align-items-center navitemofsidebar mb-2"
+            className=" d-flex align-items-center navitemofsidebar mb-2"
           >
-            <i class="bi bi-people me-2"></i> Carousel
+            <i className="bi bi-people me-2"></i> Carousel
           </Link>
         </li>
-        <li class="nav-item ">
+        <li className="nav-item ">
           <Link
             to="/admin/banner"
-            class=" d-flex align-items-center navitemofsidebar"
+            className=" d-flex align-items-center navitemofsidebar"
           >
-            <i class="bi bi-people me-2"></i> Banner
+            <i className="bi bi-people me-2"></i> Banner
           </Link>
         </li>
 
         <p className=" my-3 fw-bold titleofsidebar">Testimonial</p>
-        <li class="nav-item ">
+        <li className="nav-item ">
           <Link
             to="/admin/testimonial"
-            class=" d-flex align-items-center navitemofsidebar mb-2"
+            className=" d-flex align-items-center navitemofsidebar mb-2"
           >
-            <i class="bi bi-people me-2"></i> Testimonial
+            <i className="bi bi-people me-2"></i> Testimonial
           </Link>
         </li>
 
         <p className=" my-3 fw-bold titleofsidebar">USER</p>
-        <li class="nav-item ">
+        <li className="nav-item ">
           <Link
             to="/admin/users"
-            class=" d-flex align-items-center navitemofsidebar mb-2"
+            className=" d-flex align-items-center navitemofsidebar mb-2"
           >
-            <i class="bi bi-people me-2"></i> Users
+            <i className="bi bi-people me-2"></i> Users
           </Link>
         </li>
 
         <p className=" my-3 fw-bold titleofsidebar">ORDER</p>
-        <li class="nav-item ">
+        <li className="nav-item ">
           <Link
             to="/admin/pending/orders"
-            class=" d-flex align-items-center navitemofsidebar mb-2"
+            className=" d-flex align-items-center navitemofsidebar mb-2"
           >
-            <i class="bi bi-people me-2"></i> Pending Orders
+            <i className="bi bi-people me-2"></i> Pending Orders
           </Link>
           <Link
             to="/admin/users"
-            class=" d-flex align-items-center navitemofsidebar mb-2"
+            className=" d-flex align-items-center navitemofsidebar mb-2"
           >
-            <i class="bi bi-people me-2"></i> Accepted Orders
+            <i className="bi bi-people me-2"></i> Accepted Orders
           </Link>
           <Link
             to="/admin/users"
-            class=" d-flex align-items-center navitemofsidebar mb-2"
+            className=" d-flex align-items-center navitemofsidebar mb-2"
           >
-            <i class="bi bi-people me-2"></i> On Delivery Orders
+            <i className="bi bi-people me-2"></i> On Delivery Orders
           </Link>
           <Link
             to="/admin/delivered/orders"
-            class=" d-flex align-items-center navitemofsidebar mb-2"
+            className=" d-flex align-items-center navitemofsidebar mb-2"
           >
-            <i class="bi bi-people me-2"></i> Delivered Orders
+            <i className="bi bi-people me-2"></i> Delivered Orders
           </Link>
           <Link
             to="/admin/canceled/orders"
-            class=" d-flex align-items-center navitemofsidebar mb-2"
+            className=" d-flex align-items-center navitemofsidebar mb-2"
           >
-            <i class="bi bi-people me-2"></i> Canceled Orders
+            <i className="bi bi-people me-2"></i> Canceled Orders
           </Link>
           <Link
             to="/admin/allorders"
-            class=" d-flex align-items-center navitemofsidebar mb-2"
+            className=" d-flex align-items-center navitemofsidebar mb-2"
           >
-            <i class="bi bi-people me-2"></i> All Orders
+            <i className="bi bi-people me-2"></i> All Orders
           </Link>
         </li>
       </ul>

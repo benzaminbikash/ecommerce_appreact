@@ -2,10 +2,8 @@ import Lottie from "react-lottie";
 import { Link } from "react-router";
 import OtpInput from "react-otp-input";
 import React, { useEffect, useState } from "react";
-
 import Header from "../components/Header";
 import Onetimepassword from "../img/otp.json";
-import Showmessage from "../components/common/Showmessage";
 
 function Otpverify() {
   const [otp, setOtp] = useState("");

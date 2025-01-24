@@ -1,10 +1,32 @@
 import React, { useState } from "react";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import { useGetCategoryQuery } from "../../../../redux/Api/admin/AdminCategory";
+import { useSubCategorySearchQuery } from "../../../../redux/Api/admin/AdminSubCategory";
+import { useGetSubAttributeQuery } from "../../../../redux/Api/admin/AdminSubAttribute";
+import { useAddProductMutation } from "../../../../redux/Api/admin/AdminProduct";
+import Showmessage from "../../../common/Showmessage";
 
 function AddProduct() {
+  const [value, setValue] = useState("");
+  const [product, setProduct] = useState("");
+  const [stock, setStock] = useState("");
+  const [mainImage, setMainImage] = useState(null);
+  const [price, setPrice] = useState("");
+  const [discountPrice, setDiscountPrice] = useState("");
   const [images, setImages] = useState([""]);
+  const [category, setCategory] = useState("");
+  const [subCategory, setSubCategory] = useState("");
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
   const [attributes, setAttributes] = useState([
     { attribute: "", subAttributes: [] },
   ]);
+  // api implement
+  const { data: CATEGORYGET } = useGetCategoryQuery();
+  const { data: SEARCHSUBCATEGORY } = useSubCategorySearchQuery(category);
+  const { data: SUBATTRIBUTE } = useGetSubAttributeQuery();
+  const [ADDPRODUCT] = useAddProductMutation();
 
   const handleImageChange = (index, event) => {
     const newImages = [...images];
@@ -21,15 +43,13 @@ function AddProduct() {
     setImages(newImages);
   };
 
-  const attributeOptions = [
-    { attribute: "Color", subAttributes: ["Red", "Green", "Blue"] },
-    { attribute: "Size", subAttributes: ["Small", "Medium", "Large"] },
-    { attribute: "Material", subAttributes: ["Cotton", "Polyester", "Silk"] },
-  ];
-
   const handleAttributeChange = (index, event) => {
+    const selectedAttributeId = event.target.value;
+    const selectedAttribute = SUBATTRIBUTE?.data.find(
+      (item) => item._id === selectedAttributeId
+    );
     const newAttributes = [...attributes];
-    newAttributes[index].attribute = event.target.value;
+    newAttributes[index].attribute = selectedAttributeId;
     newAttributes[index].subAttributes = [];
     setAttributes(newAttributes);
   };
@@ -53,31 +73,98 @@ function AddProduct() {
     setAttributes([...attributes, { attribute: "", subAttributes: [] }]);
   };
 
+  const removeAttribute = (index) => {
+    const newAttributes = attributes.filter((_, i) => i !== index);
+    setAttributes(newAttributes);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("title", product);
+    formData.append("stock", stock);
+    formData.append("price", price);
+    formData.append("priceafterdiscount", discountPrice);
+    formData.append("category", category);
+    formData.append("subCategory", subCategory);
+    formData.append("description", value);
+    formData.append("mainimage", mainImage);
+    if (images) {
+      images.forEach((image, index) => {
+        if (image) formData.append(`images`, image);
+      });
+    }
+    attributes.forEach((attr, index) => {
+      formData.append(`attributes[${index}][title]`, attr.attribute);
+      attr.subAttributes.forEach((value, valueIndex) => {
+        formData.append(`attributes[${index}][values][${valueIndex}]`, value);
+      });
+    });
+
+    const api = await ADDPRODUCT(formData);
+    console.log(api);
+    if (api?.error) {
+      setSuccess("");
+      setError(api?.error?.data?.message);
+    } else {
+      setError("");
+      setSuccess(api?.data?.message);
+    }
+  };
+
   return (
     <main>
       <div className="card shadow-sm mt-4">
         <div className="card-header bg-white">
           <h5 className="text-primary my-3">Add New Product</h5>
         </div>
+        {error && <Showmessage status="fail" message={error} />}
+        {success && <Showmessage status="success" message={success} />}
+
         <div className="card-body">
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="row g-3">
               <div className="col-md-6">
-                <label htmlFor="categoryName" className="form-label">
+                <label htmlFor="category" className="form-label">
                   Category
                 </label>
                 <select
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
                   className="form-control p-3 bg-light"
-                  aria-label="Default select example"
                 >
-                  <option selected disabled>
+                  <option value="" disabled>
                     Select Category
                   </option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
+                  {CATEGORYGET?.data.map((item) => (
+                    <option key={item._id} value={item._id}>
+                      {item.title}
+                    </option>
+                  ))}
                 </select>
               </div>
+
+              {SEARCHSUBCATEGORY?.data?.length > 0 && (
+                <div className="col-md-6">
+                  <label htmlFor="subCategory" className="form-label">
+                    Sub Category
+                  </label>
+                  <select
+                    value={subCategory}
+                    onChange={(e) => setSubCategory(e.target.value)}
+                    className="form-control p-3 bg-light"
+                  >
+                    <option value="" disabled>
+                      Select Sub Category
+                    </option>
+                    {SEARCHSUBCATEGORY.data.map((item) => (
+                      <option key={item._id} value={item._id}>
+                        {item.title}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
 
               <div className="col-md-6">
                 <label htmlFor="productName" className="form-label">
@@ -88,43 +175,49 @@ function AddProduct() {
                   id="productName"
                   className="form-control p-3 bg-light"
                   placeholder="Enter product name"
-                />
-              </div>
-              <div className="col-md-6">
-                <label htmlFor="previousPrice" className="form-label">
-                  Price
-                </label>
-                <input
-                  type="number"
-                  id="previousPrice"
-                  className="form-control p-3 bg-light"
-                  placeholder="Enter previous price"
+                  onChange={(e) => setProduct(e.target.value)}
+                  value={product}
                 />
               </div>
 
               <div className="col-md-6">
-                <label htmlFor="currentPrice" className="form-label">
+                <label htmlFor="price" className="form-label">
+                  Price
+                </label>
+                <input
+                  type="number"
+                  id="price"
+                  className="form-control p-3 bg-light"
+                  placeholder="Enter price"
+                  onChange={(e) => setPrice(e.target.value)}
+                  value={price}
+                />
+              </div>
+
+              <div className="col-md-6">
+                <label htmlFor="discountPrice" className="form-label">
                   Price After Discount
                 </label>
                 <input
                   type="number"
-                  id="currentPrice"
+                  id="discountPrice"
                   className="form-control p-3 bg-light"
-                  placeholder="Enter current price"
+                  placeholder="Enter discount price"
+                  onChange={(e) => setDiscountPrice(e.target.value)}
+                  value={discountPrice}
                 />
               </div>
+
               <div className="col-md-6">
                 <label htmlFor="mainImage" className="form-label">
                   Main Image
                 </label>
-                <div className="input-group">
-                  <input
-                    type="file"
-                    className="form-control p-3 bg-light"
-                    id="mainImage"
-                    aria-label="Upload"
-                  />
-                </div>
+                <input
+                  type="file"
+                  id="mainImage"
+                  className="form-control p-3 bg-light"
+                  onChange={(e) => setMainImage(e.target.files[0])}
+                />
               </div>
 
               <div className="col-md-6">
@@ -135,7 +228,9 @@ function AddProduct() {
                   type="number"
                   id="stock"
                   className="form-control p-3 bg-light"
-                  placeholder="Stock"
+                  placeholder="Enter stock"
+                  onChange={(e) => setStock(e.target.value)}
+                  value={stock}
                 />
               </div>
 
@@ -167,27 +262,37 @@ function AddProduct() {
                 </i>
               </div>
 
+              {/* Attributes */}
               <div className="col-md-6">
                 <label className="form-label">Attributes</label>
                 {attributes.map((attr, index) => (
                   <div key={index} className="mb-3">
-                    <select
-                      className="form-control p-3 bg-light mb-2"
-                      value={attr.attribute}
-                      onChange={(e) => handleAttributeChange(index, e)}
-                    >
-                      <option value="" disabled>
-                        Select Attribute
-                      </option>
-                      {attributeOptions.map((opt) => (
-                        <option key={opt.attribute} value={opt.attribute}>
-                          {opt.attribute}
+                    <div className="d-flex align-items-center mb-2">
+                      <select
+                        className="form-control p-3 bg-light"
+                        value={attr.attribute}
+                        onChange={(e) => handleAttributeChange(index, e)}
+                      >
+                        <option value="" disabled>
+                          Select Attribute
                         </option>
-                      ))}
-                    </select>
-                    {attributeOptions
-                      .find((opt) => opt.attribute === attr.attribute)
-                      ?.subAttributes.map((subAttr) => (
+                        {SUBATTRIBUTE?.data.map((opt) => (
+                          <option key={opt._id} value={opt.attribute._id}>
+                            {opt.attribute.title}
+                          </option>
+                        ))}
+                      </select>
+                      {attributes.length > 1 && (
+                        <i
+                          className="fas fa-minus-circle text-black btn"
+                          onClick={() => removeAttribute(index)}
+                        ></i>
+                      )}
+                    </div>
+
+                    {SUBATTRIBUTE?.data
+                      .find((opt) => opt.attribute._id === attr.attribute)
+                      ?.title.map((subAttr) => (
                         <div key={subAttr} className="form-check">
                           <input
                             type="checkbox"
@@ -212,7 +317,20 @@ function AddProduct() {
               </div>
             </div>
 
-            <div className="mt-4">
+            <div className="col-md-12">
+              <label htmlFor="description" className="form-label">
+                Description
+              </label>
+              <ReactQuill
+                theme="snow"
+                value={value}
+                onChange={setValue}
+                style={{ height: 200 }}
+              />
+            </div>
+
+            {/* Submit */}
+            <div className="mt-5">
               <button type="submit" className="btn btn-primary text-white py-2">
                 Add Product
               </button>

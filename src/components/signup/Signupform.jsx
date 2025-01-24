@@ -32,10 +32,7 @@ function Signupform() {
       setSuccess("");
     } else {
       setError("");
-      setSuccess(
-        `${api.data.message} Now you can login.`,
-        +(<span>HEllo</span>)
-      );
+      setSuccess(`${api.data.message} Now you can login.`);
       setForm({
         fullname: "",
         email: "",

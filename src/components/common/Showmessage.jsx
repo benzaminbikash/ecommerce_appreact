@@ -17,7 +17,7 @@ function Showmessage({ status, message }) {
         ></i>
       ) : (
         <i
-          class="fas fa-times-circle"
+          className="fas fa-times-circle"
           style={{
             color: "white",
           }}

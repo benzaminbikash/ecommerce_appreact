@@ -1,36 +1,37 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+
 import { constant } from "../../../components/common/constant";
 
-export const AdminCategory = createApi({
-  reducerPath: "AdminCategory",
+export const AdminTestimonial = createApi({
+  reducerPath: "AdminTestimonial",
   baseQuery: fetchBaseQuery({
     baseUrl: constant.APIURL,
   }),
   endpoints: (builder) => ({
-    getCategory: builder.query({
+    getTestimonial: builder.query({
       query: () => ({
-        url: "/category",
+        url: "/testimonial",
         method: "GET",
       }),
     }),
-    addCategory: builder.mutation({
+    addTestimonial: builder.mutation({
       query: (data) => ({
-        url: "/category",
+        url: "/testimonial",
         method: "POST",
         body: data,
         credentials: "include",
       }),
     }),
-    deleteCategory: builder.mutation({
+    deleteTestimonial: builder.mutation({
       query: (id) => ({
-        url: `/category/${id}`,
+        url: `/testimonial/${id}`,
         method: "DELETE",
         credentials: "include",
       }),
     }),
-    updateCategory: builder.mutation({
+    updateTestimonial: builder.mutation({
       query: (category) => ({
-        url: `/category/${category.id}`,
+        url: `/testimonial/${category.id}`,
         method: "PUT",
         body: category.data,
         credentials: "include",
@@ -40,8 +41,8 @@ export const AdminCategory = createApi({
 });
 
 export const {
-  useGetCategoryQuery,
-  useAddCategoryMutation,
-  useDeleteCategoryMutation,
-  useUpdateCategoryMutation,
-} = AdminCategory;
+  useGetTestimonialQuery,
+  useAddTestimonialMutation,
+  useDeleteTestimonialMutation,
+  useUpdateTestimonialMutation,
+} = AdminTestimonial;

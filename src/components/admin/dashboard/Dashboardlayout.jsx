@@ -6,8 +6,8 @@ import Header from "./Header";
 function Dashboardlayout() {
   return (
     <>
-      <div class="container-fluid">
-        <div class="row gap-0">
+      <div className="container-fluid">
+        <div className="row gap-0">
           <nav
             className="p-0 d-none d-md-block bg-light"
             style={{

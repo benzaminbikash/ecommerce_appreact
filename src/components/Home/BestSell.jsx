@@ -1,6 +1,5 @@
 import React from "react";
 import BestProduct1 from "../../img/best-product-1.jpg";
-import BestProduct4 from "../../img/fruite-item-4.jpg";
 
 function BestSell() {
   return (
