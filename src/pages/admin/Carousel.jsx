@@ -1,7 +1,11 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router";
+import { NavLink, Link } from "react-router";
+import { useGetCarouselQuery } from "../../redux/Api/admin/AdminCarousel";
+import { constant } from "../../components/common/constant";
 
 function Carousel() {
+  const { data, refetch } = useGetCarouselQuery();
+
   return (
     <main className="">
       <div className="d-flex justify-content-between align-items-center mt-5 mb-4 ">
@@ -27,16 +31,36 @@ function Carousel() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>Our service</td>
-              <td>Hello</td>
-              <td>image</td>
-              <td>
-                <i className="bi bi-pencil-square adminactionupdate"></i>
-                <i className="bi bi-trash ps-3 adminactiondelete"></i>
-              </td>
-            </tr>
+            {data?.data.map((item, index) => {
+              return (
+                <tr>
+                  <td>{index + 1}</td>
+                  <td>{item.title}</td>
+                  <td>{item.subtitle}</td>
+                  <td>
+                    {item?.carsoualimage.map((item, index) => {
+                      return (
+                        <>
+                          {index + 1}.
+                          <Link to={`${constant.IMAGEURL}/${item}`}>
+                            <img
+                              className="adminImage pl-2 border-1"
+                              src={`${constant.IMAGEURL}/${item}`}
+                              alt=""
+                            />
+                          </Link>
+                          <br />
+                        </>
+                      );
+                    })}
+                  </td>
+                  <td>
+                    <i className="bi bi-pencil-square adminactionupdate"></i>
+                    <i className="bi bi-trash ps-3 adminactiondelete"></i>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>

@@ -1,13 +1,46 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
+import { useAddCarouselMutation } from "../../../../redux/Api/admin/AdminCarousel";
+import Showmessage from "../../../common/Showmessage";
 
 function AddCarousel() {
+  const [title, setTitle] = useState("");
+  const [subtitle, setSubtitle] = useState("");
   const [selectedImages, setSelectedImages] = useState([]);
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
+  const imageRef = useRef([]);
+
+  const [ADDCAROUSEL] = useAddCarouselMutation();
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
     setSelectedImages(files);
   };
-  console.log(selectedImages);
+
+  const handleAddForm = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("subtitle", subtitle);
+    selectedImages.forEach((image) => {
+      formData.append(`image`, image);
+    });
+
+    const api = await ADDCAROUSEL(formData);
+    if (api?.error) {
+      setSuccess("");
+      setError(api?.error?.data?.message);
+    } else {
+      setError("");
+      setSuccess(api?.data?.message);
+      setTitle("");
+      setSubtitle("");
+      setSelectedImages([]);
+      if (imageRef.current) {
+        imageRef.current.value = null;
+      }
+    }
+  };
 
   return (
     <main className="">
@@ -15,8 +48,12 @@ function AddCarousel() {
         <div className="card-header bg-white">
           <h5 className="text-primary my-3">Add Carousel</h5>
         </div>
+
+        {error && <Showmessage status="fail" message={error} />}
+        {success && <Showmessage status="success" message={success} />}
+
         <div className="card-body">
-          <form>
+          <form onSubmit={handleAddForm}>
             <div className="row g-3">
               <div className="col-md-6">
                 <label htmlFor="categoryName" className="form-label">
@@ -27,6 +64,9 @@ function AddCarousel() {
                   id="categoryName"
                   className="form-control p-3 bg-light"
                   placeholder="Enter title"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  required
                 />
               </div>
 
@@ -39,6 +79,9 @@ function AddCarousel() {
                   id="subTitle"
                   className="form-control p-3 bg-light"
                   placeholder="Enter sub title"
+                  value={subtitle}
+                  onChange={(e) => setSubtitle(e.target.value)}
+                  required
                 />
               </div>
 
@@ -54,6 +97,8 @@ function AddCarousel() {
                     aria-label="Upload"
                     multiple
                     onChange={handleFileChange}
+                    required
+                    ref={imageRef}
                   />
                 </div>
               </div>

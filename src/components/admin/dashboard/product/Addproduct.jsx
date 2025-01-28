@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+
 import { useGetCategoryQuery } from "../../../../redux/Api/admin/AdminCategory";
 import { useSubCategorySearchQuery } from "../../../../redux/Api/admin/AdminSubCategory";
 import { useGetSubAttributeQuery } from "../../../../redux/Api/admin/AdminSubAttribute";
 import { useAddProductMutation } from "../../../../redux/Api/admin/AdminProduct";
 import Showmessage from "../../../common/Showmessage";
+import { useLocation } from "react-router";
+import { constant } from "../../../common/constant";
 
 function AddProduct() {
+  const { state } = useLocation();
+  console.log(state);
   const [value, setValue] = useState("");
   const [product, setProduct] = useState("");
   const [stock, setStock] = useState("");
@@ -22,6 +26,11 @@ function AddProduct() {
   const [attributes, setAttributes] = useState([
     { attribute: "", subAttributes: [] },
   ]);
+
+  console.log(mainImage);
+
+  const mainImageRef = useRef();
+  const imagesRef = useRef([]);
   // api implement
   const { data: CATEGORYGET } = useGetCategoryQuery();
   const { data: SEARCHSUBCATEGORY } = useSubCategorySearchQuery(category);
@@ -35,7 +44,9 @@ function AddProduct() {
   };
 
   const addMoreImages = () => {
-    setImages([...images, ""]);
+    if (images.length < 5) {
+      setImages([...images, ""]);
+    }
   };
 
   const removeImage = (index) => {
@@ -109,8 +120,42 @@ function AddProduct() {
     } else {
       setError("");
       setSuccess(api?.data?.message);
+      setProduct("");
+      setStock("");
+      setPrice("");
+      setDiscountPrice("");
+      setCategory("");
+      setSubCategory("");
+      if (mainImageRef.current) {
+        mainImageRef.current.value = null;
+      }
+      setAttributes([{ attribute: "", subAttributes: [] }]);
+      setImages([""]);
+      setValue("");
+      imagesRef.current.forEach((input) => {
+        if (input) input.value = null;
+      });
     }
   };
+
+  useEffect(() => {
+    if (state) {
+      setValue(state.description);
+      setCategory(state.category._id);
+      setSubCategory(state.subCategory._id);
+      setProduct(state.title);
+      setPrice(state.price);
+      setDiscountPrice(state.priceafterdiscount);
+      setStock(state.stock);
+      const mappedAttributes = state.attributes.map((item) => ({
+        attribute: item.title._id,
+        subAttributes: item.values,
+      }));
+      setAttributes(mappedAttributes);
+      setMainImage(state.mainimage);
+      setImages(state.images || []);
+    }
+  }, [state]);
 
   return (
     <main>
@@ -216,8 +261,28 @@ function AddProduct() {
                   type="file"
                   id="mainImage"
                   className="form-control p-3 bg-light"
+                  ref={mainImageRef}
                   onChange={(e) => setMainImage(e.target.files[0])}
                 />
+                {mainImage && (
+                  <div className="mt-3">
+                    <h6>Selected Image:</h6>
+                    <div className="row g-2">
+                      <div className="col-3">
+                        <img
+                          src={
+                            mainImage instanceof File
+                              ? URL.createObjectURL(mainImage)
+                              : `${constant.IMAGEURL}/${mainImage}`
+                          }
+                          alt="Selected"
+                          className="img-thumbnail"
+                          style={{ maxHeight: "100px", objectFit: "cover" }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
 
               <div className="col-md-6">
@@ -236,13 +301,14 @@ function AddProduct() {
 
               <div className="col-md-6">
                 <label htmlFor="images" className="form-label">
-                  Images
+                  Images upto 5
                 </label>
                 {images.map((image, index) => (
                   <div key={index} className="input-group mb-3">
                     <input
                       type="file"
                       className="form-control p-3 bg-light"
+                      ref={(el) => (imagesRef.current[index] = el)}
                       onChange={(e) => handleImageChange(index, e)}
                     />
                     {images.length > 1 && (
@@ -253,6 +319,34 @@ function AddProduct() {
                     )}
                   </div>
                 ))}
+
+                {/* selet image */}
+                {images != "" && (
+                  <>
+                    <h6>Selected Image:</h6>
+                    <div className="d-flex gap-2 mb-2">
+                      {images.map((item, index) => (
+                        <div className="row ">
+                          <div className="col-12">
+                            <img
+                              src={
+                                item instanceof File
+                                  ? URL.createObjectURL(item)
+                                  : `${constant.IMAGEURL}/${item}`
+                              }
+                              alt="Add New"
+                              className="img-thumbnail"
+                              style={{
+                                maxHeight: "100px",
+                                objectFit: "cover",
+                              }}
+                            />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                )}
 
                 <i
                   className="fas fa-plus-circle text-white w-25 btn btn-primary"
@@ -317,7 +411,7 @@ function AddProduct() {
               </div>
             </div>
 
-            <div className="col-md-12">
+            <div className="col-md-12 mt-2">
               <label htmlFor="description" className="form-label">
                 Description
               </label>

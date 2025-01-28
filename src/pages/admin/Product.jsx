@@ -1,53 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import {
+  useDeleteProductMutation,
+  useGetProductQuery,
+} from "../../redux/Api/admin/AdminProduct";
+import Showmessage from "../../components/common/Showmessage";
 
 function Product() {
+  const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
+  const { data: PRODUCTS, refetch } = useGetProductQuery();
+  const products = PRODUCTS?.data;
+  const [DELETEPRODUCT] = useDeleteProductMutation();
+  const [message, setMessage] = useState("");
 
-  const itemsPerPage = 2;
-
-  const products = [
-    {
-      id: 1,
-      customer: "John Doe",
-      product: "Laptop",
-      status: "Delivered",
-      total: "$1200",
-    },
-    {
-      id: 2,
-      customer: "Jane Smith",
-      product: "Headphones",
-      status: "Processing",
-      total: "$200",
-    },
-    {
-      id: 3,
-      customer: "Mike Johnson",
-      product: "Smartphone",
-      status: "Shipped",
-      total: "$800",
-    },
-    {
-      id: 4,
-      customer: "Alice Brown",
-      product: "Tablet",
-      status: "Pending",
-      total: "$500",
-    },
-    {
-      id: 5,
-      customer: "Bob White",
-      product: "Monitor",
-      status: "Delivered",
-      total: "$300",
-    },
-  ];
-
-  const totalPages = Math.ceil(products.length / itemsPerPage);
+  const itemsPerPage = 5;
+  const totalPages = Math.ceil(products?.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const displayedProducts = products.slice(startIndex, endIndex);
+  const displayedProducts = products?.slice(startIndex, endIndex);
 
   const handleNext = () => {
     if (currentPage < totalPages) setCurrentPage(currentPage + 1);
@@ -55,6 +26,22 @@ function Product() {
 
   const handlePrevious = () => {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
+  };
+
+  const DELETE = async (id) => {
+    if (confirm("Do you want to delete this Product?") == true) {
+      await DELETEPRODUCT(id);
+      setMessage("Delete Product Successfully.");
+      refetch();
+    } else {
+      setMessage("");
+    }
+  };
+
+  const selectUpdate = (product) => {
+    navigate("/admin/product/addproduct", {
+      state: product,
+    });
   };
 
   return (
@@ -83,30 +70,57 @@ function Product() {
           Search
         </button>
       </div>
-
+      {message != "" && <Showmessage message={message} status={"success"} />}
       <div className="table-responsive card p-3">
         <table className="table table-bordered table-sm">
           <thead>
             <tr>
-              <th>#</th>
-              <th>Customer</th>
-              <th>Product</th>
-              <th>Status</th>
-              <th>Total</th>
+              <th>S.N</th>
+              <th>Title</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th>Price After Discount</th>
+              <th>Stock</th>
+              <th>Main Image</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {displayedProducts.map((product, index) => (
+            {displayedProducts?.map((product, index) => (
               <tr key={product.id}>
                 <td>{startIndex + index + 1}</td>
-                <td>{product.customer}</td>
-                <td>{product.product}</td>
-                <td>{product.status}</td>
-                <td>{product.total}</td>
+                <td>{product.title}</td>
+                <td>{product.category.title}</td>
+                <td>{product.price}</td>
+                <td>{product.priceafterdiscount}</td>
+                <td>{product.stock}</td>
+                <Link
+                  to={`http://localhost:8000/uploads/${product?.mainimage}`}
+                >
+                  <img
+                    className="adminImage"
+                    src={`http://localhost:8000/uploads/${product?.mainimage}`}
+                    st
+                    alt="randomImage"
+                  />
+                </Link>
                 <td>
-                  <i className="bi bi-pencil-square adminactionupdate"></i>
-                  <i className="bi bi-trash ps-3 adminactiondelete"></i>
+                  <i
+                    onClick={() => selectUpdate(product)}
+                    className="bi bi-pencil-square adminactionupdate"
+                  ></i>
+                  <i
+                    onClick={() => DELETE(product._id)}
+                    className="bi bi-trash ps-3 adminactiondelete"
+                  ></i>
+                  <i
+                    onClick={() =>
+                      navigate(`/admin/product/${product._id}`, {
+                        state: product,
+                      })
+                    }
+                    className="fas ps-3 fa-eye adminactionupdate"
+                  ></i>
                 </td>
               </tr>
             ))}

@@ -126,25 +126,27 @@ function User() {
         )}
       </div>
 
-      <div className="d-flex justify-content-between mt-3">
-        <button
-          className="btn btn-outline-primary"
-          onClick={handlePrevious}
-          disabled={currentPage === 1}
-        >
-          Previous
-        </button>
-        <span className="align-self-center">
-          Page {currentPage} of {totalPages}
-        </span>
-        <button
-          className="btn btn-outline-primary"
-          onClick={handleNext}
-          disabled={currentPage === totalPages}
-        >
-          Next
-        </button>
-      </div>
+      {displayUsers?.length != 0 && (
+        <div className="d-flex justify-content-between mt-3">
+          <button
+            className="btn btn-outline-primary"
+            onClick={handlePrevious}
+            disabled={currentPage === 1}
+          >
+            Previous
+          </button>
+          <span className="align-self-center">
+            Page {currentPage} of {totalPages}
+          </span>
+          <button
+            className="btn btn-outline-primary"
+            onClick={handleNext}
+            disabled={currentPage === totalPages}
+          >
+            Next
+          </button>
+        </div>
+      )}
     </main>
   );
 }

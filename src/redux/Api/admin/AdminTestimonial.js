@@ -19,14 +19,12 @@ export const AdminTestimonial = createApi({
         url: "/testimonial",
         method: "POST",
         body: data,
-        credentials: "include",
       }),
     }),
     deleteTestimonial: builder.mutation({
       query: (id) => ({
         url: `/testimonial/${id}`,
         method: "DELETE",
-        credentials: "include",
       }),
     }),
     updateTestimonial: builder.mutation({
@@ -34,7 +32,6 @@ export const AdminTestimonial = createApi({
         url: `/testimonial/${category.id}`,
         method: "PUT",
         body: category.data,
-        credentials: "include",
       }),
     }),
   }),

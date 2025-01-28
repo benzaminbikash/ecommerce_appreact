@@ -4,33 +4,40 @@ import { useNavigate } from "react-router";
 import Showmessage from "../../components/common/Showmessage";
 import LoadingButton from "../../components/common/LoadingButton";
 import { useLoginAdminMutation } from "../../redux/Api/admin/AdminLogin";
+import { useDispatch, useSelector } from "react-redux";
+import { setCredentials } from "../../redux/Slice/AuthSlice";
 
 function LoginAdmin() {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [LOGINUSER, { isLoading }] = useLoginAdminMutation();
   const navigate = useNavigate();
-  const token = document.cookie.includes("token=");
-
+  // const token = document.cookie.includes("token=");
   const handleLoginform = async (e) => {
     e.preventDefault();
     const api = await LOGINUSER({
       email,
       password,
     });
+
     if (api.error) {
       setError(api.error?.data?.message);
     } else {
+      const { accessToken, refreshToken } = api?.data;
+      dispatch(
+        setCredentials({ accessToken: accessToken, refreshToken: refreshToken })
+      );
       setError("");
-      navigate("/admin/");
+      navigate("/admin");
     }
   };
-  useEffect(() => {
-    if (token) {
-      navigate("/admin/");
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (token) {
+  //     navigate("/admin/");
+  //   }
+  // }, []);
 
   return (
     <div className="adminlogin">

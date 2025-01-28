@@ -21,7 +21,25 @@ export const AdminProduct = createApi({
         credentials: "include",
       }),
     }),
+    deleteProduct: builder.mutation({
+      query: (id) => ({
+        url: `/product/${id}`,
+        method: "DELETE",
+      }),
+    }),
+    updateProduct: builder.mutation({
+      query: (product) => ({
+        url: `/product/${product.id}`,
+        method: "PUT",
+        body: product.data,
+      }),
+    }),
   }),
 });
 
-export const { useGetProductQuery, useAddProductMutation } = AdminProduct;
+export const {
+  useGetProductQuery,
+  useAddProductMutation,
+  useDeleteProductMutation,
+  useUpdateProductMutation,
+} = AdminProduct;

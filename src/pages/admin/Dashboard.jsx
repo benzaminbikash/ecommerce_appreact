@@ -1,12 +1,16 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import AuthRole from "../../components/common/AuthRole";
 
 function Dashboard() {
+  const state = useSelector((data) => data?.auth?.accessToken);
+  // const data = AuthRole();
+  // console.log(data);
   return (
     <main>
       <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 className="h2">Dashboard</h1>
       </div>
-
       <div className="row">
         <div className="col-md-3">
           <div className="card text-white bg-primary mb-3">

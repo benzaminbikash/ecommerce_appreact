@@ -1,7 +1,6 @@
 import React from "react";
 
 function BannerModal({ data, type }) {
-  console.log(data?.name);
   return (
     <div
       className="modal fade"

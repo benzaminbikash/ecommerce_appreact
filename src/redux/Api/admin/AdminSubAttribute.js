@@ -18,14 +18,12 @@ export const AdminSubAttibute = createApi({
         url: "/subattribute",
         method: "POST",
         body: data,
-        credentials: "include",
       }),
     }),
     deleteSubAttribute: builder.mutation({
       query: (id) => ({
         url: `/subattribute/${id}`,
         method: "DELETE",
-        credentials: "include",
       }),
     }),
     updateSubAttribute: builder.mutation({
@@ -33,7 +31,6 @@ export const AdminSubAttibute = createApi({
         url: `/subattribute/${item.id}`,
         method: "PUT",
         body: item.data,
-        credentials: "include",
       }),
     }),
   }),

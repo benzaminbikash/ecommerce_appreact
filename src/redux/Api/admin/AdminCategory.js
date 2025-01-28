@@ -18,14 +18,12 @@ export const AdminCategory = createApi({
         url: "/category",
         method: "POST",
         body: data,
-        credentials: "include",
       }),
     }),
     deleteCategory: builder.mutation({
       query: (id) => ({
         url: `/category/${id}`,
         method: "DELETE",
-        credentials: "include",
       }),
     }),
     updateCategory: builder.mutation({
@@ -33,7 +31,6 @@ export const AdminCategory = createApi({
         url: `/category/${category.id}`,
         method: "PUT",
         body: category.data,
-        credentials: "include",
       }),
     }),
   }),

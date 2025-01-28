@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, useLocation } from "react-router";
+import { Routes, Route } from "react-router-dom";
 
 import Shop from "./pages/Shop";
 import Home from "./pages/Home";
@@ -49,6 +49,8 @@ import SubCategory from "./pages/admin/SubCategory";
 import AddSubCategory from "./components/admin/dashboard/subcategory/AddSubCategory";
 import { hideNavbarandFooter } from "./components/common/constant";
 import EditUser from "./components/admin/dashboard/user/EditUser";
+import Productdetail from "./components/admin/dashboard/product/Productdetail";
+import PersistLogin from "./components/common/PersistLogin";
 
 function App() {
   return (
@@ -75,12 +77,14 @@ function App() {
           <Route path="checkout" element={<Checkout />} />
           <Route path="cart" element={<ProfileCart />} />
         </Route>
+        {/* <Route element={<AdminProtectRoute />}> */}
 
         {/* for admin panel */}
-        <Route element={<AdminProtectRoute />}>
+        <Route element={<PersistLogin />}>
           <Route path="/admin" element={<Dashboardlayout />}>
             <Route path="" element={<Dashboard />} />
             <Route path="product" element={<Product />} />
+            <Route path="product/:id" element={<Productdetail />} />
             <Route path="category" element={<Category />} />
             <Route path="subcategory" element={<SubCategory />} />
             <Route path="category/addcategory" element={<AddCategory />} />
@@ -99,6 +103,7 @@ function App() {
             <Route path="attribute" element={<Attributes />} />
             <Route path="subattribute" element={<SubAttributes />} />
             <Route path="attribute/addattribute" element={<AddAttributes />} />
+
             <Route
               path="subattribute/subaddattribute"
               element={<AddSubAttributes />}
@@ -113,12 +118,16 @@ function App() {
               element={<AddSubCategory />}
             />
           </Route>
+          {/* </Route> */}
+          <Route
+            path="/admin/changepassword"
+            element={<ChangepasswordAdmin />}
+          />
         </Route>
 
         <Route path="/admin/login" element={<LoginAdmin />} />
-        <Route path="/admin/changepassword" element={<ChangepasswordAdmin />} />
       </Routes>
-      {!hideNavbarandFooter && <Footer />}
+      {/* {!hideNavbarandFooter && <Footer />} */}
     </>
   );
 }

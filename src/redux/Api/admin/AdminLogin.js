@@ -10,7 +10,6 @@ export const AdminLogin = createApi({
         url: "/login-admin",
         method: "POST",
         body: data,
-        credentials: "include",
       }),
     }),
   }),

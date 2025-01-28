@@ -1,16 +1,14 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { constant } from "../../components/common/constant";
+import { apiSlice } from "../Slice/apiSlice";
+import { setCredentials } from "../Slice/AuthSlice";
 
-export const AuthApi = createApi({
-  reducerPath: "AuthAPi",
-  baseQuery: fetchBaseQuery({ baseUrl: constant.APIURL }),
+export const AuthApi = apiSlice.injectEndpoints({
+  tagTypes: ["User"],
   endpoints: (builder) => ({
     registration: builder.mutation({
       query: (data) => ({
         url: "/registration",
         method: "POST",
         body: data,
-        credentials: "include",
       }),
     }),
     loginUser: builder.mutation({
@@ -20,7 +18,26 @@ export const AuthApi = createApi({
         body: data,
       }),
     }),
+    refresh: builder.mutation({
+      query: () => ({
+        url: "/refresh",
+        method: "POST",
+        body: { refreshToken: localStorage.getItem("refreshToken") },
+      }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(setCredentials(data));
+        } catch (error) {
+          console.log(error);
+        }
+      },
+    }),
   }),
 });
 
-export const { useRegistrationMutation, useLoginUserMutation } = AuthApi;
+export const {
+  useRegistrationMutation,
+  useLoginUserMutation,
+  useRefreshMutation,
+} = AuthApi;

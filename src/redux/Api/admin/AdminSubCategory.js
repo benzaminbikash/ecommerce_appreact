@@ -18,14 +18,12 @@ export const AdminSubCategory = createApi({
         url: "/subcategory",
         method: "POST",
         body: data,
-        credentials: "include",
       }),
     }),
     deleteSubCategory: builder.mutation({
       query: (id) => ({
         url: `/subcategory/${id}`,
         method: "DELETE",
-        credentials: "include",
       }),
     }),
     updateSubCategory: builder.mutation({
@@ -33,7 +31,6 @@ export const AdminSubCategory = createApi({
         url: `/subcategory/${subcategory.id}`,
         method: "PUT",
         body: subcategory.data,
-        credentials: "include",
       }),
     }),
     subCategorySearch: builder.query({

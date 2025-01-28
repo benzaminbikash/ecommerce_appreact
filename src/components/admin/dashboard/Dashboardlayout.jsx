@@ -11,7 +11,7 @@ function Dashboardlayout() {
           <nav
             className="p-0 d-none d-md-block bg-light"
             style={{
-              width: "250px",
+              width: "200px",
               height: "100vh",
               position: "sticky",
               top: "0",

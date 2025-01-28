@@ -2,6 +2,7 @@ import { useLocation } from "react-router";
 
 export const constant = {
   APIURL: "http://localhost:8000/api/v4",
+  IMAGEURL: "http://localhost:8000/uploads",
 };
 
 export function hideNavbarandFooter() {

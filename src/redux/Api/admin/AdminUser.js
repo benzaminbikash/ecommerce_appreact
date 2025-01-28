@@ -1,27 +1,24 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { constant } from "../../../components/common/constant";
+import { apiSlice } from "../../Slice/apiSlice";
 
-export const AdminUser = createApi({
-  reducerPath: "AdminUser",
-  baseQuery: fetchBaseQuery({
-    baseUrl: constant.APIURL,
-    credentials: "include",
-  }),
-
+export const AdminUser = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     allUsers: builder.query({
       query: () => ({
         url: "/allusers",
         method: "GET",
-        credentials: "include",
       }),
+      providesTags: (result, error, arg) => {
+        if (!result?.data) return [];
+        return result.data.map(({ id }) => ({ type: "User", id }));
+      },
     }),
     deleteUser: builder.mutation({
       query: (id) => ({
         url: `user/${id}`,
         method: "DELETE",
-        credentials: "include",
       }),
+      invalidatesTags: [{ type: "User", id: "LIST" }],
     }),
   }),
 });

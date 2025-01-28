@@ -18,14 +18,12 @@ export const AdminBanner = createApi({
         url: "/banner",
         method: "POST",
         body: data,
-        credentials: "include",
       }),
     }),
     deleteBanner: builder.mutation({
       query: (id) => ({
         url: `/banner/${id}`,
         method: "DELETE",
-        credentials: "include",
       }),
     }),
     updateBanner: builder.mutation({
@@ -33,7 +31,6 @@ export const AdminBanner = createApi({
         url: `/banner/${banner.id}`,
         method: "PUT",
         body: banner.data,
-        credentials: "include",
       }),
     }),
   }),
