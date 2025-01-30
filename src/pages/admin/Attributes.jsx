@@ -17,7 +17,6 @@ function Attributes() {
     if (confirm("Do you want to delete this Category?") == true) {
       await DELETEATTRIBUTE(id);
       setMessage("Delete Category Successfully.");
-      refetch();
     } else {
       setMessage("");
     }

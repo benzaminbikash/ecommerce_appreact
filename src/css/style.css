@@ -828,6 +828,18 @@ p {
   object-position: top;
   margin: 2px;
 }
+
+.adminImage2 {
+  height: 100px;
+  width: 150px;
+  object-fit: cover;
+  object-position: top;
+  margin: 2px;
+  border: 1px solid rgb(111, 106, 106);
+  margin-left: 10px;
+  border-radius: 10px;
+}
+
 .priceline {
   color: red;
 }

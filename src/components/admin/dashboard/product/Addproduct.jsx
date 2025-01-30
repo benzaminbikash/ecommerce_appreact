@@ -11,7 +11,6 @@ import { constant } from "../../../common/constant";
 
 function AddProduct() {
   const { state } = useLocation();
-  console.log(state);
   const [value, setValue] = useState("");
   const [product, setProduct] = useState("");
   const [stock, setStock] = useState("");
@@ -26,8 +25,6 @@ function AddProduct() {
   const [attributes, setAttributes] = useState([
     { attribute: "", subAttributes: [] },
   ]);
-
-  console.log(mainImage);
 
   const mainImageRef = useRef();
   const imagesRef = useRef([]);

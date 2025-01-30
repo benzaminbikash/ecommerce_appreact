@@ -1,20 +1,58 @@
-import React, { useRef, useState } from "react";
-import { useAddCarouselMutation } from "../../../../redux/Api/admin/AdminCarousel";
+import React, { useEffect, useRef, useState } from "react";
+import { useLocation, useNavigate } from "react-router";
+import {
+  useAddCarouselMutation,
+  useUpdateCarouselMutation,
+} from "../../../../redux/Api/admin/AdminCarousel";
 import Showmessage from "../../../common/Showmessage";
+import { constant } from "../../../common/constant";
+import { useGetCategoryQuery } from "../../../../redux/Api/admin/AdminCategory";
 
 function AddCarousel() {
+  const navigate = useNavigate();
+  const { state } = useLocation();
   const [title, setTitle] = useState("");
   const [subtitle, setSubtitle] = useState("");
-  const [selectedImages, setSelectedImages] = useState([]);
+  const [images, setImages] = useState([]);
+  const [imagesToRemove, setImagesToRemove] = useState([]);
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
-  const imageRef = useRef([]);
+  const imagesRef = useRef([]);
+  console.log(images);
 
   const [ADDCAROUSEL] = useAddCarouselMutation();
+  const [UPDATECAROUSEL] = useUpdateCarouselMutation();
+  const { data, refetch } = useGetCategoryQuery();
 
-  const handleFileChange = (e) => {
-    const files = Array.from(e.target.files);
-    setSelectedImages(files);
+  useEffect(() => {
+    if (state) {
+      setTitle(state.title);
+      setSubtitle(state.subtitle);
+      setImages(state.carsoualimage || []);
+    }
+  }, [state]);
+
+  const handleImageChange = (index, event) => {
+    if (event.target.files[0]) {
+      const newImages = [...images];
+      newImages[index] = event.target.files[0];
+      setImages(newImages);
+    }
+  };
+
+  const addMoreImages = () => {
+    if (images.length < 5) {
+      setImages([...images, null]);
+    }
+  };
+
+  const removeImage = (index) => {
+    if (images[index] instanceof File) {
+      setImages(images.filter((_, i) => i !== index));
+    } else {
+      setImagesToRemove([...imagesToRemove, images[index]]);
+      setImages(images.filter((_, i) => i !== index));
+    }
   };
 
   const handleAddForm = async (e) => {
@@ -22,46 +60,59 @@ function AddCarousel() {
     const formData = new FormData();
     formData.append("title", title);
     formData.append("subtitle", subtitle);
-    selectedImages.forEach((image) => {
-      formData.append(`image`, image);
+
+    images.forEach((image) => {
+      if (image instanceof File) {
+        formData.append("image", image);
+      }
     });
 
     const api = await ADDCAROUSEL(formData);
-    if (api?.error) {
-      setSuccess("");
-      setError(api?.error?.data?.message);
-    } else {
-      setError("");
-      setSuccess(api?.data?.message);
-      setTitle("");
-      setSubtitle("");
-      setSelectedImages([]);
-      if (imageRef.current) {
-        imageRef.current.value = null;
+    handleApiResponse(api);
+  };
+
+  const handleUpdateForm = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("subtitle", subtitle);
+
+    images.forEach((image) => {
+      if (image instanceof File) {
+        formData.append("image", image);
       }
+    });
+
+    if (imagesToRemove.length > 0) {
+      formData.append("imagesToRemove", JSON.stringify(imagesToRemove));
     }
+
+    await UPDATECAROUSEL({
+      id: state._id,
+      data: formData,
+    });
+    navigate("/admin/carousel");
   };
 
   return (
-    <main className="">
+    <main>
       <div className="card shadow-sm mt-4">
         <div className="card-header bg-white">
-          <h5 className="text-primary my-3">Add Carousel</h5>
+          <h5 className="text-primary my-3">
+            {state ? "Update Carousel" : "Add Carousel"}
+          </h5>
         </div>
 
         {error && <Showmessage status="fail" message={error} />}
         {success && <Showmessage status="success" message={success} />}
 
         <div className="card-body">
-          <form onSubmit={handleAddForm}>
+          <form onSubmit={state ? handleUpdateForm : handleAddForm}>
             <div className="row g-3">
               <div className="col-md-6">
-                <label htmlFor="categoryName" className="form-label">
-                  Title
-                </label>
+                <label className="form-label">Title</label>
                 <input
                   type="text"
-                  id="categoryName"
                   className="form-control p-3 bg-light"
                   placeholder="Enter title"
                   value={title}
@@ -71,12 +122,9 @@ function AddCarousel() {
               </div>
 
               <div className="col-md-6">
-                <label htmlFor="subTitle" className="form-label">
-                  Sub Title
-                </label>
+                <label className="form-label">Sub Title</label>
                 <input
                   type="text"
-                  id="subTitle"
                   className="form-control p-3 bg-light"
                   placeholder="Enter sub title"
                   value={subtitle}
@@ -85,45 +133,67 @@ function AddCarousel() {
                 />
               </div>
 
-              <div className="col-md-6">
-                <label htmlFor="images" className="form-label">
-                  Images
-                </label>
-                <div className="input-group">
-                  <input
-                    type="file"
-                    className="form-control p-3 bg-light"
-                    id="images"
-                    aria-label="Upload"
-                    multiple
-                    onChange={handleFileChange}
-                    required
-                    ref={imageRef}
-                  />
+              <div className="col-md-12">
+                <label className="form-label">Images (Max 5)</label> <br />
+                <div className="d-flex gap-5">
+                  {images.map((image, index) => {
+                    return (
+                      <div key={index} className=" mx-10 mb-3">
+                        {typeof image === "string" || image instanceof File ? (
+                          <div className="d-flex flex-column gap-1">
+                            <img
+                              src={
+                                image instanceof File
+                                  ? URL.createObjectURL(image)
+                                  : `${constant.IMAGEURL}/${image}`
+                              }
+                              alt="Existing"
+                              className="img-thumbnail"
+                              style={{
+                                height: "100px",
+                                width: "100px",
+                                objectFit: "cover",
+                              }}
+                            />
+
+                            <button
+                              type="button"
+                              className="btn border"
+                              onClick={() => removeImage(index)}
+                            >
+                              Remove
+                            </button>
+                          </div>
+                        ) : (
+                          <>
+                            <br />
+                            <input
+                              type="file"
+                              className="form-control p-3 bg-light"
+                              ref={(el) => (imagesRef.current[index] = el)}
+                              onChange={(e) => handleImageChange(index, e)}
+                            />
+                          </>
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
+                {images.length < 5 && (
+                  <button
+                    type="button"
+                    className="btn btn-primary text-white"
+                    onClick={addMoreImages}
+                  >
+                    {images.length == 0 ? " Add Image" : " Add More Images"}
+                  </button>
+                )}
               </div>
             </div>
-            {selectedImages.length > 0 && (
-              <div className="mt-3">
-                <h6>Selected Images:</h6>
-                <div className="row ">
-                  {selectedImages.map((image, index) => (
-                    <div className="col-1" key={index}>
-                      <img
-                        src={URL.createObjectURL(image)}
-                        alt="Selected"
-                        className="img-thumbnail"
-                        style={{ maxHeight: "100px", objectFit: "cover" }}
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
 
             <div className="mt-4">
               <button type="submit" className="btn btn-primary text-white py-2">
-                Add Carousel
+                {state ? "Update Carousel" : "Add Carousel"}
               </button>
             </div>
           </form>

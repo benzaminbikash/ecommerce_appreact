@@ -46,7 +46,7 @@ function Banner() {
       </div>
       {message != "" && <Showmessage message={message} status={"success"} />}
       {BANNER?.data?.length == 0 ? (
-        <p className="text-center fw-bold text-primary fs-5">Add Banner</p>
+        <p className="text-center fw-bold text-primary fs-5">No Banner</p>
       ) : (
         <div className="table-responsive card p-3 ">
           <table className="table table-bordered table-sm">
