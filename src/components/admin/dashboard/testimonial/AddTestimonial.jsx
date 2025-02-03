@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
   useAddTestimonialMutation,
+  useGetTestimonialQuery,
   useUpdateTestimonialMutation,
 } from "../../../../redux/Api/admin/AdminTestimonial";
 import Showmessage from "../../../common/Showmessage";
@@ -17,6 +18,7 @@ function AddTestimonial() {
   const [error, setError] = useState("");
   const imageRef = useRef();
 
+  const { data, refetch } = useGetTestimonialQuery();
   const [TESTIMONIAL] = useAddTestimonialMutation();
   const [TESTIMONIALUPDATE] = useUpdateTestimonialMutation();
 
@@ -75,16 +77,11 @@ function AddTestimonial() {
     const api = await TESTIMONIALUPDATE(testimonial);
     if (api?.error) {
       setError(api?.error?.data?.message);
+      setSuccess("");
     } else {
       setSuccess(api?.data?.message);
-      setName("");
-      setProfession("");
-      setdescription("");
-      setrating(0);
-      setSelectImage(null);
-      if (imageRef.current) {
-        imageRef.current.value = null;
-      }
+      setError("");
+      refetch();
     }
   };
 

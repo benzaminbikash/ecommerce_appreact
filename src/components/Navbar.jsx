@@ -37,7 +37,7 @@ function Navbar() {
       <div className=" container px-0">
         <nav className="navbar navbar-light bg-white navbar-expand-xl">
           <Link to="/" className="navbar-brand">
-            <h1 className="text-primary display-6">Fruitables</h1>
+            <h1 className="text-primary display-6">Tech-G</h1>
           </Link>
           <button
             className="navbar-toggler py-2 px-3"

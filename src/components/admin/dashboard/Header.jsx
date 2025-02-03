@@ -1,7 +1,15 @@
 import React from "react";
-import { Link } from "react-router";
+import { Link, replace, useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
+import { logout } from "../../../redux/Slice/AuthSlice";
 
 function Header() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/admin/login", replace);
+  };
   return (
     <header
       className=" mylayout d-flex align-items-center justify-content-between text-dark "
@@ -35,14 +43,17 @@ function Header() {
             aria-labelledby="profileDropdown"
           >
             <li>
-              <Link to="/admin/changepassword" className="dropdown-item">
+              <button
+                onClick={() => navigate("/admin/changepassword")}
+                className="dropdown-item"
+              >
                 Change Password
-              </Link>
+              </button>
             </li>
             <li>
-              <a className="dropdown-item" href="#">
+              <button onClick={handleLogout} className="dropdown-item" href="#">
                 Logout
-              </a>
+              </button>
             </li>
           </ul>
         </div>

@@ -36,7 +36,7 @@ function Carousel() {
     <main className="">
       <div className="d-flex justify-content-between align-items-center mt-5 mb-4 ">
         <h1 className="fs-5 fw-bold mt-3">Carousel</h1>
-        {data?.data.length == 0 && (
+        {data?.data?.length == 0 && (
           <NavLink
             to="/admin/carousel/addcarousel"
             className="btn btn-primary text-white py-2"
