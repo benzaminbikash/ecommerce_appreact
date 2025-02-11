@@ -1,27 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 import Fruititems from "./Fruititems";
-import Featureproduct from "./Featureproduct";
 import Bannerf from "../../img/banner-fruits.jpg";
+import { useGetCategoryQuery } from "../../redux/Api/admin/AdminCategory";
+import { useGetProductQuery } from "../../redux/Api/admin/AdminProduct";
 
 function Fruitshop() {
+  const [search, setSearch] = useState("");
+  const [selectCategory, setSelectCategory] = useState("");
+  const { data: Category } = useGetCategoryQuery();
+  const { data: Product } = useGetProductQuery();
+
+  const filterData = Product?.data.filter((item) => {
+    if (search == "") {
+      if (selectCategory == "") {
+        return item;
+      } else {
+        return item.category.title.includes(selectCategory);
+      }
+    } else {
+      const product = item.title.toLowerCase().includes(search.toLowerCase());
+      return product;
+    }
+  });
+
   return (
     <div className="container-fluid fruite py-5">
       <div className="container py-5">
-        <h1 className="mb-4">Fresh fruits shop</h1>
+        <h1 className="mb-4">Tech Shop</h1>
         <div className="row g-4">
           <div className="col-lg-12">
             <div className="row g-4">
               <div className="col-xl-3">
                 <div className="input-group w-100 mx-auto d-flex">
                   <input
+                    onChange={(e) => setSearch(e.target.value)}
                     type="search"
-                    className="form-control p-3"
-                    placeholder="keywords"
+                    className="form-control px-3 py-2"
+                    placeholder="search here..."
                     aria-describedby="search-icon-1"
+                    value={search}
                   />
-                  <span id="search-icon-1" className="input-group-text p-3">
-                    <i className="fa fa-search"></i>
-                  </span>
                 </div>
               </div>
               <div className="col-6"></div>
@@ -34,10 +52,10 @@ function Fruitshop() {
                     className="border-0 form-select-sm bg-light me-3"
                     form="fruitform"
                   >
-                    <option value="volvo">Nothing</option>
-                    <option value="saab">Popularity</option>
-                    <option value="opel">Organic</option>
-                    <option value="audi">Fantastic</option>
+                    <option value="volvo">A-Z</option>
+                    <option value="saab">Z-A</option>
+                    <option value="opel">Low-to-High</option>
+                    <option value="audi">High-to-Low</option>
                   </select>
                 </div>
               </div>
@@ -49,52 +67,33 @@ function Fruitshop() {
                     <div className="mb-3">
                       <h4>Categories</h4>
                       <ul className="list-unstyled fruite-categorie">
-                        <li>
-                          <div className="d-flex justify-content-between fruite-name">
-                            <a href="#">
-                              <i className="fas fa-apple-alt me-2"></i>Apples
-                            </a>
-                            <span>(3)</span>
-                          </div>
-                        </li>
-                        <li>
-                          <div className="d-flex justify-content-between fruite-name">
-                            <a href="#">
-                              <i className="fas fa-apple-alt me-2"></i>Oranges
-                            </a>
-                            <span>(5)</span>
-                          </div>
-                        </li>
-                        <li>
-                          <div className="d-flex justify-content-between fruite-name">
-                            <a href="#">
-                              <i className="fas fa-apple-alt me-2"></i>Strawbery
-                            </a>
-                            <span>(2)</span>
-                          </div>
-                        </li>
-                        <li>
-                          <div className="d-flex justify-content-between fruite-name">
-                            <a href="#">
-                              <i className="fas fa-apple-alt me-2"></i>Banana
-                            </a>
-                            <span>(8)</span>
-                          </div>
-                        </li>
-                        <li>
-                          <div className="d-flex justify-content-between fruite-name">
-                            <a href="#">
-                              <i className="fas fa-apple-alt me-2"></i>Pumpkin
-                            </a>
-                            <span>(5)</span>
-                          </div>
-                        </li>
+                        {Category?.data.map((item, index) => (
+                          <li
+                            key={index}
+                            onClick={() => {
+                              setSearch("");
+                              setSelectCategory(item.title);
+                            }}
+                          >
+                            <div className="d-flex justify-content-between fruite-name">
+                              <button
+                                className={`bg-transparent border-0 ${
+                                  selectCategory === item.title &&
+                                  "text-secondary fw-bold fs-6"
+                                }`}
+                                href="#"
+                              >
+                                {item.title}
+                              </button>
+                            </div>
+                          </li>
+                        ))}
                       </ul>
                     </div>
                   </div>
 
                   {/*  */}
-                  <Featureproduct />
+                  {/* <Featureproduct /> */}
                   <div className="col-lg-12">
                     <div className="position-relative">
                       <img
@@ -113,7 +112,7 @@ function Fruitshop() {
               </div>
 
               <div className="col-lg-9">
-                <Fruititems />
+                <Fruititems product={filterData} />
               </div>
             </div>
           </div>

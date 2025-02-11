@@ -14,7 +14,6 @@ function LoginAdmin() {
   const [error, setError] = useState("");
   const [LOGINUSER, { isLoading }] = useLoginAdminMutation();
   const navigate = useNavigate();
-  // const token = document.cookie.includes("token=");
   const handleLoginform = async (e) => {
     e.preventDefault();
     const api = await LOGINUSER({
@@ -33,11 +32,6 @@ function LoginAdmin() {
       navigate("/admin");
     }
   };
-  // useEffect(() => {
-  //   if (token) {
-  //     navigate("/admin/");
-  //   }
-  // }, []);
 
   return (
     <div className="adminlogin">

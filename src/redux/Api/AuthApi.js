@@ -1,5 +1,4 @@
 import { apiSlice } from "../Slice/apiSlice";
-import { setCredentials } from "../Slice/AuthSlice";
 
 export const AuthApi = apiSlice.injectEndpoints({
   tagTypes: ["User"],
@@ -12,8 +11,21 @@ export const AuthApi = apiSlice.injectEndpoints({
       }),
     }),
     loginUser: builder.mutation({
-      query: () => ({
+      query: (data) => ({
         url: "/login",
+        method: "POST",
+        body: data,
+      }),
+    }),
+    userInfo: builder.query({
+      query: () => ({
+        url: "/user",
+        method: "GET",
+      }),
+    }),
+    addCart: builder.mutation({
+      query: (data) => ({
+        url: "/cart",
         method: "POST",
         body: data,
       }),
@@ -24,14 +36,14 @@ export const AuthApi = apiSlice.injectEndpoints({
         method: "POST",
         body: { refreshToken: localStorage.getItem("refreshToken") },
       }),
-      async onQueryStarted(_, { dispatch, queryFulfilled }) {
-        try {
-          const { data } = await queryFulfilled;
-          dispatch(setCredentials(data));
-        } catch (error) {
-          console.log(error);
-        }
-      },
+      //   async onQueryStarted(_, { dispatch, queryFulfilled }) {
+      //     try {
+      //       const { data } = await queryFulfilled;
+      //       dispatch(setCredentials(data));
+      //     } catch (error) {
+      //       console.log(error);
+      //     }
+      //   },
     }),
   }),
 });
@@ -40,4 +52,6 @@ export const {
   useRegistrationMutation,
   useLoginUserMutation,
   useRefreshMutation,
+  useUserInfoQuery,
+  useAddCartMutation,
 } = AuthApi;

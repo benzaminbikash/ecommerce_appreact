@@ -1,36 +1,68 @@
 import React from "react";
-import Fruits5 from "../../img/fruite-item-5.jpg";
+import { constant } from "../common/constant";
+import { useNavigate } from "react-router";
+import ProductNotFound from "../../img/productnotfound.json";
+import Lottie from "react-lottie";
 
-function Fruititems() {
-  return (
-    <div className="row g-4 justify-content-center">
-      <div className="col-md-6 col-lg-6 col-xl-4">
-        <div className="rounded position-relative fruite-item">
-          <div className="fruite-img">
-            <img src={Fruits5} className="img-fluid w-100 rounded-top" alt="" />
-          </div>
-          <div className="text-white bg-secondary px-3 py-1 rounded position-absolute freshfruit">
-            Fruits
-          </div>
-          <div className="p-4 border border-secondary border-top-0 rounded-bottom">
-            <h4>Grapes</h4>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit sed do
-              eiusmod te incididunt
-            </p>
-            <div className="d-flex justify-content-between flex-lg-wrap">
-              <p className="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-              <a
-                href="#"
-                className="btn border border-secondary rounded-pill px-3 text-primary"
-              >
-                <i className="fa fa-shopping-bag me-2 text-primary"></i> Add to
-                cart
-              </a>
+function Fruititems({ product }) {
+  const navigate = useNavigate();
+  return product?.length == 0 ? (
+    <Lottie
+      options={{
+        animationData: ProductNotFound,
+      }}
+      width={500}
+      height={400}
+      style={{
+        objectFit: "cover",
+      }}
+    />
+  ) : (
+    <div className="row g-4 ">
+      {product?.map((item, index) => (
+        <button
+          key={index}
+          onClick={() => {
+            navigate(`/product-detail/${item._id}`, {
+              state: item,
+            });
+          }}
+          className="col-md-6 col-lg-4  border-0 bg-transparent"
+        >
+          <div className="rounded position-relative fruite-item">
+            <div className="product-img1 rounded-top">
+              <img
+                src={`${constant.IMAGEURL}/${item?.mainimage}`}
+                className="img-fluid w-100 rounded-top"
+                alt=""
+              />
+            </div>
+            <div className="text-white bg-secondary px-3 py-1 rounded position-absolute productinfo">
+              {item?.category?.title}
+            </div>
+            <div className="p-2 border border-secondary border-top-0 rounded-bottom">
+              <h4 className="text-start fw-light fs-5">{item?.title}</h4>
+
+              <div className="d-flex gap-2">
+                <p className=" text-dark fw-bold">
+                  Rs {item?.priceafterdiscount}
+                </p>
+                <p className="priceline fw-bold">
+                  <s>Rs {item?.price}</s>
+                </p>
+              </div>
+              <div className="d-flex justify-content-center my-2">
+                <a
+                  href="#"
+                  className="text-start btn border border-secondary rounded-pill px-3 text-primary"
+                >
+                  Add to cart
+                </a>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        </button>
+      ))}
 
       <div className="col-12">
         <div className="pagination d-flex justify-content-center mt-5">

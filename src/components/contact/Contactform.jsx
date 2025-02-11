@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useContactMutation } from "../../redux/Api/ContactApi";
+import Showmessage from "../common/Showmessage";
+import LoadingButton from "../common/LoadingButton";
 
 function Contactform() {
   const [contact, setContact] = useState({
@@ -6,18 +9,42 @@ function Contactform() {
     email: "",
     message: "",
   });
-
+  const [CONTACT, { isLoading }] = useContactMutation();
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const handleInputChange = (e) => {
     setContact({ ...contact, [e.target.name]: e.target.value });
   };
 
   const contactForm = async (e) => {
     e.preventDefault();
-    console.log(contact);
+    const api = await CONTACT(contact);
+    console.log(api);
+    if (api.error) {
+      setError(api.error?.data?.message);
+      setSuccess("");
+    } else {
+      setError("");
+      setSuccess("Your Message Send Successfully.");
+      setContact({
+        name: "",
+        email: "",
+        message: "",
+      });
+    }
   };
-
+  useEffect(() => {
+    if (success || error) {
+      setTimeout(() => {
+        setSuccess("");
+        setError("");
+      }, 4000);
+    }
+  }, [success, error]);
   return (
     <div>
+      {error && <Showmessage message={error} status={"fail"} />}
+      {success && <Showmessage message={success} status={"success"} />}
       <form action="" className="" onSubmit={contactForm}>
         <input
           onChange={handleInputChange}
@@ -51,7 +78,7 @@ function Contactform() {
           className="w-100 btn form-control border-secondary py-3 bg-white text-dark "
           type="submit"
         >
-          Submit
+          {isLoading ? <LoadingButton /> : "Submit"}
         </button>
       </form>
     </div>

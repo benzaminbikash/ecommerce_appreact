@@ -1,4 +1,10 @@
 /*** Spinner Start ***/
+* {
+  padding: 0px;
+  margin: 0px;
+  /* font-family: "Caveat", serif; */
+}
+
 #spinner {
   opacity: 0;
   visibility: hidden;
@@ -80,7 +86,7 @@
 }
 
 .topbar {
-  padding: 20px;
+  padding: 10px 5px;
   border-radius: 230px 100px;
 }
 
@@ -186,6 +192,8 @@
 }
 .carousel-item {
   position: relative;
+  height: 350px;
+  border-radius: 10px;
 }
 
 .carousel-item a {
@@ -228,14 +236,14 @@
 @media (min-width: 992px) {
   .hero-header,
   .page-header {
-    margin-top: 152px !important;
+    margin-top: 120px;
   }
 }
 
 @media (max-width: 992px) {
   .hero-header,
   .page-header {
-    margin-top: 97px !important;
+    margin-top: 2px;
   }
 }
 /*** Hero Header end ***/
@@ -303,6 +311,7 @@
 
 .fruite .fruite-item .fruite-img {
   overflow: hidden;
+
   transition: 0.5s;
   border-radius: 10px 10px 0 0;
 }
@@ -552,6 +561,7 @@
 .cartinfo {
   width: 80px;
   height: 80px;
+  object-fit: cover;
 }
 
 .contantbox {
@@ -874,6 +884,20 @@ p {
 .product-img > img:hover {
   transform: scale(1.2);
 }
+
+.product-img1 {
+  overflow: hidden;
+}
+
+.product-img1 > img {
+  height: 260px;
+  object-fit: cover;
+  transition: transform 0.6s ease-in;
+}
+.product-img1 > img:hover {
+  transform: scale(1.2);
+}
+
 .fruite-item {
   overflow: hidden;
 }
@@ -920,4 +944,16 @@ p {
   align-items: center;
   background-color: #1b74e4;
   border: none;
+}
+
+.fruititemimage {
+  height: 100px;
+  object-fit: cover;
+}
+
+@media only screen and (max-width: 600px) {
+  .fruititemimage {
+    height: 100px;
+    object-fit: cover;
+  }
 }

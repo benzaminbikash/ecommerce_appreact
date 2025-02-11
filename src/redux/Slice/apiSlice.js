@@ -1,6 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { constant } from "../../components/common/constant";
-import { logout, setCredentials } from "./AuthSlice";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: constant.APIURL,
@@ -64,6 +63,6 @@ const baseQuery = fetchBaseQuery({
 
 export const apiSlice = createApi({
   baseQuery: baseQuery,
-  tagTypes: ["User"],
+  tagTypes: ["User", "Cart", "Address"],
   endpoints: (builder) => ({}),
 });

@@ -1,7 +1,11 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router";
+import { useDispatch } from "react-redux";
+import { NavLink, useNavigate } from "react-router";
+import { logout } from "../../redux/Slice/AuthSlice";
 
 function Sidebox() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [select, setSelect] = useState(0);
   const sideBar = [
     {
@@ -38,6 +42,17 @@ function Sidebox() {
             </li>
           );
         })}
+        <li className="nav-item mb-2">
+          <button
+            onClick={() => {
+              navigate("/");
+              dispatch(logout());
+            }}
+            className={`nav-link border-0 bg-transparent text-dark`}
+          >
+            Logout
+          </button>
+        </li>
       </ul>
     </div>
   );

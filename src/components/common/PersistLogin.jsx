@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet, Navigate, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
-import { useRefreshMutation } from "../../redux/Api/AuthApi"; // Ensure correct path
+import { useRefreshMutation } from "../../redux/Api/AuthApi";
 import { logout, setCredentials } from "../../redux/Slice/AuthSlice";
 
 function PersistLogin() {
@@ -37,15 +37,15 @@ function PersistLogin() {
             dispatch(setCredentials(response));
           } else {
             dispatch(logout());
-            navigate("/admin/login");
+            // navigate("/admin/login");
           }
         } catch (err) {
           console.error("Failed to refresh token:", err);
-          navigate("/admin/login");
+          // navigate("/admin/login");
           dispatch(logout());
         }
       } else {
-        navigate("/admin/login");
+        // navigate("/admin/login");
         dispatch(logout());
       }
     };

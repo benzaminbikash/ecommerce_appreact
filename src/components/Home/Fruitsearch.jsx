@@ -1,64 +1,93 @@
-import React from "react";
+import React, { useState } from "react";
 import fruit5 from "../../img/fruite-item-5.jpg";
 import { useGetProductQuery } from "../../redux/Api/admin/AdminProduct";
 import { constant } from "../common/constant";
 import { useNavigate } from "react-router";
+import { useGetCategoryQuery } from "../../redux/Api/admin/AdminCategory";
 
 function Fruitsearch() {
   const { data: AllProduct } = useGetProductQuery();
+  const { data: Category } = useGetCategoryQuery();
   const products = AllProduct?.data;
+
+  const [select, setSelect] = useState("All Products");
   const navigate = useNavigate();
+  const filterData = products?.filter((item, index) => {
+    if (select == "All Products") {
+      return item;
+    } else {
+      const data = item.category.title.includes(select);
+      return data;
+    }
+  });
   return (
-    <div className="container-fluid fruite py-5">
-      <div className="container py-5">
-        <div className="tab-class text-center">
+    <div className="container  py-5">
+      <div className=" py-5">
+        <div className=" text-center">
           <div className="row g-4">
             <div className="col-lg-4 text-start">
               <h1>Our Products</h1>
             </div>
             <div className="col-lg-8 text-end">
               <ul className="nav nav-pills d-inline-flex text-center mb-5">
-                <li className="nav-item">
-                  <a className="d-flex m-2 py-2 bg-light rounded-pill active">
-                    <span className="text-dark filterfruit">All Products</span>
-                  </a>
+                <li
+                  onClick={() => {
+                    setSelect("All Products");
+                  }}
+                  className="nav-item"
+                >
+                  <button
+                    className={`d-flex m-2 py-2  border-0 rounded-pill ${
+                      select === "All Products" ? "bg-primary" : "bg-light"
+                    }`}
+                  >
+                    <span
+                      className={`filterfruit ${
+                        select === "All Products" ? "text-white" : "text-dark"
+                      }`}
+                    >
+                      All Products
+                    </span>
+                  </button>
                 </li>
-                <li className="nav-item">
-                  <a className="d-flex py-2 m-2 bg-light rounded-pill">
-                    <span className="text-dark filterfruit">Vegetables</span>
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="d-flex m-2 py-2 bg-light rounded-pill">
-                    <span className="text-dark filterfruit">Fruits</span>
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="d-flex m-2 py-2 bg-light rounded-pill">
-                    <span className="text-dark filterfruit">Bread</span>
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="d-flex m-2 py-2 bg-light rounded-pill">
-                    <span className="text-dark">Meat</span>
-                  </a>
-                </li>
+                {Category?.data.map((item, index) => {
+                  return (
+                    <li
+                      key={index}
+                      onClick={() => {
+                        setSelect(item.title);
+                      }}
+                      className="nav-item"
+                    >
+                      <button
+                        className={`d-flex m-2 py-2 border-0  rounded-pill ${
+                          select === item.title ? "bg-primary " : "bg-light"
+                        }`}
+                      >
+                        <span
+                          className={`filterfruit ${
+                            select === item.title ? "text-white" : "text-dark"
+                          }`}
+                        >
+                          {item.title}
+                        </span>
+                      </button>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           </div>
-          <div className="tab-pane fade show p-0 active">
+          <div className="tab-pane fade show p-0 ">
             <div className="row g-4">
               <div className="col-lg-12">
                 <div className="row g-4">
-                  {products?.map((item, index) => (
+                  {filterData?.map((item, index) => (
                     <button
                       onClick={() => {
-                        navigate(
-                          `/product-detail/${item.title.toLowerCase()}`,
-                          {
-                            state: item,
-                          }
-                        );
+                        navigate(`/product-detail/${item._id}`, {
+                          state: item,
+                        });
                       }}
                       className="col-md-6 col-lg-4 col-xl-3 border-0 bg-transparent"
                     >
@@ -92,15 +121,13 @@ function Fruitsearch() {
                               href="#"
                               className="text-start btn border border-secondary rounded-pill px-3 text-primary"
                             >
-                              <i className="fa fa-shopping-bag me-2 text-primary"></i>{" "}
                               Add to cart
                             </a>
                             <a
                               href="#"
                               className="btn btn-secondary text-white text-start btn border border-secondary rounded-pill px-3 "
                             >
-                              <i className="fa fa-shopping-bag me-2 "></i> Buy
-                              Now
+                              Buy Now
                             </a>
                           </div>
                         </div>

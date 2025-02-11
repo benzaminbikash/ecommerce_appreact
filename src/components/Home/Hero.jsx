@@ -1,16 +1,18 @@
 import React from "react";
-import Hero1 from "../../img/hero-img-1.png";
+import { useGetCarouselQuery } from "../../redux/Api/admin/AdminCarousel";
+import { constant } from "../common/constant";
 
 function Hero() {
+  const { data } = useGetCarouselQuery();
+  const hero = data?.data[0];
+
   return (
     <div className="container-fluid py-5 mb-5 hero-header">
       <div className="container py-5">
         <div className="row g-5 align-items-center">
           <div className="col-md-12 col-lg-7">
-            <h4 className="mb-3 text-secondary">100% Organic Foods</h4>
-            <h1 className="mb-5 display-3 text-primary">
-              Organic Veggies & Fruits Foods
-            </h1>
+            <h3 className="mb-3 text-secondary">{hero?.title}</h3>
+            <p className="mb-5 ">{hero?.subtitle}</p>
             <div className="position-relative mx-auto">
               <input
                 className="form-control border-2 border-secondary w-75 py-3 px-4 rounded-pill"
@@ -30,22 +32,23 @@ function Hero() {
               id="carouselId"
               className="carousel slide position-relative"
               data-bs-ride="carousel"
+              data-bs-interval="3000"
             >
               <div className="carousel-inner" role="listbox">
-                <div className="carousel-item active rounded">
-                  <img
-                    src={Hero1}
-                    className="img-fluid w-100 h-100 bg-secondary rounded"
-                    alt="First slide"
-                  />
-                </div>
-                <div className="carousel-item rounded">
-                  <img
-                    src={Hero1}
-                    className="img-fluid w-100 h-100 rounded"
-                    alt="Second slide"
-                  />
-                </div>
+                {hero?.carsoualimage?.map((image, index) => (
+                  <div
+                    key={index}
+                    className={` carousel-item ${
+                      index === 0 ? "active" : ""
+                    } rounded`}
+                  >
+                    <img
+                      src={`${constant.IMAGEURL}/${image}`}
+                      className="img-fluid w-100 h-100 bg-secondary rounded"
+                      alt={`Slide ${index + 1}`}
+                    />
+                  </div>
+                ))}
               </div>
               <button
                 className="carousel-control-prev"

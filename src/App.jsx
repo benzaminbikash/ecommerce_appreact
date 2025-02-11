@@ -54,30 +54,32 @@ import PersistLogin from "./components/common/PersistLogin";
 import AdminAuthRole from "./components/common/AdminRole";
 import UserAuthRole from "./components/common/UserRole";
 import ProductDetail from "./pages/ProductDetail";
+import Address from "./pages/Address";
 
 function App() {
   return (
     <>
       <ScrollUp />
-      {!hideNavbarandFooter ? null : <Navbar />}
+      {!hideNavbarandFooter() ? <Navbar /> : null}
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/shop" element={<Shop />} />
-        <Route path="/shopdetail" element={<ShopDetail />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/testimonial" element={<Testmonial />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/forget-password" element={<Forgetpassword />} />
-        <Route path="/otp-verify" element={<Otpverify />} />
-        <Route path="/change-password" element={<Changepassword />} />
-        <Route path="/product-detail/:id" element={<ProductDetail />} />
-
-        <Route path="*" element={<Notfound />} />
-
-        {/* after user login */}
         <Route element={<PersistLogin />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/shop" element={<Shop />} />
+          <Route path="/shopdetail" element={<ShopDetail />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/testimonial" element={<Testmonial />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/forget-password" element={<Forgetpassword />} />
+          <Route path="/otp-verify" element={<Otpverify />} />
+          <Route path="/change-password" element={<Changepassword />} />
+          <Route path="/product-detail/:id" element={<ProductDetail />} />
+          <Route path="/address" element={<Address />} />
+
+          <Route path="*" element={<Notfound />} />
+
+          {/* after user login */}
           <Route element={<UserAuthRole />}>
             <Route path="/account" element={<ProfileLayout />}>
               <Route path="profile" element={<Profile />} />
@@ -140,7 +142,7 @@ function App() {
 
         <Route path="/admin/login" element={<LoginAdmin />} />
       </Routes>
-      {hideNavbarandFooter && <Footer />}
+      {!hideNavbarandFooter() ? <Footer /> : null}
     </>
   );
 }

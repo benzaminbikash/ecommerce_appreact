@@ -1,38 +1,56 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
+import AuthRole from "./common/AuthRole";
+import { useSelector } from "react-redux";
 
 function Navbar() {
+  const [data, setData] = useState(false);
+  const showshadow = () => {
+    if (window.scrollY > 250) {
+      setData(true);
+    } else {
+      setData(false);
+    }
+  };
+  useEffect(() => {
+    window.addEventListener("scroll", showshadow);
+    return () => window.removeEventListener("scroll", showshadow);
+  }, []);
+  const state = useSelector((item) => item?.auth?.accessToken);
+
   return (
-    <div className="container-fluid fixed-top">
-      <div className="container topbar bg-primary d-none d-lg-block">
-        <div className="d-flex justify-content-between">
-          <div className="top-info ps-2">
-            <small className="me-3">
-              <i className="fas fa-map-marker-alt me-2 text-white"></i>{" "}
-              <a href="" className="text-white">
-                Gwarko, Lalitpur
-              </a>
-            </small>
-            <small className="me-3">
-              <i className="fas fa-envelope me-2 text-white"></i>
-              <a href="" className="text-white">
-                Email@Example.com
-              </a>
-            </small>
-          </div>
-          <div className="top-link pe-2">
-            <NavLink to="#" className="mx-2 policy">
-              Privacy Policy
-            </NavLink>
-            <NavLink href="#" className="mx-2 policy">
-              Terms of Use
-            </NavLink>
-            <NavLink href="#" className="ms-2  policy ">
-              Sales and Refunds
-            </NavLink>
+    <div className={`container-fluid fixed-top ${data && "shadow"}`}>
+      {!data && (
+        <div className="container topbar bg-primary d-none d-lg-block">
+          <div className="d-flex justify-content-between">
+            <div className="top-info ps-2">
+              <small className="me-3">
+                <i className="fas fa-map-marker-alt me-2 text-white"></i>{" "}
+                <a href="" className="text-white">
+                  Gwarko, Lalitpur
+                </a>
+              </small>
+              <small className="me-3">
+                <i className="fas fa-envelope me-2 text-white"></i>
+                <a href="" className="text-white">
+                  Email@Example.com
+                </a>
+              </small>
+            </div>
+            <div className="top-link pe-2">
+              <NavLink to="#" className="mx-2 policy">
+                Privacy Policy
+              </NavLink>
+              <NavLink href="#" className="mx-2 policy">
+                Terms of Use
+              </NavLink>
+              <NavLink href="#" className="ms-2  policy ">
+                Sales and Refunds
+              </NavLink>
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       <div className=" container px-0">
         <nav className="navbar navbar-light bg-white navbar-expand-xl">
@@ -59,29 +77,29 @@ function Navbar() {
                 Shop
               </NavLink>
               {/* <NavLink to="/shopdetail" className="nav-item nav-link">
-                Shop Detail
-              </NavLink> */}
+              Shop Detail
+            </NavLink> */}
               {/* <div className="nav-item dropdown">
-                <Link
-                  className={`nav-link dropdown-toggle pagepointer ${
-                    location.pathname == "/cart" && "active" || location.pathname=='/checkout'
-                  }`}
-                  data-bs-toggle="dropdown"
-                >
-                  Pages
-                </Link>
-                <div className="dropdown-menu m-0 bg-secondary rounded-0">
-                  <NavLink to="cart" className="dropdown-item">
-                    Cart
-                  </NavLink>
-                  <NavLink to="checkout" className="dropdown-item">
-                    Checkout
-                  </NavLink>
-                  <NavLink to="testimonial" className="dropdown-item">
-                    Testimonial
-                  </NavLink>
-                </div>
-              </div> */}
+              <Link
+                className={`nav-link dropdown-toggle pagepointer ${
+                  location.pathname == "/cart" && "active" || location.pathname=='/checkout'
+                }`}
+                data-bs-toggle="dropdown"
+              >
+                Pages
+              </Link>
+              <div className="dropdown-menu m-0 bg-secondary rounded-0">
+                <NavLink to="cart" className="dropdown-item">
+                  Cart
+                </NavLink>
+                <NavLink to="checkout" className="dropdown-item">
+                  Checkout
+                </NavLink>
+                <NavLink to="testimonial" className="dropdown-item">
+                  Testimonial
+                </NavLink>
+              </div>
+            </div> */}
               <NavLink to="/contact" className="nav-item nav-link">
                 Contact
               </NavLink>
@@ -100,7 +118,10 @@ function Navbar() {
                   3
                 </span>
               </NavLink>
-              <NavLink to="/login" className="my-auto">
+              <NavLink
+                to={state ? "/account/profile" : "login"}
+                className="my-auto"
+              >
                 <i className="fas fa-user fa-2x"></i>
               </NavLink>
             </div>

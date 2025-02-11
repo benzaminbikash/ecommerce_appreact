@@ -34,6 +34,10 @@ export function hideNavbarandFooter() {
     location.pathname === "/admin/testimonial/addtestimonial" ||
     location.pathname === "/admin/subcategory" ||
     location.pathname === "/admin/subcategory/addsubcategory" ||
-    location.pathname === "/admin/users/updateuser";
+    location.pathname === "/admin/users/updateuser" ||
+    location.pathname.startsWith("/admin/product/");
+
   return hideNavbarAndFooter;
 }
+
+export const deliveryCharge = 100;

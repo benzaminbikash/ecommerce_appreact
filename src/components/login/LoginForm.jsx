@@ -1,17 +1,37 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
+import { useLoginUserMutation } from "../../redux/Api/AuthApi";
+import { setCredentials } from "../../redux/Slice/AuthSlice";
+import { useDispatch } from "react-redux";
+import Showmessage from "../common/Showmessage";
 
 function LoginForm() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loginUser] = useLoginUserMutation();
 
-  const handleLoginform = (e) => {
+  const handleLoginform = async (e) => {
     e.preventDefault();
-    console.log(email, password);
+    const data = { email, password };
+    const api = await loginUser(data);
+    if (api.error) {
+      setError(api.error?.data?.message);
+    } else {
+      const { accessToken, refreshToken } = api?.data;
+      dispatch(
+        setCredentials({ accessToken: accessToken, refreshToken: refreshToken })
+      );
+      setError("");
+      navigate("/");
+    }
   };
 
   return (
     <form action="" onSubmit={handleLoginform}>
+      {error != "" && <Showmessage message={error} status="fail" />}
       <input
         value={email}
         onChange={(e) => setEmail(e.target.value)}

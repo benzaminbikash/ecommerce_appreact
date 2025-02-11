@@ -10,13 +10,13 @@ import Fruitsearch from "../components/Home/Fruitsearch";
 import Testimonial from "../components/Home/Testimonial";
 
 function Home() {
-  // useEffect(() => {
-  //   window.scrollTo({
-  //     top: 0,
-  //     left: 0,
-  //     behavior: "instant",
-  //   });
-  // }, []);
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "instant",
+    });
+  }, []);
   return (
     <>
       <SearchModal />
