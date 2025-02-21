@@ -20,8 +20,13 @@ function Sidebox() {
     },
     {
       id: 2,
-      name: "Payment",
-      link: "checkout",
+      name: "My Orders",
+      link: "order",
+    },
+    {
+      id: 3,
+      name: "Change Password",
+      link: "oldpassword",
     },
   ];
   return (
@@ -32,7 +37,7 @@ function Sidebox() {
             <li className="nav-item mb-2">
               <NavLink
                 onClick={() => setSelect(item.id)}
-                className={`nav-link   ${
+                className={`nav-link  stock  ${
                   select == item.id ? "profileactive text-white" : "text-dark"
                 }  `}
                 to={item.link}
@@ -48,7 +53,7 @@ function Sidebox() {
               navigate("/");
               dispatch(logout());
             }}
-            className={`nav-link border-0 bg-transparent text-dark`}
+            className={`nav-link border-0 bg-transparent stock text-dark`}
           >
             Logout
           </button>

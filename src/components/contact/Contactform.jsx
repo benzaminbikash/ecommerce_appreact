@@ -50,7 +50,7 @@ function Contactform() {
           onChange={handleInputChange}
           name="name"
           type="text"
-          className="w-100 form-control border-1 py-3 mb-4"
+          className="w-100 form-control border-1 py-2 mb-4"
           placeholder="Your Name"
           required
           value={contact.name}
@@ -59,7 +59,7 @@ function Contactform() {
           onChange={handleInputChange}
           name="email"
           type="email"
-          className="w-100 form-control border-1 py-3 mb-4"
+          className="w-100 form-control border-1 py-2 mb-4"
           placeholder="Enter Your Email"
           required
           value={contact.email}
@@ -75,7 +75,7 @@ function Contactform() {
           value={contact.message}
         ></textarea>
         <button
-          className="w-100 btn form-control border-secondary py-3 bg-white text-dark "
+          className="w-100 btn form-control bg-secondary py-2 text-white "
           type="submit"
         >
           {isLoading ? <LoadingButton /> : "Submit"}

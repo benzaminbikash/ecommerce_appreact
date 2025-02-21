@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import fruit5 from "../../img/fruite-item-5.jpg";
 import { useGetProductQuery } from "../../redux/Api/admin/AdminProduct";
 import { constant } from "../common/constant";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useGetCategoryQuery } from "../../redux/Api/admin/AdminCategory";
 
 function Fruitsearch() {
@@ -20,25 +20,43 @@ function Fruitsearch() {
       return data;
     }
   });
+
+  // paginated
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 8;
+  const totalPages = Math.ceil(filterData?.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const displayedProducts = filterData?.slice(startIndex, endIndex);
+
+  const handleNext = () => {
+    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+  };
+
+  const handlePrevious = () => {
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
+  };
+
   return (
-    <div className="container  py-5">
+    <div className="container  ">
       <div className=" py-5">
         <div className=" text-center">
           <div className="row g-4">
             <div className="col-lg-4 text-start">
-              <h1>Our Products</h1>
+              <h3>Our Products</h3>
             </div>
             <div className="col-lg-8 text-end">
               <ul className="nav nav-pills d-inline-flex text-center mb-5">
                 <li
                   onClick={() => {
                     setSelect("All Products");
+                    setCurrentPage(1);
                   }}
                   className="nav-item"
                 >
                   <button
-                    className={`d-flex m-2 py-2  border-0 rounded-pill ${
-                      select === "All Products" ? "bg-primary" : "bg-light"
+                    className={`d-flex m-2 py-1  border-0 rounded-pill ${
+                      select === "All Products" ? "bg-secondary" : "bg-light"
                     }`}
                   >
                     <span
@@ -56,12 +74,13 @@ function Fruitsearch() {
                       key={index}
                       onClick={() => {
                         setSelect(item.title);
+                        setCurrentPage(1);
                       }}
                       className="nav-item"
                     >
                       <button
-                        className={`d-flex m-2 py-2 border-0  rounded-pill ${
-                          select === item.title ? "bg-primary " : "bg-light"
+                        className={`d-flex m-2 py-1 border-0  rounded-pill ${
+                          select === item.title ? "bg-secondary " : "bg-light"
                         }`}
                       >
                         <span
@@ -81,64 +100,74 @@ function Fruitsearch() {
           <div className="tab-pane fade show p-0 ">
             <div className="row g-4">
               <div className="col-lg-12">
-                <div className="row g-4">
-                  {filterData?.map((item, index) => (
-                    <button
-                      onClick={() => {
-                        navigate(`/product-detail/${item._id}`, {
-                          state: item,
-                        });
-                      }}
-                      className="col-md-6 col-lg-4 col-xl-3 border-0 bg-transparent"
-                    >
-                      <div className="rounded position-relative fruite-item">
+                <div className="row g-3">
+                  {displayedProducts?.map((item, index) => (
+                    <div className="col-md-6 col-lg-4 col-xl-3 border-0 bg-transparent">
+                      <div className="rounded shadow-lg position-relative fruite-item">
                         <div className="product-img rounded-top">
                           <img
                             src={`${constant.IMAGEURL}/${item?.mainimage}`}
                             className="img-fluid w-100 rounded-top  
                             "
-                            alt=""
+                            alt="randomImage"
                           />
                         </div>
-                        <div className="text-white bg-secondary px-3 py-1 rounded position-absolute productinfo">
-                          {item?.category?.title}
-                        </div>
-                        <div className="p-2 border border-secondary border-top-0 rounded-bottom">
-                          <h4 className="text-start fw-light fs-5">
+
+                        <div className="p-2 shadow-sm shadow-red border-top-0 rounded-bottom">
+                          <h6 className="text-start fw-light ">
                             {item?.title}
-                          </h4>
+                          </h6>
 
                           <div className="d-flex gap-2">
-                            <p className=" text-dark fw-bold">
-                              Rs {item?.priceafterdiscount}
+                            <p className=" text-dark priceline fw-bold">
+                              Rs.{item?.priceafterdiscount}
                             </p>
                             <p className="priceline fw-bold">
-                              <s>Rs {item?.price}</s>
+                              <s>Rs.{item?.price}</s>
                             </p>
                           </div>
-                          <div className="d-flex justify-content-between my-2">
-                            <a
-                              href="#"
-                              className="text-start btn border border-secondary rounded-pill px-3 text-primary"
-                            >
-                              Add to cart
-                            </a>
-                            <a
-                              href="#"
-                              className="btn btn-secondary text-white text-start btn border border-secondary rounded-pill px-3 "
+
+                          <div className="my-2 d-flex">
+                            <button
+                              onClick={() => {
+                                navigate(`/product-detail/${item._id}`, {
+                                  state: item,
+                                });
+                              }}
+                              className="buynow"
                             >
                               Buy Now
-                            </a>
+                            </button>
                           </div>
                         </div>
                       </div>
-                    </button>
+                    </div>
                   ))}
                 </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="d-flex justify-content-center mt-3 gap-2">
+        {currentPage != 1 && (
+          <button className="btn btn-outline-primary" onClick={handlePrevious}>
+            Previous
+          </button>
+        )}
+        <span className="align-self-center">
+          {currentPage} / {totalPages}
+        </span>
+        {currentPage != totalPages && (
+          <button
+            className="btn btn-outline-primary"
+            onClick={handleNext}
+            disabled={currentPage === totalPages}
+          >
+            Next
+          </button>
+        )}
       </div>
     </div>
   );

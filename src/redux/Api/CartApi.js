@@ -31,6 +31,12 @@ export const AuthApi = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    emptyCart: builder.mutation({
+      query: () => ({
+        url: "/cart-empty",
+        method: "POST",
+      }),
+    }),
   }),
 });
 
@@ -39,4 +45,5 @@ export const {
   useIncreaseCartMutation,
   useDecreaseCartMutation,
   useRemoveCartMutation,
+  useEmptyCartMutation,
 } = AuthApi;

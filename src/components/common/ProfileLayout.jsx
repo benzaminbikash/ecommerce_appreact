@@ -7,10 +7,10 @@ function ProfileLayout() {
   return (
     <>
       <Header title="Profile" />
-      <div className="container py-5">
+      <div className="container ">
         <div className="container py-5">
           <div className="row">
-            <div className="col-md-3  vh-40 md:vh-100  p-3 bg-light ">
+            <div className="col-md-3  rounded-1 vh-100  p-3 bg-light ">
               <Sidebox />
             </div>
             <div className="col-md-9 ">

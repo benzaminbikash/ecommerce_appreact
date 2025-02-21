@@ -123,7 +123,7 @@
 /*** Navbar Start ***/
 .navbar .navbar-nav .nav-link {
   padding: 10px 15px;
-  font-size: 16px;
+  font-size: 14px;
   transition: 0.5s;
 }
 
@@ -600,6 +600,7 @@ p {
   margin: 0;
 }
 .forgetpassword {
+  color: gray;
   cursor: pointer;
 }
 .forgetpassword:hover {
@@ -679,7 +680,7 @@ p {
   pointer-events: none;
 } */
 .policy {
-  font-size: 13px;
+  font-size: 11px;
   color: white;
 }
 .policy:hover {
@@ -768,7 +769,9 @@ p {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 .form-header {
-  background-color: #eaf1ff;
+  /* background-color: #eaf1ff; */
+  background-color: #e5e6e8;
+
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
   padding: 20px;
@@ -852,6 +855,7 @@ p {
 
 .priceline {
   color: red;
+  font-size: 12px;
 }
 
 .cardImage {
@@ -877,7 +881,7 @@ p {
 }
 
 .product-img > img {
-  height: 300px;
+  height: 250px;
   object-fit: cover;
   transition: transform 0.6s ease-in;
 }
@@ -904,18 +908,23 @@ p {
 
 /* product detail */
 .product-title {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: bold;
+  color: black;
 }
 .price {
-  font-size: 22px;
+  font-size: 14px;
   color: #e63946;
   font-weight: bold;
+}
+.text-muted {
+  font-size: 13px;
 }
 .old-price {
   text-decoration: line-through;
   color: gray;
-  font-size: 18px;
+  font-size: 14px;
+  margin-left: 10px;
 }
 .discount {
   color: green;
@@ -935,9 +944,9 @@ p {
 }
 
 .carticon {
-  width: 30px;
-  height: 30px;
-  border-radius: 30px;
+  width: 25px;
+  height: 25px;
+  border-radius: 25px;
   color: white;
   display: flex;
   justify-content: center;
@@ -957,3 +966,76 @@ p {
     object-fit: cover;
   }
 }
+
+.iconsize {
+  font-size: 25px;
+}
+.searchicon {
+  font-size: 15px;
+}
+
+.box {
+  width: 35px;
+  height: 35px;
+  border-radius: 45px;
+}
+
+.subtitlehero {
+  font-size: 15px;
+  text-align: justify;
+}
+
+.buynow {
+  font-size: 13px;
+  font-weight: bold;
+  border-radius: 100px;
+  border: 0px;
+  width: 100%;
+  color: white;
+  padding: 8px 0px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  background-color: #1b66c2;
+}
+
+.buynow:hover {
+  background-color: #0851aa;
+}
+.testimonialheight {
+  height: 150px;
+  overflow: hidden;
+}
+.categorytitle {
+  border-bottom: 0.001px solid gray;
+  padding-bottom: 5px;
+}
+.bannerimage {
+  height: 300px;
+  object-fit: cover;
+  margin-top: -30px;
+  opacity: 0.3;
+}
+.believeintechnology {
+  font-weight: 500;
+  font-size: 30px;
+  color: gray;
+}
+.stock {
+  font-size: 14px;
+}
+.stockitems {
+  font-weight: bold;
+  color: black;
+}
+.tablehead {
+  font-size: 10px;
+}
+.payment_method {
+  width: 200px;
+  height: 200px;
+}
+/* 
+subtitlehero:paragraph
+
+formheight{
+
+*/

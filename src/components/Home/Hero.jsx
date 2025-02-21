@@ -7,27 +7,14 @@ function Hero() {
   const hero = data?.data[0];
 
   return (
-    <div className="container-fluid py-5 mb-5 hero-header">
+    <div className="container-fluid  py-5 mb-5 hero-header">
       <div className="container py-5">
         <div className="row g-5 align-items-center">
-          <div className="col-md-12 col-lg-7">
-            <h3 className="mb-3 text-secondary">{hero?.title}</h3>
-            <p className="mb-5 ">{hero?.subtitle}</p>
-            <div className="position-relative mx-auto">
-              <input
-                className="form-control border-2 border-secondary w-75 py-3 px-4 rounded-pill"
-                type="number"
-                placeholder="Search"
-              />
-              <button
-                type="submit"
-                className="btn btn-primary border-2 border-secondary py-3 px-4 position-absolute rounded-pill text-white h-100 submitnow"
-              >
-                Submit Now
-              </button>
-            </div>
+          <div className="col-md-12 col-lg-6">
+            <h2 className="mb-1 text-secondary">{hero?.title}</h2>
+            <p className="mb-5 subtitlehero ">{hero?.subtitle}</p>
           </div>
-          <div className="col-md-12 col-lg-5">
+          <div className="col-md-12 col-lg-6">
             <div
               id="carouselId"
               className="carousel slide position-relative"

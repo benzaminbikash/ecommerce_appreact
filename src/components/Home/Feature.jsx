@@ -2,7 +2,7 @@ import React from "react";
 
 function Feature() {
   return (
-    <div className="container-fluid featurs py-5">
+    <div className="container-fluid featurs ">
       <div className="container py-5">
         <div className="row g-4">
           <div className="col-md-6 col-lg-3">
@@ -12,7 +12,7 @@ function Feature() {
               </div>
               <div className="featurs-content text-center">
                 <h5>Free Shipping</h5>
-                <p className="mb-0">Free on order over $300</p>
+                <p className="mb-0 subtitlehero">Free on order over $300</p>
               </div>
             </div>
           </div>

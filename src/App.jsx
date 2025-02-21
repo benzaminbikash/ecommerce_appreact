@@ -5,10 +5,9 @@ import Shop from "./pages/Shop";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart";
 import Login from "./pages/Login";
-import Signup from "./pages/SIgnup";
+import Signup from "./pages/Signup";
 import Contact from "./pages/Contact";
 import Profile from "./pages/Profile";
-import Checkout from "./pages/Checkout";
 import Testmonial from "./pages/Testmonial";
 import ShopDetail from "./pages/ShopDetail";
 import Forgetpassword from "./pages/Forgetpassword";
@@ -55,13 +54,27 @@ import AdminAuthRole from "./components/common/AdminRole";
 import UserAuthRole from "./components/common/UserRole";
 import ProductDetail from "./pages/ProductDetail";
 import Address from "./pages/Address";
+import { Helmet } from "react-helmet";
+import Success from "./components/esewa/Success";
+import Failure from "./components/esewa/Failure";
+import Oldpasswordchange from "./pages/Oldpasswordchange";
+import Order from "./pages/Order";
 
 function App() {
   return (
     <>
       <ScrollUp />
       {!hideNavbarandFooter() ? <Navbar /> : null}
+      <Helmet>
+        <title>Tech G</title>
+        <meta
+          name="description"
+          content="ecommerce website based on technology."
+        />
+      </Helmet>
       <Routes>
+        <Route path="/payment-success" element={<Success />} />
+        <Route path="/payment-failure" element={<Failure />} />
         <Route element={<PersistLogin />}>
           <Route path="/" element={<Home />} />
           <Route path="/shop" element={<Shop />} />
@@ -83,8 +96,9 @@ function App() {
           <Route element={<UserAuthRole />}>
             <Route path="/account" element={<ProfileLayout />}>
               <Route path="profile" element={<Profile />} />
-              <Route path="checkout" element={<Checkout />} />
               <Route path="cart" element={<ProfileCart />} />
+              <Route path="oldpassword" element={<Oldpasswordchange />} />
+              <Route path="order" element={<Order />} />
             </Route>
           </Route>
         </Route>

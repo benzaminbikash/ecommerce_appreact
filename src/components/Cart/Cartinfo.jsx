@@ -7,6 +7,7 @@ import {
   useIncreaseCartMutation,
   useRemoveCartMutation,
 } from "../../redux/Api/CartApi";
+import Empty from "../../img/emptyCart.jpg";
 
 function Cartinfo() {
   const { data, refetch } = useUserInfoQuery();
@@ -63,26 +64,41 @@ function Cartinfo() {
   useEffect(() => {
     refetch();
   }, []);
-
+  if (cart?.length == 0) {
+    return (
+      <div className="container-fluid">
+        <div className="container py-5 d-flex flex-column align-items-center">
+          <img
+            src={Empty}
+            alt="randomImage"
+            className="w-25 h-25 object-fit-cover"
+          />
+          <p className="stock text-primary fw-bold text-center">
+            Your Cart is Empty!
+          </p>
+        </div>
+      </div>
+    );
+  }
   return (
-    <div className="container-fluid py-5">
+    <div className="container-fluid ">
       <div className="container py-5">
-        <div className="table-responsive border">
-          <table className="table">
+        <div className="table-responsive border rounded ">
+          <table className="table ">
             <thead>
-              <tr>
-                <th scope="col">SN</th>
-                <th scope="col">Products</th>
-                <th scope="col">Name</th>
+              <tr className="stock text-primary">
+                <th scope="col  ">SN</th>
+                <th scope="col ">Products</th>
+                <th scope="col ">Name</th>
                 <th scope="col">Price</th>
                 <th scope="col">Quantity</th>
                 <th scope="col">Total</th>
-                <th scope="col">Handle</th>
+                <th scope="col">Action</th>
               </tr>
             </thead>
             <tbody>
               {cart?.map((item, index) => (
-                <tr key={index}>
+                <tr key={index} className="stock text-primary">
                   <td>
                     <p className="mb-0 mt-4">{index + 1}</p>
                   </td>
@@ -111,14 +127,14 @@ function Cartinfo() {
                       <div className="input-group-btn">
                         <button
                           onClick={() => decrease(item)}
-                          className="btn btn-sm btn-minus rounded-circle bg-light border"
+                          className="btn btn-sm btn-minus rounded-circle bg-secondary border"
                         >
-                          <i className="fa fa-minus"></i>
+                          <i className="fa fa-minus text-white"></i>
                         </button>
                       </div>
                       <input
                         type="text"
-                        className="form-control bg-transparent form-control-sm text-center border-0"
+                        className="form-control bg-transparent form-control-sm text-center text-primary border-0"
                         value={item.quantity}
                         disabled
                       />
@@ -126,9 +142,9 @@ function Cartinfo() {
                       <div className="input-group-btn">
                         <button
                           onClick={() => increase(item)}
-                          className="btn btn-sm btn-plus rounded-circle bg-light border"
+                          className="btn btn-sm btn-plus rounded-circle bg-secondary border"
                         >
-                          <i className="fa fa-plus"></i>
+                          <i className="fa fa-plus text-white"></i>
                         </button>
                       </div>
                     </div>
@@ -141,9 +157,9 @@ function Cartinfo() {
                   <td>
                     <button
                       onClick={() => removeCart(item)}
-                      className="btn btn-md rounded-circle bg-light border mt-4"
+                      className="   bg-transparent border-0 mt-4"
                     >
-                      <i className="fa fa-times text-danger"></i>
+                      Remove
                     </button>
                   </td>
                 </tr>
@@ -151,7 +167,7 @@ function Cartinfo() {
             </tbody>
           </table>
         </div>
-        <Carttotal data={totalPrice} api={data} />
+        <Carttotal data={totalPrice} />
       </div>
     </div>
   );

@@ -1,10 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useUserInfoQuery } from "../../redux/Api/AuthApi";
 import { useAddAddressMutation } from "../../redux/Api/AddressApi";
+import { Provinces } from "../../db/provinces";
+import Productinfo from "../checkout/Productinfo";
+import { useAddOrderMutation } from "../../redux/Api/OrderApi";
+import { paymentmethod } from "../common/paymentcash";
+import { useEmptyCartMutation } from "../../redux/Api/CartApi";
 
 const AddressForm = () => {
   const { data: USER } = useUserInfoQuery();
   const [ADDRESS] = useAddAddressMutation();
+  const [ORDER] = useAddOrderMutation();
+  const [EMPTYCART] = useEmptyCartMutation();
+  const cart = USER?.data?.cart;
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -19,71 +27,135 @@ const AddressForm = () => {
     shippingState: "",
     shippingZip: "",
     sameAsBilling: false,
+    paymentMethod: "",
+    uploadImage: null,
   });
+
+  const filterDistricts = Provinces?.find(
+    (item) => item.name === formData?.billingState
+  );
+
+  const filtermunicipality = filterDistricts?.districts?.find(
+    (item) => item.name === formData?.billingCity
+  );
+
+  const filterDistrictsforShipping = Provinces?.find(
+    (item) => item.name === formData?.shippingState
+  );
+  const filtermunicipalityforShipping =
+    filterDistrictsforShipping?.districts?.find(
+      (item) => item.name === formData.shippingCity
+    );
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
-      ...(name === "sameAsBilling" && checked
-        ? {
-            shippingAddress: prev.billingAddress,
-            shippingCity: prev.billingCity,
-            shippingState: prev.billingState,
-            shippingZip: prev.billingZip,
-          }
-        : !checked
-        ? {
-            shippingAddress: "",
-            shippingCity: "",
-            shippingState: "",
-            shippingZip: "",
-          }
-        : {}),
-    }));
+
+    setFormData((prev) => {
+      const newState = {
+        ...prev,
+        [name]: type === "checkbox" ? checked : value,
+      };
+
+      if (name === "billingState") {
+        newState.billingCity = "";
+        newState.billingZip = "";
+      }
+      if (name === "billingCity") {
+        newState.billingZip = "";
+      }
+      if (name === "shippingState") {
+        newState.shippingCity = "";
+        newState.shippingZip = "";
+      }
+      if (name === "shippingCity") {
+        newState.shippingZip = "";
+      }
+      if (name === "sameAsBilling") {
+        if (checked) {
+          newState.shippingAddress = prev.billingAddress;
+          newState.shippingCity = prev.billingCity;
+          newState.shippingState = prev.billingState;
+          newState.shippingZip = prev.billingZip;
+        } else {
+          newState.shippingAddress = "";
+          newState.shippingCity = "";
+          newState.shippingState = "";
+          newState.shippingZip = "";
+        }
+      }
+
+      return newState;
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await ADDRESS({
+    const billing = await ADDRESS({
       user: USER?.data?._id,
       fullName: formData.fullName,
       email: formData.email,
       phone: formData.phone,
       address: formData.billingAddress,
-      district: formData.billingState,
-      city: formData.billingCity,
-      zipCode: formData.billingZip,
+      province: formData.billingState,
+      district: formData.billingCity,
+      municipality: formData.billingZip,
       addressType: "billing",
     });
-    await ADDRESS({
+    console.log(billing);
+    const billlingaddress = billing?.data?.data?._id;
+    const shipping = await ADDRESS({
       user: USER?.data?._id,
       fullName: formData.fullName,
       email: formData.email,
       phone: formData.phone,
       address: formData.shippingAddress,
-      district: formData.shippingState,
-      city: formData.shippingCity,
-      zipCode: formData.shippingZip,
+      province: formData.shippingState,
+      district: formData.shippingCity,
+      municipality: formData.shippingZip,
       addressType: "shipping",
     });
+
+    const shippingaddress = shipping?.data?.data?._id;
+    if (formData.paymentMethod == "cashondelivery") {
+      const api = await ORDER({
+        user: USER?.data?._id,
+        billingAddress: billlingaddress,
+        shippingAddress: shippingaddress,
+        products: cart,
+        payment_method: formData.paymentMethod,
+      });
+
+      // await EMPTYCART();
+    } else {
+      const formdata = new FormData();
+      formdata.append("user", USER?.data?._id);
+      formdata.append("billingAddress", billlingaddress);
+      formdata.append("shippingAddress", shippingaddress);
+      formdata.append("products", JSON.stringify(cart));
+      formdata.append("payment_method", formData.paymentMethod);
+      formdata.append("image", formData.uploadImage);
+      const api = await ORDER(formdata);
+      console.log(api);
+      // await EMPTYCART();
+    }
   };
 
   useEffect(() => {
     if (USER?.data) {
-      setFormData({
+      setFormData((prev) => ({
+        ...prev,
         fullName: USER?.data?.fullname,
         email: USER?.data?.email,
         phone: USER?.data?.phone,
-      });
+      }));
     }
-  }, []);
+  }, [USER]);
+
   return (
     <div className="container py-5 mt-4">
-      <div className="row">
-        <div className="col-12 col-md-7">
-          <form onSubmit={handleSubmit} className="p-4 border rounded shadow">
+      <form onSubmit={handleSubmit} className="p-4 border rounded shadow">
+        <div className="row">
+          <div className="col-12 col-md-7">
             {/* Full Name */}
             <div className="mb-3">
               <label className="form-label">Full Name</label>
@@ -124,8 +196,66 @@ const AddressForm = () => {
             </div>
 
             {/* Billing Address */}
-            <h4 className="mt-4">Billing Address</h4>
-
+            <h6 className="mt-4">Billing Address</h6>
+            <div className="row">
+              <div className="col-md-4 mb-3">
+                <label className="form-label">Provinces</label>
+                <select
+                  className="form-control bg-transparent"
+                  name="billingState"
+                  value={formData.billingState}
+                  onChange={handleChange}
+                  required
+                >
+                  <option value="" disabled>
+                    Select Province
+                  </option>
+                  {Provinces?.map((item, index) => (
+                    <option key={index} value={item.name}>
+                      {item.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="col-md-4 mb-3">
+                <label className="form-label">District</label>
+                <select
+                  className="form-control bg-transparent"
+                  name="billingCity"
+                  value={formData.billingCity}
+                  onChange={handleChange}
+                  required
+                >
+                  <option value="" disabled>
+                    Select District
+                  </option>
+                  {filterDistricts?.districts?.map((item, index) => (
+                    <option key={index} value={item.name}>
+                      {item.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="col-md-4 mb-3">
+                <label className="form-label">Municipality</label>
+                <select
+                  className="form-control bg-transparent"
+                  name="billingZip"
+                  value={formData.billingZip}
+                  onChange={handleChange}
+                  required
+                >
+                  <option value="" disabled>
+                    Select Municipality
+                  </option>
+                  {filtermunicipality?.municipalities?.map((item, index) => (
+                    <option key={index} value={item.name}>
+                      {item.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
             <div className="mb-3">
               <label className="form-label">Address</label>
               <input
@@ -138,44 +268,7 @@ const AddressForm = () => {
               />
             </div>
 
-            <div className="row">
-              <div className="col-md-4 mb-3">
-                <label className="form-label">District</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  name="billingState"
-                  value={formData.billingState}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div className="col-md-4 mb-3">
-                <label className="form-label">City</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  name="billingCity"
-                  value={formData.billingCity}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-
-              <div className="col-md-4 mb-3">
-                <label className="form-label">Zip Code</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  name="billingZip"
-                  value={formData.billingZip}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-            </div>
-
-            {/* Checkbox: Same as Billing */}
+            {/* Same as Billing Checkbox */}
             <div className="form-check mb-3">
               <input
                 className="form-check-input"
@@ -190,10 +283,73 @@ const AddressForm = () => {
               </label>
             </div>
 
-            {/* Shipping Address */}
+            {/* Shipping Address (if not same as billing) */}
             {!formData.sameAsBilling && (
               <>
-                <h4 className="mt-4">Shipping Address</h4>
+                <h6 className="mt-4">Shipping Address</h6>
+                <div className="row">
+                  <div className="col-md-4 mb-3">
+                    <label className="form-label">Provinces</label>
+                    <select
+                      className="form-control bg-transparent"
+                      name="shippingState"
+                      value={formData.shippingState}
+                      onChange={handleChange}
+                      required
+                    >
+                      <option value="" disabled>
+                        Select Province
+                      </option>
+                      {Provinces?.map((item, index) => (
+                        <option key={index} value={item.name}>
+                          {item.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="col-md-4 mb-3">
+                    <label className="form-label">District</label>
+                    <select
+                      className="form-control bg-transparent"
+                      name="shippingCity"
+                      value={formData.shippingCity}
+                      onChange={handleChange}
+                      required
+                    >
+                      <option value="" disabled>
+                        Select District
+                      </option>
+                      {filterDistrictsforShipping?.districts?.map(
+                        (item, index) => (
+                          <option key={index} value={item.name}>
+                            {item.name}
+                          </option>
+                        )
+                      )}
+                    </select>
+                  </div>
+                  <div className="col-md-4 mb-3">
+                    <label className="form-label">Municipality</label>
+                    <select
+                      className="form-control bg-transparent"
+                      name="shippingZip"
+                      value={formData.shippingZip}
+                      onChange={handleChange}
+                      required
+                    >
+                      <option value="" disabled>
+                        Select Municipality
+                      </option>
+                      {filtermunicipalityforShipping?.municipalities?.map(
+                        (item, index) => (
+                          <option key={index} value={item.name}>
+                            {item.name}
+                          </option>
+                        )
+                      )}
+                    </select>
+                  </div>
+                </div>
                 <div className="mb-3">
                   <label className="form-label">Address</label>
                   <input
@@ -202,107 +358,74 @@ const AddressForm = () => {
                     name="shippingAddress"
                     value={formData.shippingAddress}
                     onChange={handleChange}
-                    required={!formData.sameAsBilling}
+                    required
                   />
-                </div>
-
-                <div className="row">
-                  <div className="col-md-4 mb-3">
-                    <label className="form-label">District</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="shippingState"
-                      value={formData.shippingState}
-                      onChange={handleChange}
-                      required={!formData.sameAsBilling}
-                    />
-                  </div>
-                  <div className="col-md-4 mb-3">
-                    <label className="form-label">City</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="shippingCity"
-                      value={formData.shippingCity}
-                      onChange={handleChange}
-                      required={!formData.sameAsBilling}
-                    />
-                  </div>
-
-                  <div className="col-md-4 mb-3">
-                    <label className="form-label">Zip Code</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="shippingZip"
-                      value={formData.shippingZip}
-                      onChange={handleChange}
-                      required={!formData.sameAsBilling}
-                    />
-                  </div>
                 </div>
               </>
             )}
+          </div>
 
-            {/* Submit Button */}
-            <button
-              type="submit"
-              className="btn bg-primary text-white w-100 mt-3"
-            >
-              Save Address
-            </button>
-          </form>
-        </div>
-        <div className="col-lg-5">
-          <div className="p-4 border rounded shadow bg-light">
-            <h4>Payment Method</h4>
-
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="radio"
-                name="paymentMethod"
-                value="card"
-                checked={formData.paymentMethod === "card"}
-                onChange={handleChange}
-              />
-              <label className="form-check-label">Credit/Debit Card</label>
+          {/* Paymant */}
+          <div className="col-lg-5">
+            <div className="shadow mb-2 rounded">
+              <Productinfo items={cart} />
             </div>
+            <div className="p-4 border rounded shadow bg-light">
+              <h6>Payment Method</h6>
 
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="radio"
-                name="paymentMethod"
-                value="paypal"
-                checked={formData.paymentMethod === "paypal"}
-                onChange={handleChange}
-              />
-              <label className="form-check-label">PayPal</label>
+              {paymentmethod.map((item, index) => (
+                <div key={index} className="form-check">
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    name="paymentMethod"
+                    value={item.originalvalue}
+                    checked={formData.paymentMethod === item.originalvalue}
+                    onChange={handleChange}
+                  />
+                  <label className="form-check-label text-primary">
+                    {item.value}
+                  </label>
+                  <br />
+                  {formData.paymentMethod == item.originalvalue &&
+                    item?.image && (
+                      <>
+                        <img
+                          src={item?.image}
+                          alt="randomImage"
+                          className="payment_method"
+                        />
+                        <br />
+                        <label class="stock my-2">
+                          Upload Payment Bill
+                          <input
+                            onChange={(e) =>
+                              setFormData((pre) => ({
+                                ...pre,
+                                uploadImage: e.target.files[0],
+                              }))
+                            }
+                            type="file"
+                            className="form-control bg-transparent "
+                            required
+                          />
+                        </label>
+                      </>
+                    )}
+                </div>
+              ))}
+
+              <button
+                type="submit"
+                className="btn bg-primary text-white w-100 mt-3"
+              >
+                Place Order
+              </button>
             </div>
-
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="radio"
-                name="paymentMethod"
-                value="cod"
-                checked={formData.paymentMethod === "cod"}
-                onChange={handleChange}
-              />
-              <label className="form-check-label">Cash on Delivery</label>
-            </div>
-
-            <button
-              type="submit"
-              className="btn bg-primary text-white w-100 mt-3"
-            >
-              Place Order
-            </button>
           </div>
         </div>
-      </div>
+        {/* end here */}
+      </form>
     </div>
   );
 };

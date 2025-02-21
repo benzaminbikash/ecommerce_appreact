@@ -59,10 +59,13 @@ function ProductDetail() {
     }
   };
   useEffect(() => {
-    setTimeout(() => {
-      setMessage("");
-    }, 5000);
+    if (message) {
+      setTimeout(() => {
+        setMessage("");
+      }, 5000);
+    }
   }, [message]);
+
   return (
     <>
       <SearchModal />
@@ -105,27 +108,30 @@ function ProductDetail() {
               <p className="product-title">{state?.title}</p>
               <p className="text-muted">{state?.category.title}</p>
               <p className="price">
-                Rs {state?.priceafterdiscount}.00{" "}
-                <span className="old-price">Rs {state?.price}.00</span>{" "}
+                Rs {state?.priceafterdiscount}.00
+                <span className="old-price">Rs {state?.price}.00</span>
+                {"  "}
               </p>
 
               <div className="d-flex align-items-center gap-2 ">
-                Stock:
-                <h6>{state?.stock}</h6>
+                <p className="subtitlehero stock">
+                  {" "}
+                  Stock:{" "}
+                  <span className="stockitems stock">{state?.stock}</span>{" "}
+                </p>
               </div>
-              <hr />
-
+              <div className="categorytitle"></div>
               {state?.attributes.map((item, index) => {
                 return (
                   <div className="d-flex align-items-center gap-2  ">
-                    <p>{item.title.title}:</p>
+                    <p className="stock">{item.title.title}:</p>
                     {item.values.map((value, valueIndex) => (
                       <button
                         onClick={() => getData(value)}
                         key={valueIndex}
-                        className={`m-1 rounded border-0 ${
+                        className={`m-1 rounded border-0 stock ${
                           attribute?.includes(value)
-                            ? "bg-primary px-2 border-1 text-white my-2"
+                            ? "bg-secondary px-2 border-1  text-white my-2"
                             : "px-2 my-2"
                         }`}
                       >
@@ -136,7 +142,7 @@ function ProductDetail() {
                 );
               })}
 
-              <div className="d-flex align-items-center gap-3  mt-2 mb-3">
+              <div className="d-flex align-items-center gap-2 stock  mt-2 mb-3">
                 Quantity:
                 <button
                   disabled={quanity == 1 ? true : false}
@@ -150,7 +156,7 @@ function ProductDetail() {
                 >
                   -
                 </button>
-                <p className="fs-5 fw-bold text-primary">{quanity}</p>
+                <p className=" fw-bold stock text-primary">{quanity}</p>
                 <button
                   onClick={() => {
                     setQuanity(quanity + 1);
@@ -160,14 +166,16 @@ function ProductDetail() {
                   +
                 </button>
               </div>
-              <div className="d-flex  my-1">
+              <div className="d-flex  ">
                 <button
                   onClick={() => AddToCartHandler()}
-                  className="btn btn-yellow w-25 me-2"
+                  className="btn text-center btn-yellow w-25 me-2 text-black subtitlehero"
                 >
                   ADD TO CART
                 </button>
-                <button className="btn btn-dark w-25">BUY NOW</button>
+                <button className="btn text-center  btn-dark w-25 subtitlehero">
+                  BUY NOW
+                </button>
               </div>
 
               <hr />

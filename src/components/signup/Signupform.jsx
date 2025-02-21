@@ -70,7 +70,7 @@ function Signupform() {
         onChange={handleOnChange}
         value={form.fullname}
         type="text"
-        className="w-100 form-control border-1 py-3 mb-4"
+        className="w-100 form-control border-1 py-2 mb-4"
         placeholder="Full Name *"
       />
       <input
@@ -78,7 +78,7 @@ function Signupform() {
         onChange={handleOnChange}
         value={form.email}
         type="email"
-        className="w-100 form-control border-1 py-3 mb-4"
+        className="w-100 form-control border-1 py-2 mb-4"
         placeholder="Email *"
       />
       <input
@@ -86,7 +86,7 @@ function Signupform() {
         onChange={handleOnChange}
         value={form.phone}
         type="tel"
-        className="w-100 form-control border-1 py-3 mb-4"
+        className="w-100 form-control border-1 py-2 mb-4"
         placeholder="Phone Number *"
       />
       <input
@@ -94,7 +94,7 @@ function Signupform() {
         onChange={handleOnChange}
         value={form.password}
         type="password"
-        className="w-100 form-control border-1 py-3 mb-4"
+        className="w-100 form-control border-1 py-2 mb-4"
         placeholder="Password *"
       />
       <input
@@ -102,7 +102,7 @@ function Signupform() {
         onChange={handleOnChange}
         value={form.confirmationpassword}
         type="password"
-        className="w-100 form-control border-1 py-3 mb-4"
+        className="w-100 form-control border-1 py-2 mb-4"
         placeholder="Confirmation Password *"
       />
       <div className="d-flex flex-row align-items-center gap-2 mb-2">
@@ -113,17 +113,19 @@ function Signupform() {
           checked={form.term}
           style={{ verticalAlign: "middle" }}
         />
-        <p style={{ margin: 0 }}>I agree to terms and policy.</p>
+        <p style={{ margin: 0 }} className="stock">
+          I agree to terms and policy.
+        </p>
       </div>
       <button
-        className="w-100 btn form-control border-secondary py-3 bg-white text-dark"
+        className="w-100 btn form-control bg-secondary stock py-2 text-white"
         type="submit"
       >
         Submit
       </button>
-      <div className="mt-2 text-center">
+      <div className=" stock mt-2 text-center">
         Already have an account?{" "}
-        <NavLink to="/login" className="createhere">
+        <NavLink to="/login" className="stock text-secondary createhere">
           Login
         </NavLink>
       </div>

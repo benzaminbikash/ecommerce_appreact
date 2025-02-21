@@ -20,48 +20,44 @@ function Fruititems({ product }) {
   ) : (
     <div className="row g-4 ">
       {product?.map((item, index) => (
-        <button
-          key={index}
-          onClick={() => {
-            navigate(`/product-detail/${item._id}`, {
-              state: item,
-            });
-          }}
-          className="col-md-6 col-lg-4  border-0 bg-transparent"
-        >
-          <div className="rounded position-relative fruite-item">
-            <div className="product-img1 rounded-top">
+        <div className="col-md-6 col-lg-4 border-0 bg-transparent">
+          <div className="rounded shadow-lg position-relative fruite-item">
+            <div className="product-img rounded-top">
               <img
                 src={`${constant.IMAGEURL}/${item?.mainimage}`}
-                className="img-fluid w-100 rounded-top"
-                alt=""
+                className="img-fluid w-100 rounded-top  
+                                   "
+                alt="randomImage"
               />
             </div>
-            <div className="text-white bg-secondary px-3 py-1 rounded position-absolute productinfo">
-              {item?.category?.title}
-            </div>
-            <div className="p-2 border border-secondary border-top-0 rounded-bottom">
-              <h4 className="text-start fw-light fs-5">{item?.title}</h4>
+
+            <div className="p-2 shadow-sm shadow-red border-top-0 rounded-bottom">
+              <h6 className="text-start fw-light ">{item?.title}</h6>
 
               <div className="d-flex gap-2">
-                <p className=" text-dark fw-bold">
-                  Rs {item?.priceafterdiscount}
+                <p className=" text-dark priceline fw-bold">
+                  Rs.{item?.priceafterdiscount}
                 </p>
                 <p className="priceline fw-bold">
-                  <s>Rs {item?.price}</s>
+                  <s>Rs.{item?.price}</s>
                 </p>
               </div>
-              <div className="d-flex justify-content-center my-2">
-                <a
-                  href="#"
-                  className="text-start btn border border-secondary rounded-pill px-3 text-primary"
+
+              <div className="my-2 d-flex">
+                <button
+                  onClick={() => {
+                    navigate(`/product-detail/${item._id}`, {
+                      state: item,
+                    });
+                  }}
+                  className="buynow"
                 >
-                  Add to cart
-                </a>
+                  Buy Now
+                </button>
               </div>
             </div>
           </div>
-        </button>
+        </div>
       ))}
 
       <div className="col-12">

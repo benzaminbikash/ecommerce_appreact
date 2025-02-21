@@ -14,7 +14,7 @@ function Login() {
     <>
       <SearchModal />
       <Header title={"Login"} />
-      <div className="container-fluid contact py-5">
+      <div className="container-fluid contact ">
         <div className="container pt-5">
           <div className="p-5 bg-light rounded">
             <div className="row g-4">

@@ -10,6 +10,27 @@ export const AuthApi = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    forgetPassword: builder.mutation({
+      query: (data) => ({
+        url: "/forget-password",
+        method: "POST",
+        body: data,
+      }),
+    }),
+    changePassword: builder.mutation({
+      query: (data) => ({
+        url: "/change-password",
+        method: "POST",
+        body: data,
+      }),
+    }),
+    otpVerify: builder.mutation({
+      query: (data) => ({
+        url: "/otp-verify",
+        method: "POST",
+        body: data,
+      }),
+    }),
     loginUser: builder.mutation({
       query: (data) => ({
         url: "/login",
@@ -27,6 +48,13 @@ export const AuthApi = apiSlice.injectEndpoints({
       query: (data) => ({
         url: "/cart",
         method: "POST",
+        body: data,
+      }),
+    }),
+    passwordChangeWithOld: builder.mutation({
+      query: (data) => ({
+        url: "/changepasswordwithold",
+        method: "PUT",
         body: data,
       }),
     }),
@@ -54,4 +82,8 @@ export const {
   useRefreshMutation,
   useUserInfoQuery,
   useAddCartMutation,
+  useForgetPasswordMutation,
+  useOtpVerifyMutation,
+  useChangePasswordMutation,
+  usePasswordChangeWithOldMutation,
 } = AuthApi;

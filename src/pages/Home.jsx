@@ -8,17 +8,18 @@ import BestSell from "../components/Home/BestSell";
 import SearchModal from "../components/SearchModal";
 import Fruitsearch from "../components/Home/Fruitsearch";
 import Testimonial from "../components/Home/Testimonial";
+import { Helmet } from "react-helmet";
 
 function Home() {
-  useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "instant",
-    });
-  }, []);
   return (
     <>
+      <Helmet>
+        <title>Tech G Home</title>
+        <meta
+          name="description"
+          content="this is ecommece techonology home page."
+        />
+      </Helmet>
       <SearchModal />
       <Hero />
       <Feature />

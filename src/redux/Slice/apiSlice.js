@@ -52,7 +52,7 @@ const baseQuery = fetchBaseQuery({
 //         return { error: { message: "Failed to refresh token." } };
 //       }
 //     } else {
-//       return {
+//       return {s
 //         error: { message: "No refresh token available. Please log in again." },
 //       };
 //     }
@@ -63,6 +63,6 @@ const baseQuery = fetchBaseQuery({
 
 export const apiSlice = createApi({
   baseQuery: baseQuery,
-  tagTypes: ["User", "Cart", "Address"],
+  tagTypes: ["User", "Cart", "Address", "Order"],
   endpoints: (builder) => ({}),
 });

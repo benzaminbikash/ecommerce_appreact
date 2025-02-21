@@ -12,7 +12,7 @@ function Signup() {
   return (
     <>
       <Header title="Sign Up" />
-      <div className="container-fluid  py-5">
+      <div className="container-fluid  ">
         <div className="container pt-5">
           <div className="p-5 bg-light rounded">
             <div className="row g-4">

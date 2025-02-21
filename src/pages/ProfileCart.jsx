@@ -1,170 +1,175 @@
-import React from "react";
+import React, { useCallback, useEffect, useMemo } from "react";
+import { useUserInfoQuery } from "../redux/Api/AuthApi";
+import {
+  useDecreaseCartMutation,
+  useIncreaseCartMutation,
+  useRemoveCartMutation,
+} from "../redux/Api/CartApi";
 import Carttotal from "../components/Cart/cartTotal";
+import { constant } from "../components/common/constant";
+import Empty from "../img/emptyCart.jpg";
 
 function ProfileCart() {
+  const { data, refetch } = useUserInfoQuery();
+  const cart = data?.data?.cart;
+  const [INCREASE] = useIncreaseCartMutation();
+  const [DECREASE] = useDecreaseCartMutation();
+  const [REMOVECART] = useRemoveCartMutation();
+
+  const increase = useCallback(
+    async (item) => {
+      await INCREASE({
+        product: item.product._id,
+      });
+      refetch();
+    },
+    [INCREASE, refetch]
+  );
+
+  const decrease = useCallback(
+    async (item) => {
+      if (item.quantity > 1) {
+        await DECREASE({
+          product: item.product._id,
+        });
+        refetch();
+      } else {
+        if (confirm("Do you want to remove this product?") == true) {
+          await REMOVECART({
+            product: item.product._id,
+          });
+          refetch();
+        }
+      }
+    },
+    [DECREASE, REMOVECART, refetch]
+  );
+  const removeCart = useCallback(
+    async (item) => {
+      await REMOVECART({
+        product: item.product._id,
+      });
+      refetch();
+    },
+    [REMOVECART, refetch]
+  );
+
+  const totalPrice = useMemo(() => {
+    return cart?.reduce(
+      (acc, item) => acc + item.quantity * item.product.priceafterdiscount,
+      0
+    );
+  }, [cart]);
+
+  useEffect(() => {
+    refetch();
+  }, []);
+
+  if (cart?.length == 0) {
+    return (
+      <div className="container-fluid">
+        <div className="container py-5 d-flex flex-column align-items-center">
+          <img
+            src={Empty}
+            alt="randomImage"
+            className="w-25 h-25 object-fit-cover"
+          />
+          <p className="stock text-primary fw-bold text-center">
+            Your Cart is Empty!
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="container-fluid">
-      <div className="container">
-        <div className="table-responsive">
-          <table className="table">
+    <div className="container-fluid ">
+      <div className="container ">
+        <div className="table-responsive border rounded ">
+          <table className="table ">
             <thead>
-              <tr>
-                <th scope="col">Products</th>
-                <th scope="col">Name</th>
+              <tr className="stock text-primary">
+                <th scope="col  tablehead">SN</th>
+                <th scope="col tablehead">Products</th>
+                <th scope="col tablehead">Name</th>
                 <th scope="col">Price</th>
                 <th scope="col">Quantity</th>
                 <th scope="col">Total</th>
-                <th scope="col">Handle</th>
+                <th scope="col">Action</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">
-                  <div className="d-flex align-items-center">
-                    <img
-                      src="img/vegetable-item-3.png"
-                      className="img-fluid me-5 rounded-circle cartinfo"
-                      alt=""
-                    />
-                  </div>
-                </th>
-                <td>
-                  <p className="mb-0 mt-4">Big Banana</p>
-                </td>
-                <td>
-                  <p className="mb-0 mt-4">2.99 $</p>
-                </td>
-                <td>
-                  <div
-                    className="input-group quantity mt-4"
-                    style={{ width: "100px" }}
-                  >
-                    <div className="input-group-btn">
-                      <button className="btn btn-sm btn-minus rounded-circle bg-light border">
-                        <i className="fa fa-minus"></i>
-                      </button>
+              {cart?.map((item, index) => (
+                <tr key={index} className="stock text-primary">
+                  <td>
+                    <p className="mb-0 mt-4">{index + 1}</p>
+                  </td>
+                  <th scope="row">
+                    <div className="d-flex align-items-center">
+                      <img
+                        src={`${constant?.IMAGEURL}/${item?.product?.mainimage}`}
+                        className="img-fluid me-5 rounded-circle cartinfo"
+                        alt=""
+                      />
                     </div>
-                    <input
-                      type="text"
-                      className="form-control form-control-sm text-center border-0"
-                      value="1"
-                    />
-                    <div className="input-group-btn">
-                      <button className="btn btn-sm btn-plus rounded-circle bg-light border">
-                        <i className="fa fa-plus"></i>
-                      </button>
+                  </th>
+                  <td>
+                    <p className="mb-0 mt-4">{item?.product?.title}</p>
+                  </td>
+                  <td>
+                    <p className="mb-0 mt-4">
+                      Rs {item?.product?.priceafterdiscount}
+                    </p>
+                  </td>
+                  <td>
+                    <div
+                      className="input-group quantity mt-4"
+                      style={{ width: "100px" }}
+                    >
+                      <div className="input-group-btn">
+                        <button
+                          onClick={() => decrease(item)}
+                          className="btn btn-sm btn-minus rounded-circle bg-secondary border"
+                        >
+                          <i className="fa fa-minus text-white"></i>
+                        </button>
+                      </div>
+                      <input
+                        type="text"
+                        className="form-control bg-transparent form-control-sm text-center text-primary border-0"
+                        value={item.quantity}
+                        disabled
+                      />
+
+                      <div className="input-group-btn">
+                        <button
+                          onClick={() => increase(item)}
+                          className="btn btn-sm btn-plus rounded-circle bg-secondary border"
+                        >
+                          <i className="fa fa-plus text-white"></i>
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                </td>
-                <td>
-                  <p className="mb-0 mt-4">2.99 $</p>
-                </td>
-                <td>
-                  <button className="btn btn-md rounded-circle bg-light border mt-4">
-                    <i className="fa fa-times text-danger"></i>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">
-                  <div className="d-flex align-items-center">
-                    <img
-                      src="img/vegetable-item-5.jpg"
-                      className="img-fluid me-5 rounded-circle"
-                      style={{ width: "80px", height: "80px" }}
-                      alt=""
-                    />
-                  </div>
-                </th>
-                <td>
-                  <p className="mb-0 mt-4">Potatoes</p>
-                </td>
-                <td>
-                  <p className="mb-0 mt-4">2.99 $</p>
-                </td>
-                <td>
-                  <div
-                    className="input-group quantity mt-4"
-                    style={{ width: "100px" }}
-                  >
-                    <div className="input-group-btn">
-                      <button className="btn btn-sm btn-minus rounded-circle bg-light border">
-                        <i className="fa fa-minus"></i>
-                      </button>
-                    </div>
-                    <input
-                      type="text"
-                      className="form-control form-control-sm text-center border-0"
-                      value="1"
-                    />
-                    <div className="input-group-btn">
-                      <button className="btn btn-sm btn-plus rounded-circle bg-light border">
-                        <i className="fa fa-plus"></i>
-                      </button>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <p className="mb-0 mt-4">2.99 $</p>
-                </td>
-                <td>
-                  <button className="btn btn-md rounded-circle bg-light border mt-4">
-                    <i className="fa fa-times text-danger"></i>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">
-                  <div className="d-flex align-items-center">
-                    <img
-                      src="img/vegetable-item-2.jpg"
-                      className="img-fluid me-5 rounded-circle"
-                      style={{ width: "80px", height: "80px" }}
-                      alt=""
-                    />
-                  </div>
-                </th>
-                <td>
-                  <p className="mb-0 mt-4">Awesome Brocoli</p>
-                </td>
-                <td>
-                  <p className="mb-0 mt-4">2.99 $</p>
-                </td>
-                <td>
-                  <div
-                    className="input-group quantity mt-4"
-                    style={{ width: "100px" }}
-                  >
-                    <div className="input-group-btn">
-                      <button className="btn btn-sm btn-minus rounded-circle bg-light border">
-                        <i className="fa fa-minus"></i>
-                      </button>
-                    </div>
-                    <input
-                      type="text"
-                      className="form-control form-control-sm text-center border-0"
-                      value="1"
-                    />
-                    <div className="input-group-btn">
-                      <button className="btn btn-sm btn-plus rounded-circle bg-light border">
-                        <i className="fa fa-plus"></i>
-                      </button>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <p className="mb-0 mt-4">2.99 $</p>
-                </td>
-                <td>
-                  <button className="btn btn-md rounded-circle bg-light border mt-4">
-                    <i className="fa fa-times text-danger"></i>
-                  </button>
-                </td>
-              </tr>
+                  </td>
+                  <td>
+                    <p className="mb-0 mt-4">
+                      {item?.quantity * item.product.priceafterdiscount}
+                    </p>
+                  </td>
+                  <td>
+                    <button
+                      onClick={() => removeCart(item)}
+                      className="   bg-transparent border-0 mt-4"
+                    >
+                      Remove
+                    </button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
-        <Carttotal />
+        <Carttotal data={totalPrice} />
       </div>
     </div>
   );

@@ -1,11 +1,18 @@
 import React from "react";
+import { constant } from "../common/constant";
 
-function Productinfo() {
+function Productinfo({ items }) {
+  const totalprice = items?.reduce(
+    (pre, cur) => pre + cur?.quantity * cur?.product?.priceafterdiscount,
+    0
+  );
+
   return (
     <div className="table-responsive">
-      <table className="table border-1">
+      <table className="table  border-1">
         <thead>
-          <tr>
+          <tr className="stock text-primary">
+            <th scope="col">SN</th>
             <th scope="col">Products</th>
             <th scope="col">Name</th>
             <th scope="col">Price</th>
@@ -14,64 +21,34 @@ function Productinfo() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">
-              <div className="d-flex align-items-center mt-2">
-                <img
-                  src="img/vegetable-item-2.jpg"
-                  className="img-fluid rounded-circle"
-                  style={{ width: "90px", height: "90px" }}
-                  alt=""
-                />
-              </div>
-            </th>
-            <td className="py-5">Awesome Brocoli</td>
-            <td className="py-5">$69.00</td>
-            <td className="py-5">2</td>
-            <td className="py-5">$138.00</td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <div className="d-flex align-items-center mt-2">
-                <img
-                  src="img/vegetable-item-5.jpg"
-                  className="img-fluid rounded-circle"
-                  style={{ width: "90px", height: "90px" }}
-                  alt=""
-                />
-              </div>
-            </th>
-            <td className="py-5">Potatoes</td>
-            <td className="py-5">$69.00</td>
-            <td className="py-5">2</td>
-            <td className="py-5">$138.00</td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <div className="d-flex align-items-center mt-2">
-                <img
-                  src="img/vegetable-item-3.png"
-                  className="img-fluid rounded-circle"
-                  style={{ width: "90px", height: "90px" }}
-                  alt=""
-                />
-              </div>
-            </th>
-            <td className="py-5">Big Banana</td>
-            <td className="py-5">$69.00</td>
-            <td className="py-5">2</td>
-            <td className="py-5">$138.00</td>
-          </tr>
-          <tr>
-            <th scope="row"></th>
-            <td className="py-5"></td>
-            <td className="py-5"></td>
-            <td className="py-5">
-              <p className="mb-0 text-dark py-3">Total</p>
+          {items?.map((item, index) => (
+            <tr key={index}>
+              <th className="">{index + 1}.</th>
+              <th scope="row">
+                <div className="d-flex align-items-center ">
+                  <img
+                    src={`${constant?.IMAGEURL}/${item?.product?.mainimage}`}
+                    className="img-fluid rounded-circle object-fit-contain "
+                    style={{ width: "60px", height: "60px" }}
+                    alt=""
+                  />
+                </div>
+              </th>
+              <td className="stock">{item?.product?.title}</td>
+              <td className="stock">Rs {item?.product?.priceafterdiscount}</td>
+              <td className="text-center stock">{item?.quantity}</td>
+              <td className="stock">
+                Rs {item?.product?.priceafterdiscount * item.quantity}
+              </td>
+            </tr>
+          ))}
+          <tr className="">
+            <td className="">
+              <p className="stock mb-0 text-dark py-3 fw-bold">Total</p>
             </td>
-            <td className="py-5">
-              <div className="py-3 border-bottom border-top">
-                <p className="mb-0 text-dark">$414.00</p>
+            <td className="">
+              <div className="py-3 border-bottom border-top fw-bold">
+                <p className="stock mb-0 text-dark">Rs {totalprice}</p>
               </div>
             </td>
           </tr>

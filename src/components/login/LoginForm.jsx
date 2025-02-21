@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { NavLink, useNavigate } from "react-router";
+import { NavLink, replace, useNavigate } from "react-router";
 import { useLoginUserMutation } from "../../redux/Api/AuthApi";
 import { setCredentials } from "../../redux/Slice/AuthSlice";
 import { useDispatch } from "react-redux";
 import Showmessage from "../common/Showmessage";
+import LoadingButton from "../common/LoadingButton";
 
 function LoginForm() {
   const navigate = useNavigate();
@@ -11,12 +12,13 @@ function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [loginUser] = useLoginUserMutation();
+  const [loginUser, { isLoading }] = useLoginUserMutation();
 
   const handleLoginform = async (e) => {
     e.preventDefault();
     const data = { email, password };
     const api = await loginUser(data);
+    console.log(api);
     if (api.error) {
       setError(api.error?.data?.message);
     } else {
@@ -24,8 +26,13 @@ function LoginForm() {
       dispatch(
         setCredentials({ accessToken: accessToken, refreshToken: refreshToken })
       );
+
       setError("");
-      navigate("/");
+      if (api?.data?.data?.role == "admin") {
+        navigate("/admin/", replace);
+      } else {
+        navigate("/", replace);
+      }
     }
   };
 
@@ -37,7 +44,7 @@ function LoginForm() {
         onChange={(e) => setEmail(e.target.value)}
         required
         type="email"
-        className="w-100 form-control border-1 py-3 mb-4"
+        className="w-100 form-control border-1 py-2 mb-4"
         placeholder="Enter Your Email *"
       />
       <input
@@ -45,7 +52,7 @@ function LoginForm() {
         onChange={(e) => setPassword(e.target.value)}
         required
         type="password"
-        className="w-100 form-control border-1 py-3 mb-4"
+        className="w-100 form-control border-1 py-2 mb-4"
         placeholder="Enter Your Password *"
       />
       <div className="d-flex justify-content-between align-items-center mb-2">
@@ -56,25 +63,27 @@ function LoginForm() {
             id=""
             style={{ verticalAlign: "middle" }}
           />
-          <p style={{ margin: 0 }}>Remember me</p>
+          <p style={{ margin: 0 }} className="stock">
+            Remember me
+          </p>
         </div>
         <NavLink
-          to="/forget-password"
+          to="/forget-password "
           style={{ margin: 0 }}
-          className="forgetpassword"
+          className="forgetpassword stock"
         >
           Forget Password?
         </NavLink>
       </div>
       <button
-        className="w-100 btn form-control border-secondary py-3 bg-white text-dark "
+        className="w-100 btn form-control text-white stock py-2 bg-secondary text-dark "
         type="submit"
       >
-        Submit
+        {isLoading ? <LoadingButton /> : "Submit"}
       </button>
-      <div className="mt-2 text-center">
+      <div className="mt-2 text-center stock">
         Don't have any account?{" "}
-        <NavLink to="/signup" className=" createhere ">
+        <NavLink to="/signup" className="stock createhere  text-secondary">
           Create here
         </NavLink>
       </div>

@@ -110,7 +110,6 @@ function AddProduct() {
     });
 
     const api = await ADDPRODUCT(formData);
-    console.log(api);
     if (api?.error) {
       setSuccess("");
       setError(api?.error?.data?.message);
