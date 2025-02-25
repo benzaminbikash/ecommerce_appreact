@@ -59,6 +59,9 @@ import Success from "./components/esewa/Success";
 import Failure from "./components/esewa/Failure";
 import Oldpasswordchange from "./pages/Oldpasswordchange";
 import Order from "./pages/Order";
+import OrderList from "./pages/OrderList";
+import ConfirmOrder from "./pages/admin/orders/ConfirmOrder";
+import OnDeliveryOrder from "./pages/admin/orders/OnDeliverOrder";
 
 function App() {
   return (
@@ -73,8 +76,6 @@ function App() {
         />
       </Helmet>
       <Routes>
-        <Route path="/payment-success" element={<Success />} />
-        <Route path="/payment-failure" element={<Failure />} />
         <Route element={<PersistLogin />}>
           <Route path="/" element={<Home />} />
           <Route path="/shop" element={<Shop />} />
@@ -98,8 +99,9 @@ function App() {
               <Route path="profile" element={<Profile />} />
               <Route path="cart" element={<ProfileCart />} />
               <Route path="oldpassword" element={<Oldpasswordchange />} />
-              <Route path="order" element={<Order />} />
+              <Route path="order" element={<Order />}></Route>
             </Route>
+            <Route path="order/:id" element={<OrderList />}></Route>
           </Route>
         </Route>
 
@@ -125,6 +127,12 @@ function App() {
               <Route path="canceled/orders" element={<CancelOrder />} />
               <Route path="delivered/orders" element={<DeliveredOrder />} />
               <Route path="pending/orders" element={<PendingOrder />} />
+              <Route path="confirm/orders" element={<ConfirmOrder />} />
+              <Route
+                path="onthedelivery/orders"
+                element={<OnDeliveryOrder />}
+              />
+
               <Route path="attribute" element={<Attributes />} />
               <Route path="subattribute" element={<SubAttributes />} />
               <Route

@@ -5,28 +5,30 @@ import {
 } from "../../../redux/Api/OrderApi";
 import BannerModal from "../../../components/admin/dashboard/AdminDataModal";
 import Showmessage from "../../../components/common/Showmessage";
-import { constant, itemperPage } from "../../../components/common/constant";
+import { itemperPage } from "../../../components/common/constant";
 
-function AllOrder() {
+function ConfirmOrder() {
   const [currentPage, setCurrentPage] = useState(1);
   const { data, refetch } = useAllOrderQuery();
   const [search, setSearch] = useState("");
   const [sortOrder, setSortOrder] = useState("desc");
-  const products = data?.data?.filter((item) => {
-    if (search === "") {
-      return item;
-    } else {
-      return (
-        item.user.fullname.toLowerCase().includes(search.toLowerCase()) ||
-        item.status.toLowerCase().includes(search.toLowerCase()) ||
-        item.deliveryid.toString().includes(search) ||
-        item.user.phone.toString().includes(search) ||
-        item?.products?.some((data) =>
-          data?.product?.title.toLowerCase().includes(search.toLowerCase())
-        )
-      );
-    }
-  });
+  const products = data?.data
+    ?.filter((item) => item?.status === "Confirm")
+    .filter((item) => {
+      if (search === "") {
+        return item;
+      } else {
+        return (
+          item.user.fullname.toLowerCase().includes(search.toLowerCase()) ||
+          item.status.toLowerCase().includes(search.toLowerCase()) ||
+          item.deliveryid.toString().includes(search) ||
+          item.user.phone.toString().includes(search) ||
+          item?.products?.some((data) =>
+            data?.product?.title.toLowerCase().includes(search.toLowerCase())
+          )
+        );
+      }
+    });
 
   const sortedProducts = products?.slice().sort((a, b) => {
     const dateA = new Date(a.createdAt);
@@ -82,7 +84,7 @@ function AllOrder() {
     <main>
       <BannerModal type="order" data={selectOrder} />
       <div className="mt-5">
-        <h3 className=" mt-3">All Orders</h3>
+        <h3 className=" mt-3">Confirm Orders</h3>
       </div>
       <div className="d-flex gap-2 w-50 mb-4">
         <input
@@ -229,4 +231,4 @@ function AllOrder() {
   );
 }
 
-export default AllOrder;
+export default ConfirmOrder;

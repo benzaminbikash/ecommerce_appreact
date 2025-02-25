@@ -32,7 +32,6 @@ function PersistLogin() {
       if (refreshToken) {
         try {
           const response = await refresh().unwrap();
-          console.log(response);
           if (response.accessToken && response.refreshToken) {
             dispatch(setCredentials(response));
           } else {

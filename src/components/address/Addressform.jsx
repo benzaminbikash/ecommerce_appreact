@@ -6,13 +6,16 @@ import Productinfo from "../checkout/Productinfo";
 import { useAddOrderMutation } from "../../redux/Api/OrderApi";
 import { paymentmethod } from "../common/paymentcash";
 import { useEmptyCartMutation } from "../../redux/Api/CartApi";
+import { useNavigate } from "react-router";
 
 const AddressForm = () => {
+  const navigate = useNavigate();
   const { data: USER } = useUserInfoQuery();
   const [ADDRESS] = useAddAddressMutation();
   const [ORDER] = useAddOrderMutation();
   const [EMPTYCART] = useEmptyCartMutation();
   const cart = USER?.data?.cart;
+  const [message, setMessage] = useState("");
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -101,7 +104,7 @@ const AddressForm = () => {
       municipality: formData.billingZip,
       addressType: "billing",
     });
-    console.log(billing);
+
     const billlingaddress = billing?.data?.data?._id;
     const shipping = await ADDRESS({
       user: USER?.data?._id,
@@ -124,8 +127,7 @@ const AddressForm = () => {
         products: cart,
         payment_method: formData.paymentMethod,
       });
-
-      // await EMPTYCART();
+      await EMPTYCART();
     } else {
       const formdata = new FormData();
       formdata.append("user", USER?.data?._id);
@@ -135,8 +137,8 @@ const AddressForm = () => {
       formdata.append("payment_method", formData.paymentMethod);
       formdata.append("image", formData.uploadImage);
       const api = await ORDER(formdata);
-      console.log(api);
-      // await EMPTYCART();
+
+      await EMPTYCART();
     }
   };
 

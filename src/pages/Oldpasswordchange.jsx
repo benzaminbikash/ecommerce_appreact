@@ -95,7 +95,7 @@ function Oldpasswordchange() {
             </div>
             <button
               type="submit"
-              className="btn btn-primary text-white w-100 py-2 stock"
+              className="bg-secondary rounded btn text-white w-100 py-2 stock"
             >
               Change Password
             </button>

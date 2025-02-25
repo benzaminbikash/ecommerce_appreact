@@ -1,7 +1,10 @@
 /*** Spinner Start ***/
+@import url("https://fonts.googleapis.com/css2?family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 * {
   padding: 0px;
   margin: 0px;
+  font-family: "Philosopher", serif;
+
   /* font-family: "Caveat", serif; */
 }
 
@@ -735,7 +738,7 @@ p {
 }
 
 .productinput {
-  padding: 6px;
+  padding: 2px;
   border-radius: 6px;
   width: 300px;
 }
@@ -743,7 +746,6 @@ p {
 .productbotton {
   width: 100px;
   border: none;
-
   border-radius: 6px;
 }
 
@@ -1033,9 +1035,60 @@ p {
   width: 200px;
   height: 200px;
 }
-/* 
-subtitlehero:paragraph
+.date {
+  white-space: nowrap;
+  width: auto;
+  min-width: 100px;
+}
+.total {
+  width: auto;
+  min-width: 110px;
+}
+.imageorder {
+  white-space: nowrap;
+  width: auto;
+  min-width: 120px;
+}
+.orderimage {
+  height: 70px;
+  object-fit: contain;
+  width: 70px;
+}
+.titleorder {
+  white-space: nowrap;
+  width: auto;
+  min-width: 150px;
+}
+.paymentmethodorder {
+  white-space: nowrap;
+  width: auto;
+  min-width: 100px;
+}
+.province {
+  white-space: nowrap;
+  width: auto;
+  min-width: 150px;
+}
+.paginateicon {
+  background-color: red;
+}
+.orderlist {
+  border: none;
+  padding: 5px;
+  width: 100%;
+  background-color: transparent;
+  outline: none;
+  color: grey;
+}
 
-formheight{
+.orderimage1 {
+  height: 100px;
+  object-fit: cover;
+  width: 100px;
+  border-radius: 10px;
+}
+.producttileorder {
+  width: 100px;
+}
 
-*/
+/*         <p className="text-center fw-bold text-primary fs-5">No Banner</p> */

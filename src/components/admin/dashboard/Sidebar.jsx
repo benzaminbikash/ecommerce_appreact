@@ -129,13 +129,13 @@ function Sidebar() {
             <i className="bi bi-people me-2"></i> Pending Orders
           </Link>
           <Link
-            to="/admin/users"
+            to="/admin/confirm/orders"
             className=" d-flex align-items-center navitemofsidebar mb-2"
           >
             <i className="bi bi-people me-2"></i> Accepted Orders
           </Link>
           <Link
-            to="/admin/users"
+            to="/admin/onthedelivery/orders"
             className=" d-flex align-items-center navitemofsidebar mb-2"
           >
             <i className="bi bi-people me-2"></i> On Delivery Orders

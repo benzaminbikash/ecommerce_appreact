@@ -3,15 +3,10 @@ import React, { useEffect } from "react";
 import Header from "../components/Header";
 import SearchModal from "../components/SearchModal";
 import Fruitshop from "../components/shop/Fruitshop";
+import Scroller from "../components/common/Scroller";
 
 function Shop() {
-  // useEffect(() => {
-  //   window.scrollTo({
-  //     top: 0,
-  //     left: 0,
-  //     behavior: "instant",
-  //   });
-  // }, []);
+  <Scroller />;
   return (
     <>
       <SearchModal />

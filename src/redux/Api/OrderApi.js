@@ -25,7 +25,7 @@ export const AuthApi = apiSlice.injectEndpoints({
     updateOrder: builder.mutation({
       query: (data) => ({
         url: `/order/${data.id}`,
-        method: "POST",
+        method: "PUT",
         body: data.order,
       }),
     }),

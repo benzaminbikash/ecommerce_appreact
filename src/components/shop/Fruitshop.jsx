@@ -21,18 +21,34 @@ function Fruitshop() {
   });
 
   if (sortOption === "A-Z") {
-    filterData = filterData.sort((a, b) => a.title.localeCompare(b.title));
+    filterData = filterData.sort((a, b) => a?.title.localeCompare(b?.title));
   } else if (sortOption === "Z-A") {
-    filterData = filterData.sort((a, b) => b.title.localeCompare(a.title));
+    filterData = filterData.sort((a, b) => b?.title.localeCompare(a?.title));
   } else if (sortOption === "Low-to-High") {
-    filterData = filterData.sort(
-      (a, b) => a.priceafterdiscount - b.priceafterdiscount
+    filterData = filterData?.sort(
+      (a, b) => a?.priceafterdiscount - b?.priceafterdiscount
     );
   } else if (sortOption === "High-to-Low") {
-    filterData = filterData.sort(
-      (a, b) => b.priceafterdiscount - a.priceafterdiscount
+    filterData = filterData?.sort(
+      (a, b) => b?.priceafterdiscount - a?.priceafterdiscount
     );
   }
+
+  // paginated
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 12;
+  const totalPages = Math.ceil(filterData?.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const displayedProducts = filterData?.slice(startIndex, endIndex);
+
+  const handleNext = () => {
+    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+  };
+
+  const handlePrevious = () => {
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
+  };
 
   return (
     <div className="container-fluid fruite ">
@@ -125,7 +141,14 @@ function Fruitshop() {
               </div>
 
               <div className="col-lg-9">
-                <Fruititems product={filterData} />
+                <Fruititems
+                  product={displayedProducts}
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  nextPage={handleNext}
+                  prePage={handlePrevious}
+                  setCurrentPage={setCurrentPage}
+                />
               </div>
             </div>
           </div>

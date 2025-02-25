@@ -26,6 +26,8 @@ export function hideNavbarandFooter() {
     location.pathname === "/admin/canceled/orders" ||
     location.pathname === "/admin/delivered/orders" ||
     location.pathname === "/admin/pending/orders" ||
+    location.pathname === "/admin/confirm/orders" ||
+    location.pathname === "/admin/onthedelivery/orders" ||
     location.pathname === "/admin/attribute" ||
     location.pathname === "/admin/subattribute" ||
     location.pathname === "/admin/attribute/addattribute" ||
@@ -41,3 +43,6 @@ export function hideNavbarandFooter() {
 }
 
 export const deliveryCharge = 100;
+
+export const itemperPage = 10;
+export const itemperPageforUser = 20;

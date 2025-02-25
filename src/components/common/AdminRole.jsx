@@ -3,6 +3,7 @@ import AuthRole from "./AuthRole";
 
 const AdminAuthRole = () => {
   const { isAdmin } = AuthRole();
+  console.log("isAdmin", isAdmin);
 
   return isAdmin ? <Outlet /> : <Navigate to="/login" replace />;
 };

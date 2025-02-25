@@ -75,7 +75,7 @@ function ProfileCart() {
             className="w-25 h-25 object-fit-cover"
           />
           <p className="stock text-primary fw-bold text-center">
-            Your Cart is Empty!
+            Your cart is empty!
           </p>
         </div>
       </div>

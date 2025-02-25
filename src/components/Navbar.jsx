@@ -4,6 +4,7 @@ import AuthRole from "./common/AuthRole";
 import { useSelector } from "react-redux";
 
 function Navbar() {
+  const { isAdmin } = AuthRole();
   const [data, setData] = useState(false);
   const showshadow = () => {
     if (window.scrollY > 250) {

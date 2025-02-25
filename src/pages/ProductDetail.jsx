@@ -1,22 +1,33 @@
 import React, { useEffect, useState } from "react";
-
-import SearchModal from "../components/SearchModal";
-import Header from "../components/Header";
-import { useLocation } from "react-router";
-import { constant } from "../components/common/constant";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router";
+
+import Header from "../components/Header";
+import SearchModal from "../components/SearchModal";
+import { constant } from "../components/common/constant";
+import {
+  useAddCartMutation,
+  useRemoveCartMutation,
+} from "../redux/Api/CartApi";
 import Showmessage from "../components/common/Showmessage";
-import { useAddCartMutation } from "../redux/Api/CartApi";
+import { useUserInfoQuery } from "../redux/Api/AuthApi";
 
 function ProductDetail() {
-  const token = useSelector((state) => state.auth.accessToken);
+  const token = useSelector((state) => state?.auth?.accessToken);
+  const { data: userinfo, refetch } = useUserInfoQuery();
+  const [REMOVE] = useRemoveCartMutation();
+
   const { state } = useLocation();
   const [select, setSelect] = useState(0);
   const [attribute, setAttribute] = useState([]);
   const [quanity, setQuanity] = useState(1);
-  const [message, setMessage] = useState("");
   const [CART] = useAddCartMutation();
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
 
+  const checkData = userinfo?.data?.cart.find(
+    (item) => item?.product?.title == state?.title
+  );
   useEffect(() => {
     window.scrollTo({
       top: 0,
@@ -27,10 +38,10 @@ function ProductDetail() {
 
   const AddToCartHandler = async () => {
     if (!token) {
-      return setMessage("Please Login First!");
+      return setError("Please Login First!");
     }
     if (attribute.length === 0) {
-      return setMessage("Please select product attributes!");
+      return setError("Please select product attributes!");
     }
     const selectedAttributes = state?.attributes.map((attr) => ({
       title: attr.title._id,
@@ -42,11 +53,11 @@ function ProductDetail() {
       quantity: quanity,
       attributes: selectedAttributes,
     });
-    console.log(api);
     if (api.error) {
-      setMessage(api.error?.data?.message);
+      setError(api.error?.data?.message);
     } else {
-      setMessage(api?.data?.message);
+      refetch();
+      setSuccess(api?.data?.message);
     }
   };
 
@@ -59,12 +70,46 @@ function ProductDetail() {
     }
   };
   useEffect(() => {
-    if (message) {
-      setTimeout(() => {
-        setMessage("");
-      }, 5000);
+    setTimeout(() => {
+      setSuccess("");
+      setError("");
+    }, 5000);
+  }, [success, error]);
+
+  const removeCart = async () => {
+    const api = await REMOVE({ product: state?._id });
+    if (api.error) {
+      setError(api.error?.data?.message);
+    } else {
+      refetch();
+      setSuccess(api?.data?.message);
     }
-  }, [message]);
+  };
+
+  const BuyNow = async () => {
+    if (!token) {
+      return setError("Please Login First!");
+    }
+    if (attribute.length === 0) {
+      return setError("Please select product attributes!");
+    }
+    const selectedAttributes = state?.attributes.map((attr) => ({
+      title: attr.title._id,
+      values: attribute.filter((val) => attr.values.includes(val)),
+    }));
+
+    const api = await CART({
+      product: state._id,
+      quantity: quanity,
+      attributes: selectedAttributes,
+    });
+    if (api.error) {
+      setError(api.error?.data?.message);
+    } else {
+      refetch();
+      setSuccess(api?.data?.message);
+    }
+  };
 
   return (
     <>
@@ -72,7 +117,8 @@ function ProductDetail() {
       <Header title={"Product Detail"} />
       {/* Product INFO */}
       <div className="container py-5">
-        {message && <Showmessage status={"fail"} message={message} />}
+        {error && <Showmessage status="fail" message={error} />}
+        {success && <Showmessage status="success" message={success} />}
         <div className="container ">
           <div className="row">
             <div className="col-md-4">
@@ -167,12 +213,21 @@ function ProductDetail() {
                 </button>
               </div>
               <div className="d-flex  ">
-                <button
-                  onClick={() => AddToCartHandler()}
-                  className="btn text-center btn-yellow w-25 me-2 text-black subtitlehero"
-                >
-                  ADD TO CART
-                </button>
+                {checkData ? (
+                  <button
+                    onClick={() => removeCart()}
+                    className="btn text-center btn-yellow w-25 me-2 text-black subtitlehero"
+                  >
+                    REMOVE CART
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => AddToCartHandler()}
+                    className="btn text-center btn-yellow w-25 me-2 text-black subtitlehero"
+                  >
+                    ADD TO CART
+                  </button>
+                )}
                 <button className="btn text-center  btn-dark w-25 subtitlehero">
                   BUY NOW
                 </button>

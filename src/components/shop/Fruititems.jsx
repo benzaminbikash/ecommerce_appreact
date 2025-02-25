@@ -4,7 +4,14 @@ import { useNavigate } from "react-router";
 import ProductNotFound from "../../img/productnotfound.json";
 import Lottie from "react-lottie";
 
-function Fruititems({ product }) {
+function Fruititems({
+  product,
+  currentPage,
+  totalPages,
+  nextPage,
+  prePage,
+  setCurrentPage,
+}) {
   const navigate = useNavigate();
   return product?.length == 0 ? (
     <Lottie
@@ -61,31 +68,36 @@ function Fruititems({ product }) {
       ))}
 
       <div className="col-12">
-        <div className="pagination d-flex justify-content-center mt-5">
-          <a href="#" className="rounded">
-            &laquo;
-          </a>
-          <a href="#" className="active rounded">
-            1
-          </a>
-          <a href="#" className="rounded">
-            2
-          </a>
-          <a href="#" className="rounded">
-            3
-          </a>
-          <a href="#" className="rounded">
-            4
-          </a>
-          <a href="#" className="rounded">
-            5
-          </a>
-          <a href="#" className="rounded">
-            6
-          </a>
-          <a href="#" className="rounded">
-            &raquo;
-          </a>
+        <div className="pagination d-flex gap-2 justify-content-center mt-5">
+          {currentPage != 1 && (
+            <button
+              onClick={() => prePage()}
+              className="rounded  bg-primary btn text-white  px-3"
+            >
+              &laquo;
+            </button>
+          )}
+          {[...Array(totalPages || 1)]?.map((item, index) => (
+            <button
+              onClick={() => setCurrentPage(index + 1)}
+              className={`rounded btn   px-3 ${
+                currentPage == index + 1
+                  ? "active paginateicon text-white"
+                  : " bg-light"
+              } `}
+            >
+              {index + 1}
+            </button>
+          ))}
+
+          {currentPage != totalPages && (
+            <button
+              onClick={() => nextPage()}
+              className="rounded  bg-primary btn text-white  px-3"
+            >
+              &raquo;
+            </button>
+          )}
         </div>
       </div>
     </div>
