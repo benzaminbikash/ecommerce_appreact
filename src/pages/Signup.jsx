@@ -1,14 +1,25 @@
 import React, { useEffect } from "react";
 import Header from "../components/Header";
 import Signupform from "../components/signup/Signupform";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 
 function Signup() {
+  const navigate = useNavigate();
   useEffect(() => {
     window.scrollTo({
       top: 0,
       behavior: "instant",
     });
   }, []);
+  const state = useSelector((state) => state?.auth?.accessToken);
+
+  useEffect(() => {
+    if (state) {
+      navigate("/");
+    }
+  }, []);
+
   return (
     <>
       <Header title="Sign Up" />

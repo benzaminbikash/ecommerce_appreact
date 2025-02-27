@@ -1,20 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useMyOrderQuery } from "../redux/Api/OrderApi";
 import { constant } from "../components/common/constant";
-import { Link, useNavigate } from "react-router";
+import { Link } from "react-router";
 import Empty from "../img/emptyCart.jpg";
 
 function Order() {
   const [select, setSelect] = useState("Default");
-  const { data } = useMyOrderQuery();
+  const { data, refetch } = useMyOrderQuery();
 
   const filterOrder = data?.data?.filter((item) => {
     if (select == "Default") {
       return item;
     } else {
-      return item.status.includes(select);
+      return item?.status?.includes(select);
     }
   });
+
+  useEffect(() => {
+    scrollTo({
+      top: 0,
+      behavior: "instant",
+    });
+    refetch();
+  }, []);
 
   if (data?.data?.length == 0) {
     return (
@@ -22,7 +30,7 @@ function Order() {
         <div className="container py-5 d-flex flex-column align-items-center">
           <img
             src={Empty}
-            alt="randomImage"
+            alt="randomimage"
             className="w-25 h-25 object-fit-cover"
           />
           <p className="stock text-primary fw-bold text-center">
@@ -32,7 +40,6 @@ function Order() {
       </div>
     );
   }
-
   return (
     <>
       <div className=" d-flex justify-content-between">
@@ -82,7 +89,7 @@ function Order() {
                 Payment Image
               </th>
               <th scope="col" className="total">
-                Delivery ID
+                Transaction Id
               </th>
               <th scope="col" className="province">
                 Province
@@ -94,7 +101,6 @@ function Order() {
                 Municipality
               </th>
               <th scope="col"> Address</th>
-              <th scope="col">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -157,7 +163,7 @@ function Order() {
                 ) : (
                   <h1></h1>
                 )}
-                <td className="stock">{item?.deliveryid}</td>
+                <td className="stock">{item?.transactionid}</td>
                 <td className="stock">{item?.billingAddress?.province}</td>
                 <td className="stock">{item?.billingAddress?.district}</td>
                 <td className="stock">{item?.billingAddress?.municipality}</td>

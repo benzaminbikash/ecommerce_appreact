@@ -2,8 +2,10 @@ import React from "react";
 import { Link, replace, useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { logout } from "../../../redux/Slice/AuthSlice";
+import { useUserInfoQuery } from "../../../redux/Api/AuthApi";
 
 function Header() {
+  const { data } = useUserInfoQuery();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleLogout = () => {
@@ -23,12 +25,6 @@ function Header() {
       </div>
 
       <div className="d-flex align-items-center">
-        <img
-          src="https://via.placeholder.com/40"
-          alt="Profile"
-          className="rounded-circle"
-          style={{ width: "40px", height: "40px", marginRight: "10px" }}
-        />
         <div className="dropdown">
           <button
             className="border-0 text-dark bg-white text-decoration-none dropdown-toggle"
@@ -36,7 +32,7 @@ function Header() {
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            admin@admin.com
+            {data?.data?.email}
           </button>
           <ul
             className="dropdown-menu dropdown-menu-end"

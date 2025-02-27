@@ -172,7 +172,7 @@ function AddProduct() {
                 <select
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
-                  className="form-control p-3 bg-light"
+                  className="form-control bg-light"
                 >
                   <option value="" disabled>
                     Select Category
@@ -193,7 +193,7 @@ function AddProduct() {
                   <select
                     value={subCategory}
                     onChange={(e) => setSubCategory(e.target.value)}
-                    className="form-control p-3 bg-light"
+                    className="form-control bg-light"
                   >
                     <option value="" disabled>
                       Select Sub Category
@@ -214,7 +214,7 @@ function AddProduct() {
                 <input
                   type="text"
                   id="productName"
-                  className="form-control p-3 bg-light"
+                  className="form-control bg-light"
                   placeholder="Enter product name"
                   onChange={(e) => setProduct(e.target.value)}
                   value={product}
@@ -228,7 +228,7 @@ function AddProduct() {
                 <input
                   type="number"
                   id="price"
-                  className="form-control p-3 bg-light"
+                  className="form-control bg-light"
                   placeholder="Enter price"
                   onChange={(e) => setPrice(e.target.value)}
                   value={price}
@@ -242,7 +242,7 @@ function AddProduct() {
                 <input
                   type="number"
                   id="discountPrice"
-                  className="form-control p-3 bg-light"
+                  className="form-control bg-light"
                   placeholder="Enter discount price"
                   onChange={(e) => setDiscountPrice(e.target.value)}
                   value={discountPrice}
@@ -256,7 +256,7 @@ function AddProduct() {
                 <input
                   type="file"
                   id="mainImage"
-                  className="form-control p-3 bg-light"
+                  className="form-control bg-light"
                   ref={mainImageRef}
                   onChange={(e) => setMainImage(e.target.files[0])}
                 />
@@ -288,7 +288,7 @@ function AddProduct() {
                 <input
                   type="number"
                   id="stock"
-                  className="form-control p-3 bg-light"
+                  className="form-control bg-light"
                   placeholder="Enter stock"
                   onChange={(e) => setStock(e.target.value)}
                   value={stock}
@@ -303,7 +303,7 @@ function AddProduct() {
                   <div key={index} className="input-group mb-3">
                     <input
                       type="file"
-                      className="form-control p-3 bg-light"
+                      className="form-control bg-light"
                       ref={(el) => (imagesRef.current[index] = el)}
                       onChange={(e) => handleImageChange(index, e)}
                     />
@@ -359,7 +359,7 @@ function AddProduct() {
                   <div key={index} className="mb-3">
                     <div className="d-flex align-items-center mb-2">
                       <select
-                        className="form-control p-3 bg-light"
+                        className="form-control bg-light"
                         value={attr.attribute}
                         onChange={(e) => handleAttributeChange(index, e)}
                       >

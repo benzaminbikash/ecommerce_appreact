@@ -84,7 +84,7 @@ function AddSubCategory() {
                   required
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
-                  className="form-control p-3 bg-light"
+                  className="form-control  bg-light"
                   aria-label="Default select example"
                 >
                   <option value="" disabled>
@@ -107,7 +107,7 @@ function AddSubCategory() {
                 <input
                   type="text"
                   id="categoryName"
-                  className="form-control p-3 bg-light"
+                  className="form-control  bg-light"
                   placeholder="Enter sub category title"
                   onChange={(e) => setTitle(e.target.value)}
                   value={title}

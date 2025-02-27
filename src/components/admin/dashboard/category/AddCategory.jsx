@@ -110,7 +110,7 @@ function AddCategory() {
                 <input
                   type="text"
                   id="categoryName"
-                  className="form-control p-3 bg-light"
+                  className="form-control  bg-light"
                   placeholder="Enter category name"
                   onChange={(e) => setTitle(e.target.value)}
                   value={title}
@@ -126,7 +126,7 @@ function AddCategory() {
                   <input
                     onChange={handleImageChange}
                     type="file"
-                    className="form-control p-3 bg-light"
+                    className="form-control  bg-light"
                     id="iconImage"
                     aria-label="Upload"
                     ref={imageRef}
@@ -162,7 +162,7 @@ function AddCategory() {
                   value={order}
                   type="number"
                   id="orderNumber"
-                  className="form-control p-3 bg-light"
+                  className="form-control  bg-light"
                   placeholder="Enter order number"
                   onChange={(e) => setOrder(e.target.value)}
                   required

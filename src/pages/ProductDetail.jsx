@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 
 import Header from "../components/Header";
 import SearchModal from "../components/SearchModal";
@@ -13,6 +13,7 @@ import Showmessage from "../components/common/Showmessage";
 import { useUserInfoQuery } from "../redux/Api/AuthApi";
 
 function ProductDetail() {
+  const navigate = useNavigate();
   const token = useSelector((state) => state?.auth?.accessToken);
   const { data: userinfo, refetch } = useUserInfoQuery();
   const [REMOVE] = useRemoveCartMutation();
@@ -69,12 +70,6 @@ function ProductDetail() {
       setAttribute([...attribute, value]);
     }
   };
-  useEffect(() => {
-    setTimeout(() => {
-      setSuccess("");
-      setError("");
-    }, 5000);
-  }, [success, error]);
 
   const removeCart = async () => {
     const api = await REMOVE({ product: state?._id });
@@ -97,19 +92,21 @@ function ProductDetail() {
       title: attr.title._id,
       values: attribute.filter((val) => attr.values.includes(val)),
     }));
-
-    const api = await CART({
-      product: state._id,
+    const product = {
+      product: state,
       quantity: quanity,
       attributes: selectedAttributes,
+    };
+    navigate("/address", {
+      state: product,
     });
-    if (api.error) {
-      setError(api.error?.data?.message);
-    } else {
-      refetch();
-      setSuccess(api?.data?.message);
-    }
   };
+  useEffect(() => {
+    setTimeout(() => {
+      setSuccess("");
+      setError("");
+    }, 5000);
+  }, [success, error]);
 
   return (
     <>
@@ -169,7 +166,10 @@ function ProductDetail() {
               <div className="categorytitle"></div>
               {state?.attributes.map((item, index) => {
                 return (
-                  <div className="d-flex align-items-center gap-2  ">
+                  <div
+                    key={index}
+                    className="d-flex align-items-center gap-2  "
+                  >
                     <p className="stock">{item.title.title}:</p>
                     {item.values.map((value, valueIndex) => (
                       <button
@@ -228,7 +228,10 @@ function ProductDetail() {
                     ADD TO CART
                   </button>
                 )}
-                <button className="btn text-center  btn-dark w-25 subtitlehero">
+                <button
+                  onClick={() => BuyNow()}
+                  className="btn text-center  btn-dark w-25 subtitlehero"
+                >
                   BUY NOW
                 </button>
               </div>

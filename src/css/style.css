@@ -1090,5 +1090,17 @@ p {
 .producttileorder {
   width: 100px;
 }
+.transactionid {
+  width: 342px;
+}
+.profilemyactive > .active {
+  background-color: #1b66c2;
+  border-radius: 10px;
+  color: white;
+}
+
+.profilemyactive > .hello {
+  border-radius: 10px;
+}
 
 /*         <p className="text-center fw-bold text-primary fs-5">No Banner</p> */

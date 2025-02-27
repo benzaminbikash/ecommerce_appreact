@@ -6,16 +6,16 @@ import Productinfo from "../checkout/Productinfo";
 import { useAddOrderMutation } from "../../redux/Api/OrderApi";
 import { paymentmethod } from "../common/paymentcash";
 import { useEmptyCartMutation } from "../../redux/Api/CartApi";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 
 const AddressForm = () => {
+  const { state } = useLocation();
   const navigate = useNavigate();
   const { data: USER } = useUserInfoQuery();
   const [ADDRESS] = useAddAddressMutation();
   const [ORDER] = useAddOrderMutation();
   const [EMPTYCART] = useEmptyCartMutation();
   const cart = USER?.data?.cart;
-  const [message, setMessage] = useState("");
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -32,6 +32,7 @@ const AddressForm = () => {
     sameAsBilling: false,
     paymentMethod: "",
     uploadImage: null,
+    transactionid: "",
   });
 
   const filterDistricts = Provinces?.find(
@@ -120,25 +121,31 @@ const AddressForm = () => {
 
     const shippingaddress = shipping?.data?.data?._id;
     if (formData.paymentMethod == "cashondelivery") {
-      const api = await ORDER({
+      await ORDER({
         user: USER?.data?._id,
         billingAddress: billlingaddress,
         shippingAddress: shippingaddress,
-        products: cart,
+        products: state ? JSON.stringify(state) : JSON.stringify(cart),
         payment_method: formData.paymentMethod,
+        transactionid: formData.transactionid,
       });
       await EMPTYCART();
+      navigate("/account/order");
     } else {
       const formdata = new FormData();
       formdata.append("user", USER?.data?._id);
       formdata.append("billingAddress", billlingaddress);
       formdata.append("shippingAddress", shippingaddress);
-      formdata.append("products", JSON.stringify(cart));
+      formdata.append(
+        "products",
+        state ? JSON.stringify(state) : JSON.stringify(cart)
+      );
       formdata.append("payment_method", formData.paymentMethod);
       formdata.append("image", formData.uploadImage);
-      const api = await ORDER(formdata);
-
+      formdata.append("transactionid", formData.transactionid);
+      await ORDER(formdata);
       await EMPTYCART();
+      navigate("/account/order");
     }
   };
 
@@ -370,7 +377,11 @@ const AddressForm = () => {
           {/* Paymant */}
           <div className="col-lg-5">
             <div className="shadow mb-2 rounded">
-              <Productinfo items={cart} />
+              {state ? (
+                <Productinfo items={state} />
+              ) : (
+                <Productinfo items={cart} />
+              )}
             </div>
             <div className="p-4 border rounded shadow bg-light">
               <h6>Payment Method</h6>
@@ -398,7 +409,7 @@ const AddressForm = () => {
                           className="payment_method"
                         />
                         <br />
-                        <label class="stock my-2">
+                        <label className="stock my-2">
                           Upload Payment Bill
                           <input
                             onChange={(e) =>
@@ -409,6 +420,22 @@ const AddressForm = () => {
                             }
                             type="file"
                             className="form-control bg-transparent "
+                            required
+                          />
+                        </label>
+                        <label className="stock my-2">
+                          Transaction Id
+                          <input
+                            // onChange={(e) =>
+                            //   setFormData((pre) => ({
+                            //     ...pre,
+                            //     transactionid: e.target.value,
+                            //   }))
+                            // }
+                            name="transactionid"
+                            onChange={handleChange}
+                            type="text"
+                            className="form-control transactionid bg-transparent"
                             required
                           />
                         </label>

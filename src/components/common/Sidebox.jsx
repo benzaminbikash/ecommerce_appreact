@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router";
 import { logout } from "../../redux/Slice/AuthSlice";
@@ -6,7 +6,6 @@ import { logout } from "../../redux/Slice/AuthSlice";
 function Sidebox() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [select, setSelect] = useState(0);
   const sideBar = [
     {
       id: 0,
@@ -31,15 +30,12 @@ function Sidebox() {
   ];
   return (
     <div>
-      <ul className="nav flex-column">
+      <ul className="nav  flex-column">
         {sideBar.map((item) => {
           return (
-            <li className="nav-item mb-2">
+            <li className="nav-item profilemyactive mb-2">
               <NavLink
-                onClick={() => setSelect(item.id)}
-                className={`nav-link  stock  ${
-                  select == item.id ? "profileactive text-white" : "text-dark"
-                }  `}
+                className={`nav-link text-primary hello stock`}
                 to={item.link}
               >
                 {item.name}
@@ -53,7 +49,7 @@ function Sidebox() {
               navigate("/");
               dispatch(logout());
             }}
-            className={`nav-link border-0 bg-transparent stock text-dark`}
+            className={`nav-link border-0 text-primary bg-transparent stock `}
           >
             Logout
           </button>

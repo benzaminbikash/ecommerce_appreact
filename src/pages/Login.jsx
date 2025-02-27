@@ -2,14 +2,26 @@ import React, { useEffect } from "react";
 import Header from "../components/Header";
 import SearchModal from "../components/SearchModal";
 import LoginForm from "../components/login/LoginForm";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 
 function Login() {
+  const navigate = useNavigate();
   useEffect(() => {
     window.scrollTo({
       top: 0,
       behavior: "instant",
     });
   }, []);
+
+  const state = useSelector((state) => state?.auth?.accessToken);
+
+  useEffect(() => {
+    if (state) {
+      navigate("/");
+    }
+  }, []);
+
   return (
     <>
       <SearchModal />
