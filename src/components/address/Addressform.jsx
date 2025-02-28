@@ -7,6 +7,7 @@ import { useAddOrderMutation } from "../../redux/Api/OrderApi";
 import { paymentmethod } from "../common/paymentcash";
 import { useEmptyCartMutation } from "../../redux/Api/CartApi";
 import { useLocation, useNavigate } from "react-router";
+import { toast } from "react-toastify";
 
 const AddressForm = () => {
   const { state } = useLocation();
@@ -131,6 +132,7 @@ const AddressForm = () => {
       });
       await EMPTYCART();
       navigate("/account/order");
+      toast.success("Your order is successfully.");
     } else {
       const formdata = new FormData();
       formdata.append("user", USER?.data?._id);
@@ -146,6 +148,7 @@ const AddressForm = () => {
       await ORDER(formdata);
       await EMPTYCART();
       navigate("/account/order");
+      toast.success("Your order is successfully.");
     }
   };
 
@@ -446,7 +449,7 @@ const AddressForm = () => {
 
               <button
                 type="submit"
-                className="btn bg-primary text-white w-100 mt-3"
+                className="btn bg-secondary text-white w-100 mt-3"
               >
                 Place Order
               </button>

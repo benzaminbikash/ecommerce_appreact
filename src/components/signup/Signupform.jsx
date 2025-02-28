@@ -72,6 +72,7 @@ function Signupform() {
         type="text"
         className="w-100 form-control border-1 py-2 mb-4"
         placeholder="Full Name *"
+        required
       />
       <input
         name="email"
@@ -80,6 +81,7 @@ function Signupform() {
         type="email"
         className="w-100 form-control border-1 py-2 mb-4"
         placeholder="Email *"
+        required
       />
       <input
         name="phone"
@@ -88,6 +90,7 @@ function Signupform() {
         type="tel"
         className="w-100 form-control border-1 py-2 mb-4"
         placeholder="Phone Number *"
+        required
       />
       <input
         name="password"
@@ -96,6 +99,7 @@ function Signupform() {
         type="password"
         className="w-100 form-control border-1 py-2 mb-4"
         placeholder="Password *"
+        required
       />
       <input
         name="confirmationpassword"
@@ -104,6 +108,7 @@ function Signupform() {
         type="password"
         className="w-100 form-control border-1 py-2 mb-4"
         placeholder="Confirmation Password *"
+        required
       />
       <div className="d-flex flex-row align-items-center gap-2 mb-2">
         <input

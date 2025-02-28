@@ -1050,9 +1050,12 @@ p {
   min-width: 120px;
 }
 .orderimage {
-  height: 70px;
-  object-fit: contain;
-  width: 70px;
+  height: 40px;
+  object-fit: cover;
+  width: 40px;
+  margin-bottom: 2px;
+  border: 1px solid #1b66c2;
+  border-radius: 2px;
 }
 .titleorder {
   white-space: nowrap;
@@ -1102,5 +1105,74 @@ p {
 .profilemyactive > .hello {
   border-radius: 10px;
 }
+.Toastify__toast--error {
+  border: 1px solid #eb5757;
 
-/*         <p className="text-center fw-bold text-primary fs-5">No Banner</p> */
+  background: #fae1e2 !important;
+}
+.Toastify__toast--error::after {
+  position: absolute;
+  color: #333333;
+  font-size: 15px;
+  font-weight: 700;
+  left: 265px;
+  padding-top: 14px !important;
+}
+.Toastify__toast--error::before {
+  position: relative;
+  z-index: 100000;
+  left: 12px;
+  top: 6px;
+}
+.Toastify__toast--success {
+  border: 1px solid #3a9ea5 !important;
+
+  background: #f0f9fa !important;
+}
+.Toastify__toast--success::before {
+  position: relative;
+  z-index: 100000;
+  left: 12px;
+  top: 6px;
+}
+.Toastify__toast--success::after {
+  position: absolute;
+  color: #333333;
+  font-size: 15px;
+  font-weight: 700;
+  left: 265px;
+  padding-top: 14px !important;
+}
+.Toastify__toast--warning {
+  border: 1px solid #e78326 !important;
+
+  background: #fadfc5 !important;
+}
+.Toastify__toast--warning::before {
+  position: relative;
+  z-index: 100000;
+  left: 12px;
+  top: 6px;
+}
+.Toastify__toast--warning::after {
+  position: absolute;
+  color: #e78326;
+  font-size: 15px;
+  font-weight: 700;
+  left: 265px;
+  padding-top: 14px !important;
+}
+.Toastify__toast-body {
+  color: #444c63;
+  font-size: 16px;
+  padding-left: 20px;
+  line-height: 20px;
+  padding: 0px;
+  padding-top: 25px;
+  width: 100%;
+  font-weight: 400;
+  margin-left: 25px !important;
+}
+.Toastify__toast > button > svg {
+  display: none;
+}

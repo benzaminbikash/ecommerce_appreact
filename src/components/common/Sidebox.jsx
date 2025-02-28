@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router";
 import { logout } from "../../redux/Slice/AuthSlice";
+import { toast } from "react-toastify";
 
 function Sidebox() {
   const dispatch = useDispatch();
@@ -48,6 +49,7 @@ function Sidebox() {
             onClick={() => {
               navigate("/");
               dispatch(logout());
+              toast.success("Logout Successfully!");
             }}
             className={`nav-link border-0 text-primary bg-transparent stock `}
           >

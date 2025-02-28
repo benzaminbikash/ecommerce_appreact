@@ -111,37 +111,53 @@ function Order() {
                   {item?.createdAt.toString().split("T")[0]}
                 </th>
                 <th scope="row">
-                  <div className="d-flex align-items-center ">
+                  <div className=" ">
                     {item?.products?.map((item, index) => (
-                      <img
-                        key={index}
-                        src={`${constant?.IMAGEURL}/${item?.product?.mainimage}`}
-                        className="orderimage rounded-circle "
-                        alt="randomImage"
-                      />
+                      <Link
+                        to={`${constant.IMAGEURL}/${item?.product?.mainimage}`}
+                        className="d-flex align-items-center "
+                      >
+                        <img
+                          key={index}
+                          src={`${constant?.IMAGEURL}/${item?.product?.mainimage}`}
+                          className="orderimage"
+                          alt="randomImage"
+                        />{" "}
+                        <br />
+                      </Link>
                     ))}
                   </div>
                 </th>
                 <td className="stock">
                   {item?.products?.map((item, index) => (
-                    <td key={index}>{item?.product?.title}</td>
+                    <>
+                      <td key={index}>{item?.product?.title}</td> <br />
+                    </>
                   ))}
                 </td>
                 <td className="stock">
                   {item?.products?.map((item, index) => (
-                    <td key={index}>{item?.product?.priceafterdiscount}</td>
+                    <>
+                      <td key={index}>{item?.product?.priceafterdiscount}</td>
+                      <br />
+                    </>
                   ))}
                 </td>
                 <td className="stock">
                   {item?.products?.map((item, index) => (
-                    <td key={index}>{item?.quantity}</td>
+                    <>
+                      <td key={index}>{item?.quantity}</td> <br />
+                    </>
                   ))}
                 </td>
                 <td className="stock">
                   {item?.products?.map((item, index) => (
-                    <td key={index}>
-                      {item?.quantity * item?.product?.priceafterdiscount}
-                    </td>
+                    <>
+                      <td key={index}>
+                        {item?.quantity * item?.product?.priceafterdiscount}
+                      </td>
+                      <br />
+                    </>
                   ))}
                 </td>
                 <td className="stock">{item?.status}</td>
@@ -155,7 +171,7 @@ function Order() {
                       <img
                         key={index}
                         src={`${constant?.IMAGEURL}/${item?.onlinepayimage}`}
-                        className="orderimage rounded-1 border-1  "
+                        className="orderimage"
                         alt="randomImage"
                       />
                     </Link>

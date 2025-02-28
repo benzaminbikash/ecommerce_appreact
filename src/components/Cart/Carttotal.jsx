@@ -30,7 +30,7 @@ function Carttotal({ data }) {
           </div>
           <button
             onClick={() => navigate("/address", {})}
-            className="btn bg-primary text-white stock rounded-pill px-4 py-2 text-primary  text-uppercase mb-3 ms-4"
+            className="btn bg-secondary text-white stock rounded-pill px-4 py-2 text-primary  text-uppercase mb-3 ms-4"
             type="button"
           >
             Proceed Checkout

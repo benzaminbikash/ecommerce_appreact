@@ -106,13 +106,6 @@ function Navbar() {
               </NavLink>
             </div>
             <div className="d-flex m-3 me-0">
-              <button
-                className="btn-search  border border-secondary btn-md-square box bg-white me-4"
-                data-bs-toggle="modal"
-                data-bs-target="#searchModal"
-              >
-                <i className="fas fa-search searchicon"></i>
-              </button>
               {state && (
                 <NavLink to="/cart" className="position-relative me-4 my-auto">
                   <i className="fas fa-shopping-bag iconsize"></i>
