@@ -25,12 +25,12 @@ function Signup() {
       <Header title="Sign Up" />
       <div className="container-fluid  ">
         <div className="container pt-5">
-          <div className="p-5 bg-light rounded">
+          <div className="p-2 p-md-5 bg-light rounded">
             <div className="row g-4">
               <div className="col-lg-7 ">
                 <Signupform />
               </div>
-              <div className="col-lg-5">
+              <div className="d-none d-lg-block col-lg-5">
                 <img
                   style={{
                     width: "100%",

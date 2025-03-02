@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import { NavLink, replace, useNavigate } from "react-router";
-import { useLoginUserMutation } from "../../redux/Api/AuthApi";
+import {
+  useLoginUserMutation,
+  useResendOtpMutation,
+} from "../../redux/Api/AuthApi";
 import { setCredentials } from "../../redux/Slice/AuthSlice";
 import { useDispatch } from "react-redux";
 import Showmessage from "../common/Showmessage";
 import LoadingButton from "../common/LoadingButton";
+import { toast } from "react-toastify";
+import PulseLoader from "react-spinners/PulseLoader";
 
 function LoginForm() {
   const navigate = useNavigate();
@@ -13,12 +18,12 @@ function LoginForm() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loginUser, { isLoading }] = useLoginUserMutation();
+  const [RESEND, { isLoading: resendLoading }] = useResendOtpMutation();
 
   const handleLoginform = async (e) => {
     e.preventDefault();
     const data = { email, password };
     const api = await loginUser(data);
-    console.log(api);
     if (api.error) {
       setError(api.error?.data?.message);
     } else {
@@ -26,7 +31,6 @@ function LoginForm() {
       dispatch(
         setCredentials({ accessToken: accessToken, refreshToken: refreshToken })
       );
-
       setError("");
       if (api?.data?.data?.role == "admin") {
         navigate("/admin/", replace);
@@ -35,10 +39,56 @@ function LoginForm() {
       }
     }
   };
-
+  const resendOtp = async () => {
+    const api = await RESEND({ email: email });
+    if (api.error) {
+      setError(api.error?.data?.message);
+    } else {
+      toast.success("Check your mail for otp.");
+      navigate("/verifyaccount", {
+        state: {
+          email: email,
+        },
+      });
+    }
+  };
+  const message = (
+    <div className="d-flex align-items-center">
+      Please Verify Your Account.
+      <span
+        onClick={() => resendOtp()}
+        style={{
+          textDecoration: "underline",
+          border: "none",
+          background: "none",
+          cursor: "pointer",
+          color: "white",
+          paddingLeft: 5,
+        }}
+      >
+        {resendLoading ? (
+          <PulseLoader
+            color={"white"}
+            loading={true}
+            size={5}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+          />
+        ) : (
+          " Click Here to Verify Here"
+        )}
+      </span>
+    </div>
+  );
   return (
-    <form action="" onSubmit={handleLoginform}>
-      {error != "" && <Showmessage message={error} status="fail" />}
+    <form onSubmit={handleLoginform}>
+      {error != "" &&
+        (error == "Please Verify Your Account." ? (
+          <Showmessage message={message} status="fail" />
+        ) : (
+          <Showmessage message={error} status="fail" />
+        ))}
+
       <input
         value={email}
         onChange={(e) => setEmail(e.target.value)}

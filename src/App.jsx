@@ -54,27 +54,18 @@ import AdminAuthRole from "./components/common/AdminRole";
 import UserAuthRole from "./components/common/UserRole";
 import ProductDetail from "./pages/ProductDetail";
 import Address from "./pages/Address";
-import { Helmet } from "react-helmet";
-import Success from "./components/esewa/Success";
-import Failure from "./components/esewa/Failure";
 import Oldpasswordchange from "./pages/Oldpasswordchange";
 import Order from "./pages/Order";
-import OrderList from "./pages/OrderList";
+
 import ConfirmOrder from "./pages/admin/orders/ConfirmOrder";
 import OnDeliveryOrder from "./pages/admin/orders/OnDeliverOrder";
+import VerifyAccount from "./pages/VerifyAccount";
 
 function App() {
   return (
     <>
       <ScrollUp />
       {!hideNavbarandFooter() ? <Navbar /> : null}
-      <Helmet>
-        <title>Tech G</title>
-        <meta
-          name="description"
-          content="ecommerce website based on technology."
-        />
-      </Helmet>
       <Routes>
         <Route element={<PersistLogin />}>
           <Route path="/" element={<Home />} />
@@ -85,6 +76,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/verifyaccount" element={<VerifyAccount />} />
           <Route path="/forget-password" element={<Forgetpassword />} />
           <Route path="/otp-verify" element={<Otpverify />} />
           <Route path="/change-password" element={<Changepassword />} />
@@ -99,14 +91,13 @@ function App() {
               <Route path="profile" element={<Profile />} />
               <Route path="cart" element={<ProfileCart />} />
               <Route path="oldpassword" element={<Oldpasswordchange />} />
-              <Route path="order" element={<Order />}></Route>
+              <Route path="addproduct" element={<AddProduct />} />
+              <Route path="order" element={<Order />} />
             </Route>
-            <Route path="order/:id" element={<OrderList />}></Route>
           </Route>
-        </Route>
 
-        {/* for admin panel */}
-        <Route element={<PersistLogin />}>
+          {/* for admin panel */}
+
           <Route element={<AdminAuthRole />}>
             <Route path="/admin" element={<Dashboardlayout />}>
               <Route path="" element={<Dashboard />} />
@@ -161,7 +152,6 @@ function App() {
             />
           </Route>
         </Route>
-
         <Route path="/admin/login" element={<LoginAdmin />} />
       </Routes>
       {!hideNavbarandFooter() ? <Footer /> : null}

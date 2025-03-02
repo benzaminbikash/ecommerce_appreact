@@ -1,11 +1,12 @@
 import { Navigate, Outlet } from "react-router-dom";
 import AuthRole from "./AuthRole";
+import { useSelector } from "react-redux";
 
 const AdminAuthRole = () => {
   const { isAdmin } = AuthRole();
-  console.log("isAdmin", isAdmin);
+  const token = useSelector((state) => state?.auth?.accessToken);
 
-  return isAdmin ? <Outlet /> : <Navigate to="/login" replace />;
+  return isAdmin && token ? <Outlet /> : <Navigate to="/login" replace />;
 };
 
 export default AdminAuthRole;

@@ -38,7 +38,7 @@ function Otpverify() {
       <Header title={"Forget Password"} />
       <div className="container-fluid contact ">
         <div className="container pt-5">
-          <div className="p-5 bg-light rounded">
+          <div className="p-2 p-md-5 bg-light rounded">
             <div className="row g-4">
               <div className="col-12 col-md-6">
                 <Lottie
@@ -74,7 +74,7 @@ function Otpverify() {
                 />
                 <button
                   onClick={formHanlder}
-                  className="d-block mt-3 w-25 mb-2 btn form-control py-2 bg-secondary text-white "
+                  className="d-block mt-3 w-100 mb-2 btn form-control py-2 bg-secondary text-white "
                   type="submit"
                 >
                   Submit

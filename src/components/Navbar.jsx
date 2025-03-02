@@ -18,6 +18,7 @@ function Navbar() {
     return () => window.removeEventListener("scroll", showshadow);
   }, []);
   const state = useSelector((item) => item?.auth?.accessToken);
+  console.log(state);
 
   return (
     <div className={`container-fluid fixed-top ${data && "shadow"}`}>

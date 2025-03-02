@@ -34,7 +34,7 @@ function Forgetpassword() {
       <Header title={"Forget Password"} />
       <div className="container-fluid contact ">
         <div className="container pt-5">
-          <div className="p-5 bg-light rounded">
+          <div className="p-2 p-md-5 bg-light rounded">
             <div className="row g-4">
               <div className="col-12 col-md-6">
                 <Lottie
@@ -63,7 +63,7 @@ function Forgetpassword() {
                     placeholder="Your Email"
                   />
                   <button
-                    className="mx-auto w-25 mb-2 btn form-control  py-2 bg-secondary text-white stock "
+                    className="mx-auto w-100 mb-2 btn form-control  py-2 bg-secondary text-white stock "
                     type="submit"
                   >
                     Submit

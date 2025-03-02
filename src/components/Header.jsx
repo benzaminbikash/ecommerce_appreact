@@ -5,7 +5,7 @@ import CartPage from "../img/header.jpg";
 function Header({ title }) {
   return (
     <div
-      className="container-fluid page-header headerbackground py-5"
+      className="container-fluid page-header headerbackground py-5  "
       style={{
         backgroundImage: `url(${CartPage})`,
       }}

@@ -344,12 +344,14 @@ function AddProduct() {
                   </>
                 )}
 
-                <i
-                  className="fas fa-plus-circle text-white w-25 btn btn-primary"
-                  onClick={addMoreImages}
-                >
-                  <span className="ps-2"> Add Images</span>
-                </i>
+                {images.length != 5 && (
+                  <i
+                    className="fas fa-plus-circle text-white w-50 btn btn-secondary"
+                    onClick={addMoreImages}
+                  >
+                    <span className="ps-2"> Add Images</span>
+                  </i>
+                )}
               </div>
 
               {/* Attributes */}
@@ -399,7 +401,7 @@ function AddProduct() {
                 ))}
 
                 <i
-                  className="fas fa-plus-circle text-white w-50 btn btn-primary"
+                  className="fas fa-plus-circle text-white w-50 btn btn-secondary"
                   onClick={addMoreAttributes}
                 >
                   <span className="ps-2">Add More Attribute</span>
@@ -421,7 +423,10 @@ function AddProduct() {
 
             {/* Submit */}
             <div className="mt-5">
-              <button type="submit" className="btn btn-primary text-white py-2">
+              <button
+                type="submit"
+                className="rounded  bg-secondary text-white py-2"
+              >
                 Add Product
               </button>
             </div>

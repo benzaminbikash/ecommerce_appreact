@@ -39,17 +39,18 @@ function Changepassword() {
       <Header title={"Change Password"} />
       <div className="container-fluid contact ">
         <div className="container pt-5">
-          <div className="p-5 bg-light rounded">
+          <div className="p-2 p-md-5 bg-light rounded">
             <div className="row g-4">
-              <div className=" col-6">
-                <Lottie
-                  width={370}
-                  options={{
-                    animationData: changepassword,
-                  }}
-                />
+              <div className="col-lg-6 ">
+                <div className=" w-75 mx-auto">
+                  <Lottie
+                    options={{
+                      animationData: changepassword,
+                    }}
+                  />
+                </div>
               </div>
-              <div className=" col-6">
+              <div className="col-lg-6">
                 <h3 className=" mb-2 ">Change your password</h3>
                 {error && <Showmessage status="fail" message={error} />}
                 {success && (
@@ -73,7 +74,7 @@ function Changepassword() {
                     placeholder="Confirmation Password"
                   />
                   <button
-                    className="mx-auto w-25 mb-2 btn form-control stock py-2 bg-secondary text-white "
+                    className="mx-auto w-100 mb-2 btn form-control stock py-2 bg-secondary text-white "
                     type="submit"
                   >
                     Submit

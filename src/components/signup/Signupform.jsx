@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import Showmessage from "../common/Showmessage";
 import { useRegistrationMutation } from "../../redux/Api/AuthApi";
+import { toast } from "react-toastify";
+import LoadingButton from "../common/LoadingButton";
 
 function Signupform() {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     fullname: "",
     email: "",
@@ -14,7 +17,7 @@ function Signupform() {
   });
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const [authRegistration] = useRegistrationMutation();
+  const [authRegistration, { isLoading }] = useRegistrationMutation();
 
   const handleOnChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -31,8 +34,6 @@ function Signupform() {
       setError(api.error?.data?.message);
       setSuccess("");
     } else {
-      setError("");
-      setSuccess(`${api.data.message} Now you can login.`);
       setForm({
         fullname: "",
         email: "",
@@ -40,6 +41,12 @@ function Signupform() {
         password: "",
         confirmationpassword: "",
         term: false,
+      });
+      toast.success("Registration Successfully.");
+      navigate("/verifyaccount", {
+        state: {
+          email: form.email,
+        },
       });
     }
   };
@@ -126,7 +133,7 @@ function Signupform() {
         className="w-100 btn form-control bg-secondary stock py-2 text-white"
         type="submit"
       >
-        Submit
+        {isLoading ? <LoadingButton /> : "Submit"}
       </button>
       <div className=" stock mt-2 text-center">
         Already have an account?{" "}

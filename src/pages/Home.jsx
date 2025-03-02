@@ -7,10 +7,14 @@ import SearchModal from "../components/SearchModal";
 import Fruitsearch from "../components/Home/Fruitsearch";
 import Testimonial from "../components/Home/Testimonial";
 import { Helmet } from "react-helmet";
-import Scroller from "../components/common/Scroller";
 
 function Home() {
-  <Scroller />;
+  useEffect(() => {
+    scrollTo({
+      top: 0,
+      behavior: "instant",
+    });
+  }, []);
   return (
     <>
       <Helmet>

@@ -19,7 +19,6 @@ function Contactform() {
   const contactForm = async (e) => {
     e.preventDefault();
     const api = await CONTACT(contact);
-    console.log(api);
     if (api.error) {
       setError(api.error?.data?.message);
       setSuccess("");

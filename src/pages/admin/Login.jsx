@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router";
 
 import Showmessage from "../../components/common/Showmessage";
 import LoadingButton from "../../components/common/LoadingButton";
 import { useLoginAdminMutation } from "../../redux/Api/admin/AdminLogin";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setCredentials } from "../../redux/Slice/AuthSlice";
 
 function LoginAdmin() {

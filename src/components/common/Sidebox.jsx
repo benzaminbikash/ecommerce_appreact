@@ -28,6 +28,16 @@ function Sidebox() {
       name: "Change Password",
       link: "oldpassword",
     },
+    {
+      id: 4,
+      name: "Add Product",
+      link: "addproduct",
+    },
+    {
+      id: 5,
+      name: "My Product",
+      link: "myproduct",
+    },
   ];
   return (
     <div>
