@@ -107,7 +107,7 @@ function AddSubCategory() {
                 <input
                   type="text"
                   id="categoryName"
-                  className="form-control  bg-light"
+                  className="form-control   bg-light"
                   placeholder="Enter sub category title"
                   onChange={(e) => setTitle(e.target.value)}
                   value={title}

@@ -3,18 +3,19 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { useGetTestimonialQuery } from "../../redux/Api/admin/AdminTestimonial";
 import { constant } from "../common/constant";
+import { Rating } from "@smastrom/react-rating";
 
 function Testimonial() {
   const { data } = useGetTestimonialQuery();
   return (
-    <div className="container-fluid testimonial py-5">
+    <div className="container-fluid testimonial">
       <div className="container py-5">
         <div className="testimonial-header text-center">
-          <h3 className="text-primary">Our Testimonial</h3>
-          <h6 className="mb-5 text-dark">Our Client Saying!</h6>
+          <h5 className="text-primary">Our Testimonial</h5>
+          <p className="mb-5 stock text-dark">Our Client Saying!</p>
         </div>
         <div
-          className="container"
+          className="container mx-auto rounded"
           style={{
             paddingBottom: "20px",
             position: "relative",
@@ -61,12 +62,14 @@ function Testimonial() {
                 <div className="col-12 img-border-radius bg-light rounded p-4">
                   <div className="position-relative">
                     <div className="mb-4 border-bottom pb-2 border-secondary">
-                      <p className="mb-0 testimonialheight subtitlehero">
-                        {item?.description}
+                      <p className="mb-0 stock text-center testimonialheight ">
+                        {item?.description?.length > 450
+                          ? item?.description?.substring(0, 450) + "..."
+                          : item?.description}
                       </p>
                     </div>
                     <div className="d-flex align-items-center flex-nowrap">
-                      <div className="bg-secondary rounded">
+                      <div className=" rounded">
                         <img
                           src={`${constant?.IMAGEURL}/${item?.image}`}
                           className="img-fluid rounded"
@@ -75,14 +78,18 @@ function Testimonial() {
                         />
                       </div>
                       <div className="ms-4 d-block">
-                        <h6 className="text-dark">{item?.name}</h6>
-                        <p className="m-0 pb-3">{item?.profession}</p>
+                        <p className="text-primary stock fw-bold">
+                          {item?.name}
+                        </p>
+                        <p className="m-0 pb-1 stock ">{item?.profession}</p>
                         <div className="d-flex pe-5">
-                          <i className="fas fa-star text-primary"></i>
-                          <i className="fas fa-star text-primary"></i>
-                          <i className="fas fa-star text-primary"></i>
-                          <i className="fas fa-star text-primary"></i>
-                          <i className="fas fa-star"></i>
+                          {item?.rating && (
+                            <Rating
+                              style={{ maxWidth: 90 }}
+                              value={item?.rating}
+                              readOnly={true}
+                            />
+                          )}
                         </div>
                       </div>
                     </div>

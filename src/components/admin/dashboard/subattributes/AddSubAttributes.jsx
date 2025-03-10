@@ -98,7 +98,7 @@ function AddSubAttributes() {
                   required
                   value={attribute}
                   onChange={(e) => setAttribute(e.target.value)}
-                  className="form-control p-3 bg-light"
+                  className="form-control p-2 bg-light"
                   aria-label="Default select example"
                 >
                   <option value="" disabled>
@@ -123,7 +123,7 @@ function AddSubAttributes() {
                     <input
                       type="text"
                       id={`name-${index}`}
-                      className="form-control p-3 bg-light"
+                      className="form-control p-2 bg-light"
                       placeholder="Enter sub attribute title"
                       value={name}
                       onChange={(e) => handleNameChange(index, e.target.value)}

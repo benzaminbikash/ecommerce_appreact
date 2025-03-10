@@ -83,10 +83,10 @@ function ProfileCart() {
   }
 
   return (
-    <div className="container-fluid ">
-      <div className="container ">
-        <div className="table-responsive border rounded ">
-          <table className="table ">
+    <div className=" ">
+      <div className=" ">
+        <div className="table-responsive scroll-container border rounded ">
+          <table className="table table-bordered ">
             <thead>
               <tr className="stock text-primary">
                 <th scope="col  tablehead">SN</th>
@@ -102,7 +102,7 @@ function ProfileCart() {
               {cart?.map((item, index) => (
                 <tr key={index} className="stock text-primary">
                   <td>
-                    <p className="mb-0 mt-4">{index + 1}</p>
+                    <p className="mb-0">{index + 1}</p>
                   </td>
                   <th scope="row">
                     <div className="d-flex align-items-center">
@@ -114,52 +114,48 @@ function ProfileCart() {
                     </div>
                   </th>
                   <td>
-                    <p className="mb-0 mt-4">{item?.product?.title}</p>
+                    <p className="mb-0">{item?.product?.title}</p>
                   </td>
                   <td>
-                    <p className="mb-0 mt-4">
+                    <p className="mb-0">
                       Rs {item?.product?.priceafterdiscount}
                     </p>
                   </td>
                   <td>
                     <div
-                      className="input-group quantity mt-4"
-                      style={{ width: "100px" }}
+                      style={{ width: "80px" }}
+                      className="gap-0  d-flex align-items-center "
                     >
-                      <div className="input-group-btn">
-                        <button
-                          onClick={() => decrease(item)}
-                          className="btn btn-sm btn-minus rounded-circle bg-secondary border"
-                        >
-                          <i className="fa fa-minus text-white"></i>
-                        </button>
-                      </div>
+                      <button
+                        onClick={() => decrease(item)}
+                        className="border-0 bg-transparent"
+                      >
+                        <i className="fas fa-minus-circle  footericon fs-4"></i>
+                      </button>
                       <input
                         type="text"
-                        className="form-control bg-transparent form-control-sm text-center text-primary border-0"
-                        value={item.quantity}
+                        className="form-control bg-transparent  form-control-sm text-center text-primary border-0"
+                        value={item?.quantity}
                         disabled
                       />
 
-                      <div className="input-group-btn">
-                        <button
-                          onClick={() => increase(item)}
-                          className="btn btn-sm btn-plus rounded-circle bg-secondary border"
-                        >
-                          <i className="fa fa-plus text-white"></i>
-                        </button>
-                      </div>
+                      <button
+                        onClick={() => increase(item)}
+                        className="border-0 bg-transparent"
+                      >
+                        <i className="fas fa-plus-circle footericon  fs-4"></i>
+                      </button>
                     </div>
                   </td>
                   <td>
-                    <p className="mb-0 mt-4">
+                    <p className="mb-0">
                       {item?.quantity * item.product.priceafterdiscount}
                     </p>
                   </td>
                   <td>
                     <button
                       onClick={() => removeCart(item)}
-                      className="   bg-transparent border-0 mt-4"
+                      className="   bg-transparent border-0"
                     >
                       Remove
                     </button>

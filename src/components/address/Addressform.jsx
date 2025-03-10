@@ -165,7 +165,10 @@ const AddressForm = () => {
 
   return (
     <div className="container py-5 mt-4">
-      <form onSubmit={handleSubmit} className="p-4 border rounded shadow">
+      <form
+        onSubmit={handleSubmit}
+        className="p-2 p-lg-4 border rounded shadow"
+      >
         <div className="row">
           <div className="col-12 col-md-7">
             {/* Full Name */}
@@ -386,7 +389,7 @@ const AddressForm = () => {
                 <Productinfo items={cart} />
               )}
             </div>
-            <div className="p-4 border rounded shadow bg-light">
+            <div className="p-2 p-lg-4 border rounded shadow bg-light">
               <h6>Payment Method</h6>
 
               {paymentmethod.map((item, index) => (
@@ -399,7 +402,7 @@ const AddressForm = () => {
                     checked={formData.paymentMethod === item.originalvalue}
                     onChange={handleChange}
                   />
-                  <label className="form-check-label text-primary">
+                  <label className="stock form-check-label text-primary">
                     {item.value}
                   </label>
                   <br />
@@ -427,14 +430,8 @@ const AddressForm = () => {
                           />
                         </label>
                         <label className="stock my-2">
-                          Transaction Id
+                          Transaction Code
                           <input
-                            // onChange={(e) =>
-                            //   setFormData((pre) => ({
-                            //     ...pre,
-                            //     transactionid: e.target.value,
-                            //   }))
-                            // }
                             name="transactionid"
                             onChange={handleChange}
                             type="text"
@@ -449,7 +446,7 @@ const AddressForm = () => {
 
               <button
                 type="submit"
-                className="btn bg-secondary text-white w-100 mt-3"
+                className="btn ratingbackground text-white w-100 mt-3"
               >
                 Place Order
               </button>

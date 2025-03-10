@@ -3,18 +3,17 @@ import { constant } from "../../common/constant";
 import { Link } from "react-router";
 
 function BannerModal({ data, type }) {
-  console.log(data);
   return (
     <div
-      className="modal fade "
+      className="modal fade w-100 "
       id="exampleModal"
       tabIndex="-1"
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
     >
-      <div className="modal-dialog modal-dialog-centered">
+      <div className="modal-dialog  modal-dialog-centered">
         <div className="modal-content">
-          <div className="modal-body">
+          <div className="modal-body w-100">
             {type === "testimonail" && (
               <>
                 <div className="text-center">
@@ -51,27 +50,23 @@ function BannerModal({ data, type }) {
                     }}
                   />
                 </div>
-                <p className="fw-bolder text-primary">
-                  Title: <span className="fw-light">{data?.title}</span>
+                <p className="fw-bolder stock text-primary stock">
+                  Title:{" "}
+                  <span className="fw-light text-dark">{data?.title}</span>
                 </p>
-                <p className="fw-bolder text-primary">
-                  SubTitle: <span className="fw-light">{data?.subtitle}</span>
+                <p className="fw-bolder text-primary stock">
+                  SubTitle:{" "}
+                  <span className="fw-light text-dark">{data?.subtitle}</span>
                 </p>
-                <p className="fw-bolder text-primary">
+                <p className="fw-bolder text-primary stock">
                   Description:{" "}
-                  <span className="fw-light">{data?.description}</span>
-                </p>
-                <p className="fw-bolder text-primary">
-                  Price: <span className="fw-light">Rs {data?.price}</span>
-                </p>
-                <p className="fw-bolder text-primary">
-                  Weight: <span className="fw-light">{data?.weight} Kg</span>
-                </p>
-                <p className="fw-bolder text-primary">
-                  Button Name:
-                  <span className="bg-primary rounded-2 px-2 py-1 text-uppercase w-25 mx-1">
-                    {data?.submit}
+                  <span className="fw-light text-dark">
+                    {data?.description}
                   </span>
+                </p>
+                <p className="fw-bolder text-primary stock">
+                  Price:{" "}
+                  <span className="fw-light text-dark">Rs {data?.price}</span>
                 </p>
               </>
             )}
@@ -146,6 +141,11 @@ function BannerModal({ data, type }) {
                   </p>
                 )}
               </>
+            )}
+            {type === "blog" && (
+              <div
+                dangerouslySetInnerHTML={{ __html: data?.description }}
+              ></div>
             )}
           </div>
           <div className="modal-footer">

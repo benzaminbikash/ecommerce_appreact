@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router";
 import {
   useDeleteCategoryMutation,
@@ -42,81 +42,91 @@ function Category() {
       state: item,
     });
   };
-
+  useEffect(() => {
+    refetch();
+  }, []);
   return (
     <main className="">
       <div className="d-flex justify-content-between align-items-center mt-5 mb-4 ">
-        <h1 className="fs-5 fw-bold mt-3">Category List</h1>
+        <h6>Category List</h6>
         <NavLink
           to="/admin/category/addcategory"
-          className="btn btn-primary text-white py-2"
+          className="btn btn-primary text-white py-1 py-lg-2 stock"
         >
           <i className="bi bi-plus me-2"></i>Add Category
         </NavLink>
       </div>
       {message != "" && <Showmessage message={message} status={"success"} />}
-      <div className="table-responsive card p-3 ">
-        <table className="table table-bordered table-sm">
-          <thead>
-            <tr>
-              <th className="text-dark">S.N</th>
-              <th className="text-dark">Category Name</th>
-              <th className="text-dark">Image</th>
-              <th className="text-dark"> Order Number</th>
+      {displayedProducts?.length == 0 ? (
+        <p className="text-center fw-bold text-primary fs-5">No Category</p>
+      ) : (
+        <>
+          <div className="table-responsive scroll-container card p-3 ">
+            <table className="table table-bordered table-sm">
+              <thead>
+                <tr>
+                  <th className="text-dark">S.N</th>
+                  <th className="text-dark">Category Name</th>
+                  <th className="text-dark">Image</th>
+                  <th className="text-dark"> Order Number</th>
 
-              <th className="text-dark">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {displayedProducts &&
-              displayedProducts?.map((product, index) => (
-                <tr key={product.id}>
-                  <td>{startIndex + index + 1}</td>
-                  <td>{product?.title}</td>
-                  <Link to={`http://localhost:8000/uploads/${product?.image}`}>
-                    <img
-                      className="adminImage"
-                      src={`http://localhost:8000/uploads/${product?.image}`}
-                      st
-                      alt="randomImage"
-                    />
-                  </Link>
-                  <td>{product?.order}</td>
-                  <td>
-                    <i
-                      className="bi bi-pencil-square adminactionupdate"
-                      onClick={() => selectUpdateData(product)}
-                    ></i>
-                    <i
-                      className="bi bi-trash ps-3 adminactiondelete"
-                      onClick={() => handleDelete(product._id)}
-                    ></i>
-                  </td>
+                  <th className="text-dark">Actions</th>
                 </tr>
-              ))}
-          </tbody>
-        </table>
-      </div>
+              </thead>
+              <tbody>
+                {displayedProducts &&
+                  displayedProducts?.map((product, index) => (
+                    <tr key={product.id}>
+                      <td>{startIndex + index + 1}</td>
+                      <td>{product?.title}</td>
+                      <Link
+                        to={`http://localhost:8000/uploads/${product?.image}`}
+                      >
+                        <img
+                          className="adminImage"
+                          src={`http://localhost:8000/uploads/${product?.image}`}
+                          st
+                          alt="randomImage"
+                        />
+                      </Link>
+                      <td>{product?.order}</td>
+                      <td>
+                        <i
+                          className="bi bi-pencil-square adminactionupdate"
+                          onClick={() => selectUpdateData(product)}
+                        ></i>
+                        <i
+                          className="bi bi-trash ps-3 adminactiondelete"
+                          onClick={() => handleDelete(product._id)}
+                        ></i>
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          </div>
 
-      <div className="d-flex justify-content-between mt-3">
-        <button
-          className="btn btn-outline-primary"
-          onClick={handlePrevious}
-          disabled={currentPage === 1}
-        >
-          Previous
-        </button>
-        <span className="align-self-center">
-          Page {currentPage} of {totalPages}
-        </span>
-        <button
-          className="btn btn-outline-primary"
-          onClick={handleNext}
-          disabled={currentPage === totalPages}
-        >
-          Next
-        </button>
-      </div>
+          <div className="d-flex justify-content-between mt-3">
+            <button
+              className="btn btn-outline-primary"
+              onClick={handlePrevious}
+              disabled={currentPage === 1}
+            >
+              Previous
+            </button>
+            <span className="stock text-dark align-self-center">
+              Page {currentPage} of {totalPages}
+            </span>
+            <button
+              className="btn btn-outline-primary"
+              onClick={handleNext}
+              disabled={currentPage === totalPages}
+            >
+              Next
+            </button>
+          </div>
+        </>
+      )}
     </main>
   );
 }

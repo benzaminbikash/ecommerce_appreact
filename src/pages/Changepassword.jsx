@@ -51,7 +51,7 @@ function Changepassword() {
                 </div>
               </div>
               <div className="col-lg-6">
-                <h3 className=" mb-2 ">Change your password</h3>
+                <h5 className=" mb-2 ">Change your password</h5>
                 {error && <Showmessage status="fail" message={error} />}
                 {success && (
                   <Showmessage status="success" message={`${success}`} />
@@ -74,13 +74,13 @@ function Changepassword() {
                     placeholder="Confirmation Password"
                   />
                   <button
-                    className="mx-auto w-100 mb-2 btn form-control stock py-2 bg-secondary text-white "
+                    className="mx-auto w-100 mb-2 btn  stock py-2 ratingbackground text-white "
                     type="submit"
                   >
                     Submit
                   </button>
                 </form>
-                <Link to="/login" className=" stock text-secondary backtologin">
+                <Link to="/login" className=" stock text-danger backtologin">
                   Back to Login
                 </Link>
               </div>

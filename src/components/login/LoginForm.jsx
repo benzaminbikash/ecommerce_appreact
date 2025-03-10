@@ -126,14 +126,14 @@ function LoginForm() {
         </NavLink>
       </div>
       <button
-        className="w-100 btn form-control text-white stock py-2 bg-secondary text-dark "
+        className="w-100 btn  text-white stock py-2 ratingbackground text-dark "
         type="submit"
       >
         {isLoading ? <LoadingButton /> : "Submit"}
       </button>
       <div className="mt-2 text-center stock">
         Don't have any account?{" "}
-        <NavLink to="/signup" className="stock createhere  text-secondary">
+        <NavLink to="/signup" className="stock createhere  text-danger">
           Create here
         </NavLink>
       </div>

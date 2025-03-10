@@ -43,7 +43,7 @@ function Order() {
   return (
     <>
       <div className=" d-flex justify-content-between">
-        <h5>My Order Lists</h5>
+        <h6>My Order Lists</h6>
         <div className="d-flex gap-2 align-items-center">
           <p className="stock text-primary">Sorting:</p>
           <select onChange={(e) => setSelect(e.target.value)} className="stock">
@@ -56,7 +56,7 @@ function Order() {
           </select>
         </div>
       </div>
-      <div className="table-responsive border card mt-2">
+      <div className="table-responsive scroll-container border card mt-2">
         <table className="table  table-bordered   ">
           <thead>
             <tr className="stock text-primary">

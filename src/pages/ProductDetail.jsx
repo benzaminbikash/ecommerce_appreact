@@ -3,14 +3,14 @@ import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router";
 
 import Header from "../components/Header";
-import SearchModal from "../components/SearchModal";
+import { useUserInfoQuery } from "../redux/Api/AuthApi";
 import { constant } from "../components/common/constant";
+import Showmessage from "../components/common/Showmessage";
 import {
   useAddCartMutation,
   useRemoveCartMutation,
 } from "../redux/Api/CartApi";
-import Showmessage from "../components/common/Showmessage";
-import { useUserInfoQuery } from "../redux/Api/AuthApi";
+import CarsoualProduct from "../components/products/CarsoualProduct";
 
 function ProductDetail() {
   const navigate = useNavigate();
@@ -110,24 +110,17 @@ function ProductDetail() {
 
   return (
     <>
-      <SearchModal />
       <Header title={"Product Detail"} />
       {/* Product INFO */}
       <div className="container py-5">
-        {error && <Showmessage status="fail" message={error} />}
-        {success && <Showmessage status="success" message={success} />}
         <div className="container ">
           <div className="row">
-            <div className="col-md-4">
+            <div className="col-md-5">
               <div className="row">
                 <div className="col-12 mb-2">
-                  <img
-                    src={`${constant?.IMAGEURL}/${state?.images[select]}`}
-                    className="img-fluid rounded h-auto"
-                    alt="Main Product"
-                  />
+                  <CarsoualProduct state={state} />
                 </div>
-                <div className="d-flex gap-2  rounded">
+                <div className="d-flex gap-2 overflow-auto scroll-container ms-1 rounded">
                   {state?.images.map((item, index) => {
                     return (
                       <img
@@ -147,21 +140,38 @@ function ProductDetail() {
                 </div>
               </div>
             </div>
-            <div className="col-md-8">
-              <p className="product-title">{state?.title}</p>
-              <p className="text-muted">{state?.category.title}</p>
+            <div className="col-md-7">
+              {error && (
+                <p className="mt-2">
+                  <Showmessage status="fail" message={error} />
+                </p>
+              )}
+              {success && (
+                <p className="mt-2">
+                  <Showmessage status="success" message={success} />
+                </p>
+              )}
+              <h5 className="mt-2">{state?.title}</h5>
+              <p className="categoryproducttitle stock">
+                {state?.category.title}
+              </p>
               <p className="price">
                 Rs {state?.priceafterdiscount}.00
                 <span className="old-price">Rs {state?.price}.00</span>
                 {"  "}
               </p>
-
               <div className="d-flex align-items-center gap-2 ">
-                <p className="subtitlehero stock">
-                  {" "}
-                  Stock:{" "}
-                  <span className="stockitems stock">{state?.stock}</span>{" "}
-                </p>
+                {state?.stock == 0 ? (
+                  <p>Out of stock</p>
+                ) : (
+                  <p className="subtitlehero stock">
+                    {" "}
+                    Stock:{" "}
+                    <span className="stockitems stock">
+                      {state?.stock}
+                    </span>{" "}
+                  </p>
+                )}
               </div>
               <div className="categorytitle"></div>
               {state?.attributes.map((item, index) => {
@@ -175,10 +185,10 @@ function ProductDetail() {
                       <button
                         onClick={() => getData(value)}
                         key={valueIndex}
-                        className={`m-1 rounded border-0 stock ${
+                        className={`m-1 rounded border-0 stock py-1 ${
                           attribute?.includes(value)
-                            ? "bg-secondary px-2 border-1  text-white my-2"
-                            : "px-2 my-2"
+                            ? "bg-secondary px-4 text-white my-2"
+                            : "px-4 my-2"
                         }`}
                       >
                         {value}
@@ -207,30 +217,31 @@ function ProductDetail() {
                   onClick={() => {
                     setQuanity(quanity + 1);
                   }}
-                  className="carticon "
+                  className="carticon  rounded-circle"
                 >
                   +
                 </button>
               </div>
+
               <div className="d-flex  ">
                 {checkData ? (
                   <button
                     onClick={() => removeCart()}
-                    className="btn text-center btn-yellow w-25 me-2 text-black subtitlehero"
+                    className="btn text-center btn-yellow  w-50  w-25  me-2 text-white subtitlehero"
                   >
                     REMOVE CART
                   </button>
                 ) : (
                   <button
                     onClick={() => AddToCartHandler()}
-                    className="btn text-center btn-yellow w-25 me-2 text-black subtitlehero"
+                    className="btn text-center btn-yellow w-50  w-25  me-2 text-white stock"
                   >
                     ADD TO CART
                   </button>
                 )}
                 <button
                   onClick={() => BuyNow()}
-                  className="btn text-center  btn-dark w-25 subtitlehero"
+                  className="btn text-center w-25 w-50   border-danger rounded-button bg-white text-primary   stock"
                 >
                   BUY NOW
                 </button>
@@ -240,7 +251,7 @@ function ProductDetail() {
             </div>
 
             <div
-              className="mt-3"
+              className="mt-2 stock"
               dangerouslySetInnerHTML={{ __html: state?.description }}
             />
           </div>

@@ -27,50 +27,59 @@ function Attributes() {
       state: item,
     });
   };
+  useEffect(() => {
+    refetch();
+  }, []);
 
   return (
     <main className="">
       <div className="d-flex justify-content-between align-items-center mt-5 mb-4 ">
-        <h1 className="fs-5 fw-bold mt-3">Attributes</h1>
+        <h6>Attributes</h6>
         <NavLink
           to="/admin/attribute/addattribute"
-          className="btn btn-primary text-white py-2"
+          className="btn btn-primary text-white py-lg-2 py-1"
         >
           <i className="bi bi-plus me-2"></i>Add New Attributes
         </NavLink>
       </div>
       {message != "" && <Showmessage message={message} status={"success"} />}
-      <div className="table-responsive card p-3 ">
-        <table className="table table-bordered table-sm">
-          <thead>
-            <tr>
-              <th className="text-dark">S.N</th>
-              <th className="text-dark">Title</th>
-              <th className="text-dark">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {API?.data.map((item, index) => {
-              return (
-                <tr key={index}>
-                  <td>{index + 1}</td>
-                  <td>{item.title}</td>
-                  <td>
-                    <i
-                      onClick={() => selectUpdateData(item)}
-                      className="bi bi-pencil-square adminactionupdate"
-                    ></i>
-                    <i
-                      onClick={() => handleDelete(item._id)}
-                      className="bi bi-trash ps-3 adminactiondelete"
-                    ></i>
-                  </td>
+      {API?.data.length == 0 ? (
+        <p className="text-center fw-bold text-primary fs-5">No Attribute</p>
+      ) : (
+        <>
+          <div className="table-responsive scroll-container card p-3 ">
+            <table className="table table-bordered table-sm">
+              <thead>
+                <tr>
+                  <th className="text-dark">S.N</th>
+                  <th className="text-dark">Title</th>
+                  <th className="text-dark">Actions</th>
                 </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
+              </thead>
+              <tbody>
+                {API?.data.map((item, index) => {
+                  return (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td>{item.title}</td>
+                      <td>
+                        <i
+                          onClick={() => selectUpdateData(item)}
+                          className="bi bi-pencil-square adminactionupdate"
+                        ></i>
+                        <i
+                          onClick={() => handleDelete(item._id)}
+                          className="bi bi-trash ps-3 adminactiondelete"
+                        ></i>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </>
+      )}
     </main>
   );
 }

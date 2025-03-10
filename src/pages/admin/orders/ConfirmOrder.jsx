@@ -19,10 +19,10 @@ function ConfirmOrder() {
         return item;
       } else {
         return (
-          item.user.fullname.toLowerCase().includes(search.toLowerCase()) ||
-          item.status.toLowerCase().includes(search.toLowerCase()) ||
-          item.deliveryid.toString().includes(search) ||
-          item.user.phone.toString().includes(search) ||
+          item?.user?.fullname?.toLowerCase().includes(search?.toLowerCase()) ||
+          item?.status?.toLowerCase().includes(search?.toLowerCase()) ||
+          item?.deliveryid?.toString().includes(search) ||
+          item?.user?.phone?.toString().includes(search) ||
           item?.products?.some((data) =>
             data?.product?.title.toLowerCase().includes(search.toLowerCase())
           )
@@ -84,7 +84,7 @@ function ConfirmOrder() {
     <main>
       <BannerModal type="order" data={selectOrder} />
       <div className="mt-5">
-        <h3 className=" mt-3">Confirm Orders</h3>
+        <h6>Confirm Orders</h6>
       </div>
       <div className="d-flex gap-2 w-50 mb-4">
         <input
@@ -104,7 +104,7 @@ function ConfirmOrder() {
         <>
           {error && <Showmessage status="fail" message={error} />}
           {success && <Showmessage status="success" message={success} />}
-          <div className="table-responsive card p-3">
+          <div className="table-responsive scroll-container card p-3">
             <table className="table table-bordered table-sm">
               <thead>
                 <tr>
@@ -214,7 +214,7 @@ function ConfirmOrder() {
             >
               Previous
             </button>
-            <span className="align-self-center">
+            <span className="text-dark stock align-self-center">
               Page {currentPage} of {totalPages}
             </span>
             <button

@@ -9,7 +9,7 @@ function Productdetail() {
 
   return (
     <>
-      <p className="card-title my-2 fs-1 text-dark fw-bold px-2">
+      <p className="card-title my-2 fs-4 text-dark fw-bold px-2">
         {state?.title}
       </p>
 
@@ -42,7 +42,7 @@ function Productdetail() {
                 })}
               </div>
             </div>
-            <div className="d-flex gap-2">
+            <div className="d-flex gap-2 align-items-center">
               <p className=" text-dark fw-bold">
                 Rs {state?.priceafterdiscount}
               </p>

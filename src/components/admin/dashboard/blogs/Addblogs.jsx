@@ -1,72 +1,44 @@
-import React, { useEffect, useRef, useState } from "react";
-import {
-  useAddBannerMutation,
-  useUpdateBannerMutation,
-} from "../../../../redux/Api/admin/AdminBanner";
+import React, { useState, useRef, useEffect } from "react";
 import Showmessage from "../../../common/Showmessage";
 import { useLocation } from "react-router";
+import ReactQuill from "react-quill";
+import { constant } from "../../../common/constant";
+import {
+  useAddBlogMutation,
+  useUpdateBlogMutation,
+} from "../../../../redux/Api/admin/AdminBlog";
 
-function AddBanner() {
+function AddBlog() {
   const { state } = useLocation();
   const [selectImage, setSelectImage] = useState(null);
   const [title, setTitle] = useState("");
-  const [subTitle, setSubTitle] = useState("");
-  const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
   const imageRef = useRef();
 
-  // api
-  const [ADDBANNER] = useAddBannerMutation();
-  const [UPDATEBANNER] = useUpdateBannerMutation();
+  const [BLOG] = useAddBlogMutation();
 
-  const handleAddBanner = async (e) => {
+  const [UPDATEBLOG] = useUpdateBlogMutation();
+
+  const addBlogForm = async (e) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("title", title);
-    formData.append("subtitle", subTitle);
     formData.append("description", description);
-    formData.append("price", price);
-    formData.append("image", selectImage);
-    const api = await ADDBANNER(formData);
-    if (api?.error) {
-      setError(api?.error?.data?.message);
-    } else {
-      setSuccess(api?.data?.message);
-      setTitle("");
-      setSubTitle("");
-      setPrice("");
-      setDescription("");
-      setSelectImage(null);
-      if (imageRef.current) {
-        imageRef.current.value = null;
-      }
-    }
-  };
-
-  const handleUpdateBanner = async (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("subtitle", subTitle);
-    formData.append("description", description);
-    formData.append("price", price);
     if (selectImage instanceof File) {
       formData.append("image", selectImage);
     }
-    const banner = {
-      id: state._id,
-      data: formData,
-    };
-    const api = await UPDATEBANNER(banner);
+
+    const api = await BLOG(formData);
+
     if (api?.error) {
+      setSuccess("");
       setError(api?.error?.data?.message);
     } else {
+      setError("");
       setSuccess(api?.data?.message);
       setTitle("");
-      setSubTitle("");
-      setPrice("");
       setDescription("");
       setSelectImage(null);
       if (imageRef.current) {
@@ -75,14 +47,39 @@ function AddBanner() {
     }
   };
 
+  const updateBlogForm = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("description", description);
+
+    if (selectImage instanceof File) {
+      formData.append("image", selectImage);
+    }
+    const blog = {
+      id: state._id,
+      data: formData,
+    };
+    const api = await UPDATEBLOG(blog);
+
+    if (api?.error) {
+      setError(api?.error?.data?.message);
+    } else {
+      setSuccess(api?.data?.message);
+      setTitle("");
+      setDescription("");
+      setSelectImage(null);
+      if (imageRef.current) {
+        imageRef.current.value = null;
+      }
+    }
+  };
   useEffect(() => {
     if (state) {
       setTitle(state.title);
-      setSubTitle(state.subtitle);
-      setPrice(state.price);
       setDescription(state.description);
       setSelectImage(
-        state.image ? `http://localhost:8000/uploads/${state.image}` : null
+        state.image ? `${constant.IMAGEURL}/${state.image}` : null
       );
     }
   }, [state]);
@@ -92,18 +89,21 @@ function AddBanner() {
       setSelectImage(e.target.files[0]);
     }
   };
+
   return (
     <main className="">
-      <div className="card shadow-sm  mt-4">
-        <div className="card-header bg-white ">
-          <h5 className="text-primary  my-3 ">
-            {state ? "Update Banner" : "Add Banner"}
+      <div className="card shadow-sm mt-4">
+        <div className="card-header bg-white">
+          <h5 className="text-primary my-3">
+            {state != null ? "Update Blog" : "Add New Blog"}
           </h5>
         </div>
+
         {error && <Showmessage status="fail" message={error} />}
         {success && <Showmessage status="success" message={success} />}
+
         <div className="card-body">
-          <form>
+          <form onSubmit={state ? updateBlogForm : addBlogForm}>
             <div className="row g-3">
               <div className="col-md-6">
                 <label htmlFor="categoryName" className="form-label">
@@ -112,55 +112,11 @@ function AddBanner() {
                 <input
                   type="text"
                   id="categoryName"
-                  className="form-control p-2 bg-light"
-                  placeholder="Enter title"
-                  required
+                  className="form-control  bg-light"
+                  placeholder="Enter category name"
                   onChange={(e) => setTitle(e.target.value)}
                   value={title}
-                />
-              </div>
-
-              <div className="col-md-6">
-                <label htmlFor="categoryName" className="form-label">
-                  Sub Title
-                </label>
-                <input
-                  type="text"
-                  id="categoryName"
-                  className="form-control p-2 bg-light"
-                  placeholder="Enter sub-title"
                   required
-                  onChange={(e) => setSubTitle(e.target.value)}
-                  value={subTitle}
-                />
-              </div>
-              <div className="col-md-6">
-                <label htmlFor="categoryName" className="form-label">
-                  Description
-                </label>
-                <textarea
-                  rows={3}
-                  type="text"
-                  id="Description"
-                  className="form-control p-2 bg-light"
-                  placeholder="Enter description"
-                  required
-                  onChange={(e) => setDescription(e.target.value)}
-                  value={description}
-                />
-              </div>
-              <div className="col-md-6">
-                <label htmlFor="categoryName" className="form-label">
-                  Price
-                </label>
-                <input
-                  type="number"
-                  id="categoryName"
-                  className="form-control p-2 bg-light"
-                  placeholder="Enter price"
-                  required
-                  onChange={(e) => setPrice(e.target.value)}
-                  value={price}
                 />
               </div>
 
@@ -172,15 +128,15 @@ function AddBanner() {
                   <input
                     onChange={handleImageChange}
                     type="file"
-                    className="form-control p-2 bg-light"
+                    className="form-control  bg-light"
                     id="iconImage"
                     aria-label="Upload"
-                    required
                     ref={imageRef}
                   />
                 </div>
               </div>
-              {selectImage != null && (
+
+              {selectImage && (
                 <div className="mt-3">
                   <h6>Selected Image:</h6>
                   <div className="row g-2">
@@ -199,16 +155,26 @@ function AddBanner() {
                   </div>
                 </div>
               )}
+
+              <div className="col-md-12 mt-2 mb-4 mb-lg-0">
+                <label htmlFor="description" className="form-label">
+                  Description
+                </label>
+                <ReactQuill
+                  theme="snow"
+                  value={description}
+                  onChange={setDescription}
+                  style={{ height: 200 }}
+                />
+              </div>
             </div>
 
-            {/* Submit Button */}
             <div className="mt-4">
               <button
-                onClick={state ? handleUpdateBanner : handleAddBanner}
                 type="submit"
-                className="btn btn-primary text-white py-2"
+                className="mt-4 btn btn-primary text-white py-2"
               >
-                {state ? "Update Banner" : "Add Banner"}
+                {state ? "Update Blog" : "Add Blog"}
               </button>
             </div>
           </form>
@@ -218,4 +184,4 @@ function AddBanner() {
   );
 }
 
-export default AddBanner;
+export default AddBlog;

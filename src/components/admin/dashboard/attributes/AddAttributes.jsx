@@ -67,7 +67,7 @@ function AddAttributes() {
                 </label>
                 <input
                   type="text"
-                  className="form-control p-3 bg-light"
+                  className="form-control p-2 bg-light"
                   placeholder="Enter attribute title"
                   required
                   onChange={(e) => setTitle(e.target.value)}

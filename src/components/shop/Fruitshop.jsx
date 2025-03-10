@@ -56,8 +56,38 @@ function Fruitshop() {
         <div className="row g-4">
           <div className="col-lg-12">
             <div className="row g-4">
-              <div className="col-xl-3">
-                <div className="input-group w-100 mx-auto d-flex">
+              <div className="d-lg-none d-flex align-items-center gap-2">
+                <div className="input-group   mx-auto d-flex">
+                  <input
+                    onChange={(e) => setSearch(e.target.value)}
+                    type="search"
+                    className="form-control px-3 py-2"
+                    placeholder="Search here..."
+                    aria-describedby="search-icon-1"
+                    value={search}
+                  />
+                </div>
+                <div className="col-xl-3 d-lg-none">
+                  <div className="border mt-4 ps-3 py-2 rounded d-flex justify-content-between align-items-center mb-4">
+                    <label className="subtitlehero">Sort:</label>
+                    <select
+                      id="sort"
+                      name="sortlist"
+                      className="border-0 form-select-sm me-3 border-"
+                      value={sortOption}
+                      onChange={(e) => setSortOption(e.target.value)}
+                    >
+                      <option value="">Default</option>
+                      <option value="A-Z">A-Z</option>
+                      <option value="Z-A">Z-A</option>
+                      <option value="Low-to-High">Low-to-High</option>
+                      <option value="High-to-Low">High-to-Low</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div className="d-none d-lg-inline col-xl-3">
+                <div className="input-group  w-100 mx-auto d-flex">
                   <input
                     onChange={(e) => setSearch(e.target.value)}
                     type="search"
@@ -71,9 +101,9 @@ function Fruitshop() {
 
               <div className="col-6"></div>
 
-              <div className="col-xl-3">
+              <div className="col-xl-3 d-none d-lg-inline">
                 <div className="border  ps-3 py-1 rounded d-flex justify-content-between align-items-center mb-4">
-                  <label className="subtitlehero">Sort By:</label>
+                  <label className="stock">Sort:</label>
                   <select
                     id="sort"
                     name="sortlist"
@@ -95,10 +125,59 @@ function Fruitshop() {
               <div className="col-lg-3">
                 <div className="row g-4">
                   <div className="col-lg-12">
-                    <div className="mb-3">
-                      <h5 className="categorytitle">Category</h5>
+                    <div className="mb-0 mb-lg-3">
+                      <h5 className="text-primary  border-bottom-2">
+                        Category
+                      </h5>
+                      <hr />
+                      <div className="d-flex gap-2">
+                        <ul
+                          className=" d-lg-none d-flex list-unstyled scroll-smooth overflow-scroll"
+                          style={{
+                            overflowX: "auto",
+                            whiteSpace: "nowrap",
+                            maxWidth: "100%",
+                            msOverflowStyle: "none",
+                            scrollbarWidth: "none",
+                          }}
+                        >
+                          {Category?.data?.map((item, index) => {
+                            return (
+                              <li
+                                key={index}
+                                onClick={() => {
+                                  setSelectCategory(item.title);
+                                  setCurrentPage(1);
+                                }}
+                                className="nav-item"
+                              >
+                                <button
+                                  className={`d-flex  py-1 border-0 rounded-pill 
+                                ${
+                                  selectCategory === item.title
+                                    ? "ratingbackground"
+                                    : "bg-light"
+                                }
+                              `}
+                                >
+                                  <span
+                                    className={`filterfruit ${
+                                      selectCategory === item.title
+                                        ? "text-white"
+                                        : "text-dark"
+                                    }`}
+                                  >
+                                    {item.title}
+                                  </span>
+                                </button>
+                              </li>
+                            );
+                          })}
+                        </ul>
+                      </div>
 
-                      <ul className="list-unstyled fruite-categorie">
+                      {/* for laptop view */}
+                      <ul className="d-none d-lg-block list-unstyled fruite-categorie">
                         {Category?.data.map((item, index) => (
                           <li
                             key={index}
@@ -109,9 +188,9 @@ function Fruitshop() {
                           >
                             <div className="d-flex justify-content-between fruite-name">
                               <button
-                                className={`bg-transparent border-0 ${
+                                className={`bg-transparent border-0  ${
                                   selectCategory === item.title &&
-                                  "text-secondary fw-bold fs-6 bg-secondary"
+                                  "text-black fw-bold fs-6 text-danger"
                                 }`}
                               >
                                 {item.title}
@@ -123,18 +202,13 @@ function Fruitshop() {
                     </div>
                   </div>
 
-                  <div className="col-lg-12">
+                  <div className="d-none d-lg-block col-lg-12">
                     <div className="position-relative">
                       <img
                         src={Bannerf}
-                        className="img-fluid w-100 bannerimage rounded"
+                        className=" img-fluid w-100 bannerimage rounded"
                         alt=""
                       />
-                      <div className="position-absolute freshfruitbanner">
-                        <p className="text-black believeintechnology fw-bold">
-                          {/* Believe <br /> In <br /> Technology */}
-                        </p>
-                      </div>
                     </div>
                   </div>
                 </div>

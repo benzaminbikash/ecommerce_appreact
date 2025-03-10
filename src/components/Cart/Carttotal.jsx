@@ -8,21 +8,21 @@ function Carttotal({ data }) {
     <div className="row g-4 justify-content-end mt-2">
       {/* <div className="col-8"></div> */}
       <div className="col-sm-8 col-md-7 ">
-        <div className="bg-light rounded">
+        <div className="shadow rounded">
           <div className="p-4">
-            <h5 className=" mb-3">Cart Total</h5>
+            <h6 className=" mb-3">Cart Total</h6>
             <div className="d-flex justify-content-between mb-2">
-              <p className="mb-0 me-4  text-primary">Subtotal:</p>
-              <p className="mb-0">Rs {data}</p>
+              <p className="mb-0 stock me-4  text-primary">Subtotal:</p>
+              <p className="mb-0 stock">Rs {data}</p>
             </div>
             <div className="d-flex justify-content-between">
-              <p className="mb-0 me-4 text-primary">Delivery Charge:</p>
+              <p className="mb-0 stock me-4 text-primary">Delivery Charge:</p>
               <div className="">
-                <p className="mb-0">Rs {deliveryCharge}</p>
+                <p className="mb-0 stock">Rs {deliveryCharge}</p>
               </div>
             </div>
           </div>
-          <div className="py-4 mb-3 border-top border-bottom d-flex justify-content-between">
+          <div className="py-4 mb-2 border-top border-bottom d-flex justify-content-between">
             <h6 className="mb-0 ps-4 me-4">Total</h6>
             <p className="mb-0 pe-4 stock text-primary">
               Rs {data + deliveryCharge}
@@ -30,7 +30,7 @@ function Carttotal({ data }) {
           </div>
           <button
             onClick={() => navigate("/address", {})}
-            className="btn bg-secondary text-white stock rounded-pill px-4 py-2 text-primary  text-uppercase mb-3 ms-4"
+            className="btn ratingbackground  text-white stock rounded px-4 py-2   text-uppercase mb-3 ms-4"
             type="button"
           >
             Proceed Checkout

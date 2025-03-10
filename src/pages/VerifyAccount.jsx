@@ -77,7 +77,7 @@ function VerifyAccount() {
                 )}
 
                 <div className="otp-container">
-                  <h3>Verify Your Account</h3>
+                  <h5>Verify Your Account</h5>
                   <p>
                     We emailed you the four-digit code to{" "}
                     <span className="text-primary">{state?.email}. </span>
@@ -103,7 +103,7 @@ function VerifyAccount() {
                     />
                     <button
                       onClick={formHanlder}
-                      className="w-100 my-2 btn form-control bg-secondary stock py-2 text-white"
+                      className="w-100 my-2 btn ratingbackground stock py-2 text-white"
                       type="submit"
                     >
                       {isLoading ? <LoadingButton /> : "Submit"}
@@ -111,10 +111,11 @@ function VerifyAccount() {
                   </div>
 
                   <p className="stock">
-                    If you didn't receive a code, <br />
+                    If you didn't receive a code,
+                    <br />
                     <button
                       onClick={() => resendOtp()}
-                      className="border-0 px-5 py-2 mt-1 bg-danger text-white rounded-1   stock"
+                      className="border-0 px-5 py-2 mt-1 bg-secondary text-white rounded-1   stock"
                     >
                       {resendLoading ? <LoadingButton /> : "Resend"}
                     </button>

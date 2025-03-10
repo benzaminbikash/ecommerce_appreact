@@ -7,12 +7,12 @@ function Hero() {
   const hero = data?.data[0];
 
   return (
-    <div className="container-fluid  py-5 mb-5 hero-header">
-      <div className="container py-5">
+    <div className="container-fluid py-0  py-md-2  py-lg-5 mb-5 hero-header">
+      <div className="container py-0 pt-lg-4">
         <div className="row g-5 align-items-center">
           <div className="col-md-12 col-lg-6">
-            <h2 className="mb-1 text-secondary">{hero?.title}</h2>
-            <p className="mb-5 subtitlehero ">{hero?.subtitle}</p>
+            <h5 className="mb-1 text-primary">{hero?.title}</h5>
+            <p className="mb-0 mb-lg-5  stock ">{hero?.subtitle}</p>
           </div>
           <div className="col-md-12 col-lg-6">
             <div
@@ -31,7 +31,7 @@ function Hero() {
                   >
                     <img
                       src={`${constant.IMAGEURL}/${image}`}
-                      className="img-fluid w-100 h-100 bg-secondary rounded"
+                      className="img-fluid w-100  h-100 bg-secondary rounded"
                       alt={`Slide ${index + 1}`}
                     />
                   </div>

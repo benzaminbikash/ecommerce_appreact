@@ -74,14 +74,14 @@ function Otpverify() {
                 />
                 <button
                   onClick={formHanlder}
-                  className="d-block mt-3 w-100 mb-2 btn form-control py-2 bg-secondary text-white "
+                  className="d-block mt-3 w-100 mb-2 btn  py-2 ratingbackground text-white "
                   type="submit"
                 >
                   Submit
                 </button>
                 <Link
                   to="/login"
-                  className="mx-auto stock createhere text-secondary mt-2"
+                  className="mx-auto stock createhere text-danger mt-2"
                 >
                   Back to Login
                 </Link>

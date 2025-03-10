@@ -1,8 +1,10 @@
 import { useLocation } from "react-router";
 
 export const constant = {
-  APIURL: "http://localhost:8000/api/v4",
-  IMAGEURL: "http://localhost:8000/uploads",
+  APIURL: "http://192.168.18.70:8000/api/v4",
+  IMAGEURL: "http://192.168.18.70:8000/uploads",
+  // APIURL: "http://192.168.18.70:8000/api/v4",
+  // IMAGEURL: "http://192.168.18.70:8000/uploads",
 };
 
 export function hideNavbarandFooter() {
@@ -37,6 +39,8 @@ export function hideNavbarandFooter() {
     location.pathname === "/admin/subcategory" ||
     location.pathname === "/admin/subcategory/addsubcategory" ||
     location.pathname === "/admin/users/updateuser" ||
+    location.pathname === "/admin/blogs" ||
+    location.pathname === "/admin/blogs/addblog" ||
     location.pathname.startsWith("/admin/product/");
 
   return hideNavbarAndFooter;
@@ -46,3 +50,30 @@ export const deliveryCharge = 100;
 
 export const itemperPage = 10;
 export const itemperPageforUser = 20;
+
+export const sideBar = [
+  {
+    id: 0,
+    name: "My Profile",
+    link: "profile",
+    icon: "fa-user-alt",
+  },
+  {
+    id: 1,
+    name: "My Carts",
+    link: "cart",
+    icon: "fa-cart-plus",
+  },
+  {
+    id: 2,
+    name: "My Orders",
+    link: "order",
+    icon: "fa-border-none",
+  },
+  {
+    id: 3,
+    name: "Change Password",
+    link: "oldpassword",
+    icon: "fa-unlock-alt",
+  },
+];

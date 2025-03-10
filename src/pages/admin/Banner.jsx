@@ -34,11 +34,11 @@ function Banner() {
     <main className="">
       <BannerModal data={selectItem} type="banner" />
       <div className="d-flex justify-content-between align-items-center mt-5 mb-4 ">
-        <h1 className="fs-5 fw-bold mt-3">Banner List</h1>
+        <h6>Banner List</h6>
         {BANNER?.data?.length === 0 && (
           <NavLink
             to="/admin/banner/addbanner"
-            className="btn btn-primary text-white py-2"
+            className="btn btn-primary stock text-white py-1 py-lg-2"
           >
             <i className="bi bi-plus me-2"></i>Add Banner
           </NavLink>
@@ -48,7 +48,7 @@ function Banner() {
       {BANNER?.data?.length == 0 ? (
         <p className="text-center fw-bold text-primary fs-5">No Banner</p>
       ) : (
-        <div className="table-responsive card p-3 ">
+        <div className="table-responsive scroll-container card p-3 ">
           <table className="table table-bordered table-sm">
             <thead>
               <tr>
@@ -56,7 +56,6 @@ function Banner() {
                 <th className="text-dark">Title</th>
                 <th className="text-dark">Subtitle</th>
                 <th className="text-dark">Price</th>
-                <th className="text-dark">Weight</th>
                 <th className="text-dark">Action</th>
               </tr>
             </thead>
@@ -68,7 +67,6 @@ function Banner() {
                     <td>{item?.title}</td>
                     <td>{item?.subtitle}</td>
                     <td>{item?.price}</td>
-                    <td>{item?.weight}</td>
                     <td>
                       <i
                         onClick={() => selectUpdateData(item)}

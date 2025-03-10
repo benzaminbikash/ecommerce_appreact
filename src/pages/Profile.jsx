@@ -11,13 +11,11 @@ function Profile() {
     });
   }, []);
   return (
-    <>
-      <h3>My details</h3>
-      <p className="text-muted fw-bold">Personal Information</p>
-
+    <div className=" card px-2">
+      <h6>Personal Information</h6>
       <form>
         <div className="row mb-3">
-          <div className="col-md-6">
+          <div className="col-md-12">
             <label for="firstName" className="form-label stock">
               Full Name
             </label>
@@ -29,7 +27,7 @@ function Profile() {
               disabled
             />
           </div>
-          <div className="col-md-6">
+          <div className="col-md-12">
             <label for="secondName" className="form-label stock">
               Email
             </label>
@@ -41,7 +39,7 @@ function Profile() {
               disabled
             />
           </div>
-          <div className="col-md-6">
+          <div className="col-md-12">
             <label for="secondName" className="form-label stock">
               Phone Number
             </label>
@@ -55,7 +53,7 @@ function Profile() {
           </div>
         </div>
       </form>
-    </>
+    </div>
   );
 }
 

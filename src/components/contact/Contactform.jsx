@@ -74,7 +74,7 @@ function Contactform() {
           value={contact.message}
         ></textarea>
         <button
-          className="w-100 btn form-control bg-secondary py-2 text-white "
+          className="w-100  rounded-1 border-0 ratingbackground py-2 text-white "
           type="submit"
         >
           {isLoading ? <LoadingButton /> : "Submit"}

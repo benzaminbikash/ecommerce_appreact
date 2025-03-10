@@ -61,7 +61,7 @@ function AddUser() {
                 <input
                   type="text"
                   id="fullname"
-                  className="form-control p-3 bg-light"
+                  className="form-control p-2 bg-light"
                   placeholder="Enter full name"
                   required
                   value={fullname}
@@ -77,7 +77,7 @@ function AddUser() {
                 <input
                   type="email"
                   id="email"
-                  className="form-control p-3 bg-light"
+                  className="form-control p-2 bg-light"
                   placeholder="Enter email"
                   required
                   value={email}
@@ -93,7 +93,7 @@ function AddUser() {
                 <input
                   type="tel"
                   id="phone"
-                  className="form-control p-3 bg-light"
+                  className="form-control p-2 bg-light"
                   placeholder="Enter phone number"
                   required
                   value={phone}
@@ -109,7 +109,7 @@ function AddUser() {
                 <input
                   type="password"
                   id="password"
-                  className="form-control p-3 bg-light"
+                  className="form-control p-2 bg-light"
                   placeholder="Enter password"
                   required
                   value={password}
@@ -125,7 +125,7 @@ function AddUser() {
                 <input
                   type="password"
                   id="c_password"
-                  className="form-control p-3 bg-light"
+                  className="form-control p-2 bg-light"
                   placeholder="Enter confirmation password"
                   required
                   value={confirmationpassword}

@@ -4,12 +4,16 @@ import ReactQuill from "react-quill";
 import { useGetCategoryQuery } from "../../../../redux/Api/admin/AdminCategory";
 import { useSubCategorySearchQuery } from "../../../../redux/Api/admin/AdminSubCategory";
 import { useGetSubAttributeQuery } from "../../../../redux/Api/admin/AdminSubAttribute";
-import { useAddProductMutation } from "../../../../redux/Api/admin/AdminProduct";
+import {
+  useAddProductMutation,
+  useUpdateProductMutation,
+} from "../../../../redux/Api/admin/AdminProduct";
 import Showmessage from "../../../common/Showmessage";
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { constant } from "../../../common/constant";
 
 function AddProduct() {
+  const navigate = useNavigate();
   const { state } = useLocation();
   const [value, setValue] = useState("");
   const [product, setProduct] = useState("");
@@ -22,17 +26,20 @@ function AddProduct() {
   const [subCategory, setSubCategory] = useState("");
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
+  const [rating, setRating] = useState("");
   const [attributes, setAttributes] = useState([
     { attribute: "", subAttributes: [] },
   ]);
-
+  const [bestSeller, setBestSeller] = useState(false);
   const mainImageRef = useRef();
   const imagesRef = useRef([]);
+
   // api implement
   const { data: CATEGORYGET } = useGetCategoryQuery();
   const { data: SEARCHSUBCATEGORY } = useSubCategorySearchQuery(category);
   const { data: SUBATTRIBUTE } = useGetSubAttributeQuery();
   const [ADDPRODUCT] = useAddProductMutation();
+  const [UPDATEPRODUCT] = useUpdateProductMutation();
 
   const handleImageChange = (index, event) => {
     const newImages = [...images];
@@ -97,6 +104,12 @@ function AddProduct() {
     formData.append("subCategory", subCategory);
     formData.append("description", value);
     formData.append("mainimage", mainImage);
+    if (bestSeller) {
+      formData.append("bestSeller", bestSeller);
+    }
+    if (rating) {
+      formData.append("rating", rating);
+    }
     if (images) {
       images.forEach((image, index) => {
         if (image) formData.append(`images`, image);
@@ -109,10 +122,19 @@ function AddProduct() {
       });
     });
 
-    const api = await ADDPRODUCT(formData);
+    const api = state
+      ? await UPDATEPRODUCT({
+          id: state?._id,
+          data: formData,
+        })
+      : await ADDPRODUCT(formData);
     if (api?.error) {
       setSuccess("");
       setError(api?.error?.data?.message);
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
     } else {
       setError("");
       setSuccess(api?.data?.message);
@@ -122,6 +144,8 @@ function AddProduct() {
       setDiscountPrice("");
       setCategory("");
       setSubCategory("");
+      setMainImage(null);
+      setRating("");
       if (mainImageRef.current) {
         mainImageRef.current.value = null;
       }
@@ -131,25 +155,35 @@ function AddProduct() {
       imagesRef.current.forEach((input) => {
         if (input) input.value = null;
       });
+      setBestSeller(false);
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+      if (state) {
+        navigate("/admin/product");
+      }
     }
   };
 
   useEffect(() => {
     if (state) {
-      setValue(state.description);
-      setCategory(state.category._id);
-      setSubCategory(state.subCategory._id);
-      setProduct(state.title);
-      setPrice(state.price);
-      setDiscountPrice(state.priceafterdiscount);
-      setStock(state.stock);
-      const mappedAttributes = state.attributes.map((item) => ({
-        attribute: item.title._id,
-        subAttributes: item.values,
+      setValue(state?.description);
+      setCategory(state?.category?._id);
+      setSubCategory(state?.subCategory?._id);
+      setProduct(state?.title);
+      setPrice(state?.price);
+      setDiscountPrice(state?.priceafterdiscount);
+      setStock(state?.stock);
+      const mappedAttributes = state?.attributes.map((item) => ({
+        attribute: item?.title?._id,
+        subAttributes: item?.values,
       }));
       setAttributes(mappedAttributes);
-      setMainImage(state.mainimage);
-      setImages(state.images || []);
+      setMainImage(state?.mainimage);
+      setImages(state?.images || []);
+      setBestSeller(state?.bestSeller);
+      setRating(state?.rating);
     }
   }, [state]);
 
@@ -157,7 +191,9 @@ function AddProduct() {
     <main>
       <div className="card shadow-sm mt-4">
         <div className="card-header bg-white">
-          <h5 className="text-primary my-3">Add New Product</h5>
+          <h5 className="text-primary my-3">
+            {state ? "Update Product" : "Add New Product"}
+          </h5>
         </div>
         {error && <Showmessage status="fail" message={error} />}
         {success && <Showmessage status="success" message={success} />}
@@ -346,7 +382,7 @@ function AddProduct() {
 
                 {images.length != 5 && (
                   <i
-                    className="fas fa-plus-circle text-white w-50 btn btn-secondary"
+                    className="fas fa-plus-circle form-control text-white w-50 btn bg-secondary"
                     onClick={addMoreImages}
                   >
                     <span className="ps-2"> Add Images</span>
@@ -401,13 +437,41 @@ function AddProduct() {
                 ))}
 
                 <i
-                  className="fas fa-plus-circle text-white w-50 btn btn-secondary"
+                  className="fas fa-plus-circle form-control text-white w-50 btn bg-secondary"
                   onClick={addMoreAttributes}
                 >
                   <span className="ps-2">Add More Attribute</span>
                 </i>
               </div>
             </div>
+
+            <div className="col-md-12 mt-2">
+              <label htmlFor="description" className="form-label">
+                Best Seller
+              </label>
+              <input
+                type="checkbox"
+                className="form-check-input ms-2"
+                checked={bestSeller}
+                onChange={() => setBestSeller(!bestSeller)}
+              />
+            </div>
+            {/* rating */}
+            {bestSeller && (
+              <div className="col-md-6">
+                <label htmlFor="rating" className="form-label">
+                  Rating
+                </label>
+                <input
+                  type="number"
+                  id="rating"
+                  className="form-control bg-light"
+                  placeholder="Enter rating"
+                  onChange={(e) => setRating(e.target.value)}
+                  value={rating}
+                />
+              </div>
+            )}
 
             <div className="col-md-12 mt-2">
               <label htmlFor="description" className="form-label">
@@ -425,9 +489,9 @@ function AddProduct() {
             <div className="mt-5">
               <button
                 type="submit"
-                className="rounded  bg-secondary text-white py-2"
+                className="btn form-control w-25  bg-secondary text-white py-2"
               >
-                Add Product
+                {state ? "Update Product" : "Add Product"}
               </button>
             </div>
           </form>

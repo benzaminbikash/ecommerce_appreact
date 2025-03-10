@@ -1,6 +1,5 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-
 import Shop from "./pages/Shop";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart";
@@ -17,7 +16,6 @@ import ScrollUp from "./components/ScrollUp";
 import Notfound from "./pages/Notfound";
 import Changepassword from "./pages/Changepassword";
 import Otpverify from "./pages/Otpverify";
-import LoginAdmin from "./pages/admin/Login";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Dashboard from "./pages/admin/Dashboard";
@@ -60,6 +58,10 @@ import Order from "./pages/Order";
 import ConfirmOrder from "./pages/admin/orders/ConfirmOrder";
 import OnDeliveryOrder from "./pages/admin/orders/OnDeliverOrder";
 import VerifyAccount from "./pages/VerifyAccount";
+import Blog from "./pages/admin/Blog";
+import AddBlog from "./components/admin/dashboard/blogs/Addblogs";
+import BlogUser from "./pages/Blog";
+import BlogDetail from "./components/admin/dashboard/blogs/BlogDetail";
 
 function App() {
   return (
@@ -82,6 +84,8 @@ function App() {
           <Route path="/change-password" element={<Changepassword />} />
           <Route path="/product-detail/:id" element={<ProductDetail />} />
           <Route path="/address" element={<Address />} />
+          <Route path="/blog" element={<BlogUser />} />
+          <Route path="/blogdetail/:id" element={<BlogDetail />} />
 
           <Route path="*" element={<Notfound />} />
 
@@ -119,6 +123,9 @@ function App() {
               <Route path="delivered/orders" element={<DeliveredOrder />} />
               <Route path="pending/orders" element={<PendingOrder />} />
               <Route path="confirm/orders" element={<ConfirmOrder />} />
+              <Route path="blogs" element={<Blog />} />
+              <Route path="blogs/addblog" element={<AddBlog />} />
+
               <Route
                 path="onthedelivery/orders"
                 element={<OnDeliveryOrder />}
@@ -152,7 +159,6 @@ function App() {
             />
           </Route>
         </Route>
-        <Route path="/admin/login" element={<LoginAdmin />} />
       </Routes>
       {!hideNavbarandFooter() ? <Footer /> : null}
     </>

@@ -2,9 +2,10 @@ import React from "react";
 import { Link } from "react-router";
 import SidebarImage from "../../../img/Sidebarlogo.png";
 
-function Sidebar() {
+function Sidebar({ setShow }) {
   return (
     <div
+      onClick={() => setShow(false)}
       style={{
         height: "100vh",
         overflowY: "scroll",
@@ -21,7 +22,7 @@ function Sidebar() {
       >
         <img
           src={SidebarImage}
-          alt=""
+          alt="randomimage"
           style={{
             width: 80,
             height: 80,
@@ -157,6 +158,16 @@ function Sidebar() {
             className=" d-flex align-items-center navitemofsidebar mb-2"
           >
             <i className="bi bi-people me-2"></i> All Orders
+          </Link>
+        </li>
+
+        <p className=" my-3 fw-bold titleofsidebar">Blog</p>
+        <li className="nav-item ">
+          <Link
+            to="/admin/blogs"
+            className=" d-flex align-items-center navitemofsidebar mb-2"
+          >
+            <i className="bi bi-people me-2"></i> Blogs
           </Link>
         </li>
       </ul>

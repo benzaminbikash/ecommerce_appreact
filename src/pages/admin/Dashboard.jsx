@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useUserInfoQuery } from "../../redux/Api/AuthApi";
 
 function Dashboard() {
+  const { refetch } = useUserInfoQuery();
+  useEffect(() => {
+    refetch();
+  }, []);
   return (
     <main>
       <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">

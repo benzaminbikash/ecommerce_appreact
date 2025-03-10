@@ -33,13 +33,13 @@ function Carousel() {
     refetch();
   }, []);
   return (
-    <main className="">
+    <main>
       <div className="d-flex justify-content-between align-items-center mt-5 mb-4 ">
-        <h1 className="fs-5 fw-bold mt-3">Carousel</h1>
+        <h6>Carousel</h6>
         {data?.data?.length == 0 && (
           <NavLink
             to="/admin/carousel/addcarousel"
-            className="btn btn-primary text-white py-2"
+            className="btn btn-primary text-white py-lg-2 stock py-1"
           >
             <i className="bi bi-plus me-2"></i>Add Carousel
           </NavLink>
@@ -49,7 +49,7 @@ function Carousel() {
       {data?.data?.length == 0 ? (
         <p className="text-center fw-bold text-primary fs-5">No Carousel</p>
       ) : (
-        <div className="table-responsive card p-3 ">
+        <div className="table-responsive scroll-containercarsoual card p-3 ">
           <table className="table table-bordered table-sm">
             <thead>
               <tr>

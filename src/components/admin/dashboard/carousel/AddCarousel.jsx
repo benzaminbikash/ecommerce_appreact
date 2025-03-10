@@ -67,8 +67,8 @@ function AddCarousel() {
       }
     });
 
-    const api = await ADDCAROUSEL(formData);
-    handleApiResponse(api);
+    await ADDCAROUSEL(formData);
+    navigate("/admin/carousel");
   };
 
   const handleUpdateForm = async (e) => {
@@ -113,7 +113,7 @@ function AddCarousel() {
                 <label className="form-label">Title</label>
                 <input
                   type="text"
-                  className="form-control p-3 bg-light"
+                  className="form-control p-2 bg-light"
                   placeholder="Enter title"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
@@ -125,7 +125,7 @@ function AddCarousel() {
                 <label className="form-label">Sub Title</label>
                 <input
                   type="text"
-                  className="form-control p-3 bg-light"
+                  className="form-control p-2 bg-light"
                   placeholder="Enter sub title"
                   value={subtitle}
                   onChange={(e) => setSubtitle(e.target.value)}
@@ -169,7 +169,7 @@ function AddCarousel() {
                             <br />
                             <input
                               type="file"
-                              className="form-control p-3 bg-light"
+                              className="form-control p-2 bg-light"
                               ref={(el) => (imagesRef.current[index] = el)}
                               onChange={(e) => handleImageChange(index, e)}
                             />

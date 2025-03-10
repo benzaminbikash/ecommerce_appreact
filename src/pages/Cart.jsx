@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import Header from "../components/Header";
 import Cartinfo from "../components/Cart/Cartinfo";
-import SearchModal from "../components/SearchModal";
 
 function Cart() {
   useEffect(() => {
@@ -13,7 +12,6 @@ function Cart() {
   }, []);
   return (
     <>
-      <SearchModal />
       <Header title="Cart" />
       <Cartinfo />
     </>

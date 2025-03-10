@@ -7,10 +7,10 @@ function Productinfo({ items }) {
         (pre, cur) => pre + cur?.quantity * cur?.product?.priceafterdiscount,
         0
       )
-    : items?.quantity * items?.product.priceafterdiscount;
+    : items?.quantity * items?.product?.priceafterdiscount;
 
   return (
-    <div className="table-responsive">
+    <div className="table-responsive scroll-container ">
       <table className="table  border-1">
         <thead>
           <tr className="stock text-primary">

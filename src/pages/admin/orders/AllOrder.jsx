@@ -82,7 +82,7 @@ function AllOrder() {
     <main>
       <BannerModal type="order" data={selectOrder} />
       <div className="mt-5">
-        <h3 className=" mt-3">All Orders</h3>
+        <h6>All Orders</h6>
       </div>
       <div className="d-flex gap-2 w-50 mb-4">
         <input
@@ -102,7 +102,7 @@ function AllOrder() {
         <>
           {error && <Showmessage status="fail" message={error} />}
           {success && <Showmessage status="success" message={success} />}
-          <div className="table-responsive card p-3">
+          <div className="table-responsive scroll-container card p-3">
             <table className="table table-bordered table-sm">
               <thead>
                 <tr>
@@ -212,7 +212,7 @@ function AllOrder() {
             >
               Previous
             </button>
-            <span className="align-self-center">
+            <span className=" stock text-dark align-self-center">
               Page {currentPage} of {totalPages}
             </span>
             <button

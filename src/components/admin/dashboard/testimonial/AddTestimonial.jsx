@@ -5,9 +5,10 @@ import {
   useUpdateTestimonialMutation,
 } from "../../../../redux/Api/admin/AdminTestimonial";
 import Showmessage from "../../../common/Showmessage";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function AddTestimonial() {
+  const navigate = useNavigate();
   const { state } = useLocation();
   const [selectImage, setSelectImage] = useState(null);
   const [name, setName] = useState("");
@@ -18,7 +19,9 @@ function AddTestimonial() {
   const [error, setError] = useState("");
   const imageRef = useRef();
 
-  const { data, refetch } = useGetTestimonialQuery();
+  console.log(selectImage);
+
+  const { refetch } = useGetTestimonialQuery();
   const [TESTIMONIAL] = useAddTestimonialMutation();
   const [TESTIMONIALUPDATE] = useUpdateTestimonialMutation();
 
@@ -29,7 +32,7 @@ function AddTestimonial() {
     formData.append("profession", profession);
     formData.append("description", description);
     formData.append("rating", rating);
-    formData.append("image", selectImage[0]);
+    formData.append("image", selectImage);
     const api = await TESTIMONIAL(formData);
     console.log(api);
     if (api?.error) {
@@ -82,6 +85,7 @@ function AddTestimonial() {
       setSuccess(api?.data?.message);
       setError("");
       refetch();
+      navigate("/admin/testimonial");
     }
   };
 
@@ -105,7 +109,7 @@ function AddTestimonial() {
                 <input
                   type="text"
                   id="categoryName"
-                  className="form-control p-3 bg-light"
+                  className="form-control p-2 bg-light"
                   placeholder="Enter Name"
                   required
                   onChange={(e) => setName(e.target.value)}
@@ -120,7 +124,7 @@ function AddTestimonial() {
                 <input
                   type="text"
                   id="categoryName"
-                  className="form-control p-3 bg-light"
+                  className="form-control p-2 bg-light"
                   placeholder="Enter profession"
                   required
                   onChange={(e) => setProfession(e.target.value)}
@@ -134,7 +138,7 @@ function AddTestimonial() {
                 <textarea
                   type="text"
                   id="Description"
-                  className="form-control p-3 bg-light"
+                  className="form-control p-2 bg-light"
                   placeholder="Enter description"
                   required
                   onChange={(e) => setdescription(e.target.value)}
@@ -148,7 +152,7 @@ function AddTestimonial() {
                 <input
                   type="number"
                   id="categoryName"
-                  className="form-control p-3 bg-light"
+                  className="form-control p-2 bg-light"
                   placeholder="Enter rating"
                   required
                   onChange={(e) => setrating(e.target.value)}
@@ -163,7 +167,7 @@ function AddTestimonial() {
                   <input
                     onChange={(e) => setSelectImage(e.target.files[0])}
                     type="file"
-                    className="form-control p-3 bg-light"
+                    className="form-control p-2 bg-light"
                     id="iconImage"
                     aria-label="Upload"
                     ref={imageRef}

@@ -46,7 +46,7 @@ function Forgetpassword() {
               <div className="col-12 col-md-6">
                 {error != "" && <Showmessage message={error} status="fail" />}
 
-                <h3 className="mb-1  ">Forget Password?</h3>
+                <h5 className="mb-1  ">Forget Password?</h5>
 
                 <p className="mb-2 stock">
                   Enter your e-mail address, and we'll give you reset
@@ -63,13 +63,13 @@ function Forgetpassword() {
                     placeholder="Your Email"
                   />
                   <button
-                    className="mx-auto w-100 mb-2 btn form-control  py-2 bg-secondary text-white stock "
+                    className="mx-auto w-100 mb-2 btn   py-2 ratingbackground text-white stock "
                     type="submit"
                   >
                     Submit
                   </button>
                 </form>
-                <Link to="/login" className="stock createhere text-secondary">
+                <Link to="/login" className="stock createhere text-danger">
                   Back to Login
                 </Link>
               </div>

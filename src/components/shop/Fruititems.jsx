@@ -25,21 +25,23 @@ function Fruititems({
       }}
     />
   ) : (
-    <div className="row g-4 ">
+    <div className="row g-4">
       {product?.map((item, index) => (
-        <div className="col-md-6 col-lg-4 border-0 bg-transparent">
+        <div
+          key={index}
+          className="col-6 col-sm-4 col-md-4 col-lg-4 border-0 bg-transparent"
+        >
           <div className="rounded shadow-lg position-relative fruite-item">
-            <div className="product-img rounded-top">
+            <div className="product-img1 rounded-top">
               <img
                 src={`${constant.IMAGEURL}/${item?.mainimage}`}
-                className="img-fluid w-100 rounded-top  
-                                   "
+                className="img-fluid w-100 rounded-top"
                 alt="randomImage"
               />
             </div>
 
             <div className="p-2 shadow-sm shadow-red border-top-0 rounded-bottom">
-              <h6 className="text-start fw-light ">{item?.title}</h6>
+              <h6 className="text-start fw-bold">{item?.title}</h6>
 
               <div className="d-flex gap-2">
                 <p className=" text-dark priceline fw-bold">
