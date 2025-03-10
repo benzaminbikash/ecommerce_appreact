@@ -33,7 +33,7 @@ export const AdminBlog = apiSlice.injectEndpoints({
 
 export const {
   useAddBlogMutation,
-  useGetBlogQuery,
   useDeleteBlogMutation,
   useUpdateBlogMutation,
+  usePaginateBlogQuery,
 } = AdminBlog;

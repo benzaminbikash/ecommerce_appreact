@@ -1,12 +1,32 @@
 import React from "react";
 import Header from "../components/Header";
 import { useGetBlogQuery } from "../redux/Api/admin/AdminBlog";
-import { constant } from "../components/common/constant";
-import { useNavigate } from "react-router";
+import { constant, itemperPageforUser } from "../components/common/constant";
+import { useNavigate, useSearchParams } from "react-router";
 
 function BlogUser() {
   const navigate = useNavigate();
   const { data } = useGetBlogQuery();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const currentPage = parseInt(searchParams.get("page")) || 1;
+  const filterData = data?.data;
+  const itemsPerPage = itemperPageforUser;
+  const totalPages = Math.ceil(filterData?.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const displayedBlog = filterData?.slice(startIndex, endIndex);
+
+  const handleNext = () => {
+    if (currentPage < totalPages) {
+      setSearchParams({ page: currentPage + 1 });
+    }
+  };
+  const handlePrevious = () => {
+    if (currentPage > 1) {
+      const prevPage = currentPage - 1;
+      setSearchParams({ page: prevPage });
+    }
+  };
 
   return (
     <>
@@ -14,7 +34,7 @@ function BlogUser() {
       <div className="container-fluid">
         <div className="container py-5">
           <div className="row">
-            {data?.data?.map((item, index) => (
+            {displayedBlog?.map((item, index) => (
               <div key={index} className="col-md-6  mb-4">
                 <div className="row">
                   <div className="col-md-12">
@@ -48,6 +68,28 @@ function BlogUser() {
                 </div>
               </div>
             ))}
+          </div>
+          <div className="d-flex justify-content-center mt-3 gap-2">
+            {currentPage != 1 && (
+              <button
+                className="btn btn-outline-primary"
+                onClick={handlePrevious}
+              >
+                Previous
+              </button>
+            )}
+            <span className="align-self-center">
+              {currentPage} / {totalPages}
+            </span>
+            {currentPage != totalPages && (
+              <button
+                className="btn btn-outline-primary"
+                onClick={handleNext}
+                disabled={currentPage === totalPages}
+              >
+                Next
+              </button>
+            )}
           </div>
         </div>
       </div>

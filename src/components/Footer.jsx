@@ -2,9 +2,9 @@ import React from "react";
 
 function Footer() {
   return (
-    <div className="container-fluid bg-dark text-white-50 footer pt-5 mt-5 pb-5">
+    <div className="container-fluid bg-dark text-white footer pt-5 mt-5 pb-3">
       <div className="container">
-        <div className="pb-4 mb-3 footermain">
+        <div className="pb-4 mb-1 footermain">
           <div className="row g-4">
             <div className="col-lg-3">
               <h4 className=" text-white mb-0">ShopSphere</h4>
@@ -56,7 +56,7 @@ function Footer() {
             </div>
           </div>
         </div>
-        <div className="stock text-end mt-1 ">
+        <div className="stock text-end mt-4 ">
           &copy; 2024 All Rights Reserved | Power by Techg
         </div>
       </div>
