@@ -5,7 +5,7 @@ import {
   useUpdateSubAttributeMutation,
 } from "../../../../redux/Api/admin/AdminSubAttribute";
 import Showmessage from "../../../common/Showmessage";
-import { useLocation } from "react-router";
+import { useLocation } from "react-router-dom";
 
 function AddSubAttributes() {
   const { state } = useLocation();

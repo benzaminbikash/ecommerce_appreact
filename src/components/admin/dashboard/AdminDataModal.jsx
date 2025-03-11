@@ -1,6 +1,6 @@
 import React from "react";
 import { constant } from "../../common/constant";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 function BannerModal({ data, type }) {
   return (

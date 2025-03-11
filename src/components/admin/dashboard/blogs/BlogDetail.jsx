@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Header from "../../../Header";
-import { useLocation } from "react-router";
+import { useLocation } from "react-router-dom";
 import { constant } from "../../../common/constant";
 
 function BlogDetail() {

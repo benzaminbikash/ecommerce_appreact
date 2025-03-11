@@ -1,161 +1,137 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
-import Shop from "./pages/Shop";
-import Home from "./pages/Home";
-import Cart from "./pages/Cart";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import Contact from "./pages/Contact";
-import Profile from "./pages/Profile";
-import Testmonial from "./pages/Testmonial";
-import ShopDetail from "./pages/ShopDetail";
-import Forgetpassword from "./pages/Forgetpassword";
-import ProfileLayout from "./components/common/ProfileLayout";
-import ProfileCart from "./pages/ProfileCart";
-import ScrollUp from "./components/ScrollUp";
-import Notfound from "./pages/Notfound";
-import Changepassword from "./pages/Changepassword";
-import Otpverify from "./pages/Otpverify";
+import React, { useEffect, useLayoutEffect } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import Dashboard from "./pages/admin/Dashboard";
-import Dashboardlayout from "./components/admin/dashboard/Dashboardlayout";
-import Product from "./pages/admin/Product";
-import Category from "./pages/admin/Category";
-import AddCategory from "./components/admin/dashboard/category/AddCategory";
-import AddProduct from "./components/admin/dashboard/product/Addproduct";
-import ChangepasswordAdmin from "./pages/admin/Changepassword";
-import Banner from "./pages/admin/Banner";
-import Carousel from "./pages/admin/Carousel";
-import AddCarousel from "./components/admin/dashboard/carousel/AddCarousel";
-import AddBanner from "./components/admin/dashboard/banner/AddBanner";
-import User from "./pages/admin/User";
-import AddUser from "./components/admin/dashboard/user/AddUser";
-import AllOrder from "./pages/admin/orders/AllOrder";
-import CancelOrder from "./pages/admin/orders/CancelOrder";
-import DeliveredOrder from "./pages/admin/orders/DeliveredOrder";
-import PendingOrder from "./pages/admin/orders/PendingOrder";
-import Attributes from "./pages/admin/Attributes";
-import SubAttributes from "./pages/admin/SubAttributes";
-import AddAttributes from "./components/admin/dashboard/attributes/AddAttributes";
-import AddSubAttributes from "./components/admin/dashboard/subattributes/AddSubAttributes";
-import Testimonial from "./pages/admin/Testimonial";
-import AddTestimonial from "./components/admin/dashboard/testimonial/AddTestimonial";
-
-import SubCategory from "./pages/admin/SubCategory";
-import AddSubCategory from "./components/admin/dashboard/subcategory/AddSubCategory";
-import { hideNavbarandFooter } from "./components/common/constant";
-import EditUser from "./components/admin/dashboard/user/EditUser";
-import Productdetail from "./components/admin/dashboard/product/Productdetail";
+import ScrollUp from "./components/ScrollUp";
+import { hideNavbarandFooter, routing } from "./components/common/constant";
 import PersistLogin from "./components/common/PersistLogin";
 import AdminAuthRole from "./components/common/AdminRole";
 import UserAuthRole from "./components/common/UserRole";
-import ProductDetail from "./pages/ProductDetail";
-import Address from "./pages/Address";
-import Oldpasswordchange from "./pages/Oldpasswordchange";
-import Order from "./pages/Order";
 
-import ConfirmOrder from "./pages/admin/orders/ConfirmOrder";
-import OnDeliveryOrder from "./pages/admin/orders/OnDeliverOrder";
-import VerifyAccount from "./pages/VerifyAccount";
-import Blog from "./pages/admin/Blog";
-import AddBlog from "./components/admin/dashboard/blogs/Addblogs";
-import BlogUser from "./pages/Blog";
-import BlogDetail from "./components/admin/dashboard/blogs/BlogDetail";
+// const Wrapper = () => {
+//   const { pathname } = useLocation();
+
+//   useEffect(() => {
+//     window.scrollTo({
+//       top: 0,
+//       behavior: "instant",
+//     });
+//   }, [pathname]);
+
+//   return null;
+// };
 
 function App() {
   return (
     <>
       <ScrollUp />
       {!hideNavbarandFooter() ? <Navbar /> : null}
+
+      {/* <Wrapper /> */}
       <Routes>
         <Route element={<PersistLogin />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/shop" element={<Shop />} />
-          <Route path="/shopdetail" element={<ShopDetail />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/testimonial" element={<Testmonial />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/verifyaccount" element={<VerifyAccount />} />
-          <Route path="/forget-password" element={<Forgetpassword />} />
-          <Route path="/otp-verify" element={<Otpverify />} />
-          <Route path="/change-password" element={<Changepassword />} />
-          <Route path="/product-detail/:id" element={<ProductDetail />} />
-          <Route path="/address" element={<Address />} />
-          <Route path="/blog" element={<BlogUser />} />
-          <Route path="/blogdetail/:id" element={<BlogDetail />} />
+          <Route path="/" element={<routing.Home />}></Route>
+          <Route path="/shop" element={<routing.Shop />} />
 
-          <Route path="*" element={<Notfound />} />
+          <Route path="/cart" element={<routing.Cart />} />
+
+          <Route path="/contact" element={<routing.Contact />} />
+          <Route path="/login" element={<routing.Login />} />
+          <Route path="/signup" element={<routing.Signup />} />
+          <Route path="/verifyaccount" element={<routing.VerifyAccount />} />
+          <Route path="/forget-password" element={<routing.Forgetpassword />} />
+          <Route path="/otp-verify" element={<routing.Otpverify />} />
+          <Route path="/change-password" element={<routing.Changepassword />} />
+          <Route
+            path="/product-detail/:id"
+            element={<routing.ProductDetail />}
+          />
+          <Route path="/address" element={<routing.Address />} />
+          <Route path="/blog" element={<routing.BlogUser />} />
+          <Route path="/blogdetail/:id" element={<routing.BlogDetail />} />
+
+          <Route path="*" element={<routing.Notfound />} />
 
           {/* after user login */}
           <Route element={<UserAuthRole />}>
-            <Route path="/account" element={<ProfileLayout />}>
-              <Route path="profile" element={<Profile />} />
-              <Route path="cart" element={<ProfileCart />} />
-              <Route path="oldpassword" element={<Oldpasswordchange />} />
-              <Route path="addproduct" element={<AddProduct />} />
-              <Route path="order" element={<Order />} />
+            <Route path="/account" element={<routing.ProfileLayout />}>
+              <Route path="profile" element={<routing.Profile />} />
+              <Route path="cart" element={<routing.ProfileCart />} />
+              <Route
+                path="oldpassword"
+                element={<routing.Oldpasswordchange />}
+              />
+              <Route path="order" element={<routing.Order />} />
             </Route>
           </Route>
 
           {/* for admin panel */}
-
           <Route element={<AdminAuthRole />}>
-            <Route path="/admin" element={<Dashboardlayout />}>
-              <Route path="" element={<Dashboard />} />
-              <Route path="product" element={<Product />} />
-              <Route path="product/:id" element={<Productdetail />} />
-              <Route path="category" element={<Category />} />
-              <Route path="subcategory" element={<SubCategory />} />
-              <Route path="category/addcategory" element={<AddCategory />} />
-              <Route path="product/addproduct" element={<AddProduct />} />
-              <Route path="banner" element={<Banner />} />
-              <Route path="carousel" element={<Carousel />} />
-              <Route path="carousel/addcarousel" element={<AddCarousel />} />
-              <Route path="banner/addbanner" element={<AddBanner />} />
-              <Route path="users" element={<User />} />
-              <Route path="users/adduser" element={<AddUser />} />
-              <Route path="users/updateuser" element={<EditUser />} />
-              <Route path="allorders" element={<AllOrder />} />
-              <Route path="canceled/orders" element={<CancelOrder />} />
-              <Route path="delivered/orders" element={<DeliveredOrder />} />
-              <Route path="pending/orders" element={<PendingOrder />} />
-              <Route path="confirm/orders" element={<ConfirmOrder />} />
-              <Route path="blogs" element={<Blog />} />
-              <Route path="blogs/addblog" element={<AddBlog />} />
+            <Route path="/admin" element={<routing.Dashboardlayout />}>
+              <Route path="" element={<routing.Dashboard />} />
+              <Route path="product" element={<routing.Product />} />
+              <Route path="product/:id" element={<routing.Productdetail />} />
+              <Route path="category" element={<routing.Category />} />
+              <Route path="subcategory" element={<routing.SubCategory />} />
+              <Route
+                path="category/addcategory"
+                element={<routing.AddCategory />}
+              />
+              <Route
+                path="product/addproduct"
+                element={<routing.AddProduct />}
+              />
+              <Route path="banner" element={<routing.Banner />} />
+              <Route path="carousel" element={<routing.Carousel />} />
+              <Route
+                path="carousel/addcarousel"
+                element={<routing.AddCarousel />}
+              />
+              <Route path="banner/addbanner" element={<routing.AddBanner />} />
+              <Route path="users" element={<routing.User />} />
+              <Route path="users/adduser" element={<routing.AddUser />} />
+              <Route path="users/updateuser" element={<routing.EditUser />} />
+              <Route path="allorders" element={<routing.AllOrder />} />
+              <Route path="canceled/orders" element={<routing.CancelOrder />} />
+              <Route
+                path="delivered/orders"
+                element={<routing.DeliveredOrder />}
+              />
+              <Route path="pending/orders" element={<routing.PendingOrder />} />
+              <Route path="confirm/orders" element={<routing.ConfirmOrder />} />
+              <Route path="blogs" element={<routing.Blog />} />
+              <Route path="blogs/addblog" element={<routing.AddBlog />} />
 
               <Route
                 path="onthedelivery/orders"
-                element={<OnDeliveryOrder />}
+                element={<routing.OnDeliveryOrder />}
               />
 
-              <Route path="attribute" element={<Attributes />} />
-              <Route path="subattribute" element={<SubAttributes />} />
+              <Route path="attribute" element={<routing.Attributes />} />
+              <Route path="subattribute" element={<routing.SubAttributes />} />
               <Route
                 path="attribute/addattribute"
-                element={<AddAttributes />}
+                element={<routing.AddAttributes />}
               />
 
               <Route
                 path="subattribute/subaddattribute"
-                element={<AddSubAttributes />}
+                element={<routing.AddSubAttributes />}
               />
-              <Route path="testimonial" element={<Testimonial />} />
+              <Route path="testimonial" element={<routing.Testimonial />} />
               <Route
                 path="testimonial/addtestimonial"
-                element={<AddTestimonial />}
+                element={<routing.AddTestimonial />}
               />
               <Route
                 path="subcategory/addsubcategory"
-                element={<AddSubCategory />}
+                element={<routing.AddSubCategory />}
               />
             </Route>
             {/* </Route> */}
             <Route
               path="/admin/changepassword"
-              element={<ChangepasswordAdmin />}
+              element={<routing.ChangepasswordAdmin />}
             />
           </Route>
         </Route>

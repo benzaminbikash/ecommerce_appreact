@@ -1,19 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Header from "../components/Header";
 import Contactform from "../components/contact/Contactform";
-import SearchModal from "../components/SearchModal";
 
 function Contact() {
-  useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "instant",
-    });
-  }, []);
   return (
     <>
-      <SearchModal />
       <Header title={"Contact"} />
       <div className="container contact ">
         <div className="container py-5">

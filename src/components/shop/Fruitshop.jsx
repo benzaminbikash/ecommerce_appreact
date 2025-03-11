@@ -3,6 +3,7 @@ import Fruititems from "./Fruititems";
 import Bannerf from "../../img/shopimage.jpg";
 import { useGetCategoryQuery } from "../../redux/Api/admin/AdminCategory";
 import { useGetProductQuery } from "../../redux/Api/admin/AdminProduct";
+import Scroller from "../common/Scroller";
 
 function Fruitshop() {
   const [search, setSearch] = useState("");
@@ -44,9 +45,11 @@ function Fruitshop() {
 
   const handleNext = () => {
     if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+    Scroller();
   };
 
   const handlePrevious = () => {
+    Scroller();
     if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
 

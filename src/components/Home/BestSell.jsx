@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { Rating } from "@smastrom/react-rating";
 
 import { constant } from "../common/constant";
@@ -41,6 +41,11 @@ function BestSell() {
           {displayedProducts?.map((item, index) => (
             <div
               key={index}
+              onClick={() => {
+                navigate(`/product-detail/${item._id}`, {
+                  state: item,
+                });
+              }}
               className="col-4 col-md-4 col-lg-4 col-xl-3 border-0 bg-transparent"
             >
               <div className="rounded shadow-lg position-relative fruite-item">
@@ -78,16 +83,7 @@ function BestSell() {
                   </div>
 
                   <div className="my-2 d-flex">
-                    <button
-                      onClick={() => {
-                        navigate(`/product-detail/${item._id}`, {
-                          state: item,
-                        });
-                      }}
-                      className="buynow"
-                    >
-                      Add To Cart
-                    </button>
+                    <button className="buynow">Add To Cart</button>
                   </div>
                 </div>
               </div>

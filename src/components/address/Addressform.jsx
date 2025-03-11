@@ -6,7 +6,7 @@ import Productinfo from "../checkout/Productinfo";
 import { useAddOrderMutation } from "../../redux/Api/OrderApi";
 import { paymentmethod } from "../common/paymentcash";
 import { useEmptyCartMutation } from "../../redux/Api/CartApi";
-import { useLocation, useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const AddressForm = () => {

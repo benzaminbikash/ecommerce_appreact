@@ -35,5 +35,5 @@ export const {
   useAddBlogMutation,
   useDeleteBlogMutation,
   useUpdateBlogMutation,
-  usePaginateBlogQuery,
+  useGetBlogQuery,
 } = AdminBlog;

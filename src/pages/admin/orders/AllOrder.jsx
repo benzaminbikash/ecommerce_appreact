@@ -5,7 +5,7 @@ import {
 } from "../../../redux/Api/OrderApi";
 import BannerModal from "../../../components/admin/dashboard/AdminDataModal";
 import Showmessage from "../../../components/common/Showmessage";
-import { constant, itemperPage } from "../../../components/common/constant";
+import { itemperPage } from "../../../components/common/constant";
 
 function AllOrder() {
   const [currentPage, setCurrentPage] = useState(1);

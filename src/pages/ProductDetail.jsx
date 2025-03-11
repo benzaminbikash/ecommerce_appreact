@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import Header from "../components/Header";
 import { useUserInfoQuery } from "../redux/Api/AuthApi";
@@ -29,13 +29,6 @@ function ProductDetail() {
   const checkData = userinfo?.data?.cart.find(
     (item) => item?.product?.title == state?.title
   );
-  useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "instant",
-    });
-  }, []);
 
   const AddToCartHandler = async () => {
     if (!token) {

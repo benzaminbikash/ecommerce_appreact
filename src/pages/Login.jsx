@@ -2,17 +2,10 @@ import React, { useEffect } from "react";
 import Header from "../components/Header";
 import LoginForm from "../components/login/LoginForm";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const navigate = useNavigate();
-  useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: "instant",
-    });
-  }, []);
-
   const state = useSelector((state) => state?.auth?.accessToken);
 
   useEffect(() => {

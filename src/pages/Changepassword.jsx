@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Header from "../components/Header";
-import { Link, useLocation } from "react-router";
+import { Link, useLocation } from "react-router-dom";
 import Lottie from "react-lottie";
 import changepassword from "../img/changepassword.json";
 import { useChangePasswordMutation } from "../redux/Api/AuthApi";
@@ -28,12 +28,7 @@ function Changepassword() {
       setError("");
     }
   };
-  useEffect(() => {
-    window.scrollTo({
-      top: "0px",
-      behavior: "instant",
-    });
-  }, []);
+
   return (
     <>
       <Header title={"Change Password"} />

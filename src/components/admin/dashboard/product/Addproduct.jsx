@@ -9,7 +9,7 @@ import {
   useUpdateProductMutation,
 } from "../../../../redux/Api/admin/AdminProduct";
 import Showmessage from "../../../common/Showmessage";
-import { useLocation, useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router-dom";
 import { constant } from "../../../common/constant";
 
 function AddProduct() {
@@ -101,7 +101,9 @@ function AddProduct() {
     formData.append("price", price);
     formData.append("priceafterdiscount", discountPrice);
     formData.append("category", category);
-    formData.append("subCategory", subCategory);
+    if (subCategory) {
+      formData.append("subCategory", subCategory);
+    }
     formData.append("description", value);
     formData.append("mainimage", mainImage);
     if (bestSeller) {

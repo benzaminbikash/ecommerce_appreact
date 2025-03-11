@@ -1,8 +1,9 @@
 import React from "react";
 import { constant } from "../common/constant";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import ProductNotFound from "../../img/productnotfound.json";
 import Lottie from "react-lottie";
+import Scroller from "../common/Scroller";
 
 function Fruititems({
   product,
@@ -28,6 +29,11 @@ function Fruititems({
     <div className="row g-4">
       {product?.map((item, index) => (
         <div
+          onClick={() => {
+            navigate(`/product-detail/${item._id}`, {
+              state: item,
+            });
+          }}
           key={index}
           className="col-6 col-sm-4 col-md-4 col-lg-4 border-0 bg-transparent"
         >
@@ -53,16 +59,7 @@ function Fruititems({
               </div>
 
               <div className="my-2 d-flex">
-                <button
-                  onClick={() => {
-                    navigate(`/product-detail/${item._id}`, {
-                      state: item,
-                    });
-                  }}
-                  className="buynow"
-                >
-                  Buy Now
-                </button>
+                <button className="buynow">Buy Now</button>
               </div>
             </div>
           </div>
@@ -81,10 +78,13 @@ function Fruititems({
           )}
           {[...Array(totalPages || 1)]?.map((item, index) => (
             <button
-              onClick={() => setCurrentPage(index + 1)}
+              onClick={() => {
+                setCurrentPage(index + 1);
+                Scroller();
+              }}
               className={`rounded btn   px-3 ${
                 currentPage == index + 1
-                  ? "active paginateicon text-white"
+                  ? "active ratingbackground text-white"
                   : " bg-light"
               } `}
             >

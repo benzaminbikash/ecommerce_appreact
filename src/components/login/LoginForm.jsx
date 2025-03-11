@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink, replace, useNavigate } from "react-router";
+import { NavLink, replace, useNavigate } from "react-router-dom";
 import {
   useLoginUserMutation,
   useResendOtpMutation,
@@ -10,6 +10,7 @@ import Showmessage from "../common/Showmessage";
 import LoadingButton from "../common/LoadingButton";
 import { toast } from "react-toastify";
 import PulseLoader from "react-spinners/PulseLoader";
+import GoogleImage from "../../img/google.png";
 
 function LoginForm() {
   const navigate = useNavigate();
@@ -131,6 +132,14 @@ function LoginForm() {
       >
         {isLoading ? <LoadingButton /> : "Submit"}
       </button>
+      {/* <p className="text-center">or</p> */}
+      {/* <div
+        onClick={loginGoogle}
+        className="bg-white p-2 d-flex  justify-content-center gap-2 align-items-center rounded stock sh "
+      >
+        <img className="signin" src={GoogleImage} alt="randomimage" />
+        Sign In With Google
+      </div> */}
       <div className="mt-2 text-center stock">
         Don't have any account?{" "}
         <NavLink to="/signup" className="stock createhere  text-danger">

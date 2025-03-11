@@ -1,15 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useUserInfoQuery } from "../redux/Api/AuthApi";
 
 function Profile() {
   const { data: User } = useUserInfoQuery();
   const user = User?.data;
-  useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: "instant",
-    });
-  }, []);
+
   return (
     <div className=" card px-2">
       <h6>Personal Information</h6>

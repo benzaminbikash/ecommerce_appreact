@@ -4,7 +4,7 @@ import {
   useUpdateBannerMutation,
 } from "../../../../redux/Api/admin/AdminBanner";
 import Showmessage from "../../../common/Showmessage";
-import { useLocation } from "react-router";
+import { useLocation } from "react-router-dom";
 
 function AddBanner() {
   const { state } = useLocation();

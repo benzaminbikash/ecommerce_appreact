@@ -4,7 +4,7 @@ import {
   useUpdateAttributeMutation,
 } from "../../../../redux/Api/admin/AdminAttribute";
 import Showmessage from "../../../common/Showmessage";
-import { useLocation } from "react-router";
+import { useLocation } from "react-router-dom";
 
 function AddAttributes() {
   const { state } = useLocation();

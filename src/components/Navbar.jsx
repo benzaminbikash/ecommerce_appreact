@@ -67,7 +67,7 @@ function Navbar() {
             <span className="fa fa-bars text-primary"></span>
           </button>
           <div
-            className="collapse navbar-collapse bg-white"
+            className="collapse mt-1 navbar-collapse bg-white"
             id="navbarCollapse"
             ref={navbarCollapseRef}
           >

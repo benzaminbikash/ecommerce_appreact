@@ -3,7 +3,7 @@ import Header from "../components/Header";
 import OTPInput from "react-otp-input";
 import Lottie from "react-lottie";
 import Onetimepassword from "../img/otp.json";
-import { useLocation, useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   useResendOtpMutation,
   useVerifyAccountMutation,
@@ -20,13 +20,6 @@ function VerifyAccount() {
   const [VERIFY, { isLoading }] = useVerifyAccountMutation();
   const [RESEND, { isLoading: resendLoading }] = useResendOtpMutation();
   const [success, setSuccess] = useState("");
-
-  useEffect(() => {
-    window.scrollTo({
-      top: "0px",
-      behavior: "instant",
-    });
-  }, []);
 
   const formHanlder = async () => {
     const api = await VERIFY({ otp });

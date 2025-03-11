@@ -1,7 +1,7 @@
 import Lottie from "react-lottie";
-import { Link, useLocation, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import OtpInput from "react-otp-input";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Header from "../components/Header";
 import Onetimepassword from "../img/otp.json";
 import { useOtpVerifyMutation } from "../redux/Api/AuthApi";
@@ -13,13 +13,6 @@ function Otpverify() {
   const [otp, setOtp] = useState("");
   const [OTP] = useOtpVerifyMutation();
   const [error, setError] = useState("");
-
-  useEffect(() => {
-    window.scrollTo({
-      top: "0px",
-      behavior: "instant",
-    });
-  }, []);
 
   const formHanlder = async () => {
     const api = await OTP({ otp });

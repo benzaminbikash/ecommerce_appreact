@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { NavLink, useNavigate } from "react-router";
+import { NavLink, useNavigate } from "react-router-dom";
 import { logout } from "../../redux/Slice/AuthSlice";
 import { toast } from "react-toastify";
 import { sideBar } from "./constant";

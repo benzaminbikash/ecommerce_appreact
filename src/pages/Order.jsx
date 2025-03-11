@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useMyOrderQuery } from "../redux/Api/OrderApi";
 import { constant } from "../components/common/constant";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import Empty from "../img/emptyCart.jpg";
 
 function Order() {
@@ -17,10 +17,6 @@ function Order() {
   });
 
   useEffect(() => {
-    scrollTo({
-      top: 0,
-      behavior: "instant",
-    });
     refetch();
   }, []);
 
@@ -89,7 +85,7 @@ function Order() {
                 Payment Image
               </th>
               <th scope="col" className="total">
-                Transaction Id
+                Transaction Code
               </th>
               <th scope="col" className="province">
                 Province

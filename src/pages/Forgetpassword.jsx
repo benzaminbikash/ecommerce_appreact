@@ -1,6 +1,6 @@
 import Lottie from "react-lottie";
-import { Link, useNavigate } from "react-router";
-import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 import Header from "../components/Header";
 import forgetpassword from "../img/forgetpassword.json";
 import Showmessage from "../components/common/Showmessage";
@@ -23,12 +23,7 @@ function Forgetpassword() {
       });
     }
   };
-  useEffect(() => {
-    window.scrollTo({
-      top: "0px",
-      behavior: "instant",
-    });
-  }, []);
+
   return (
     <>
       <Header title={"Forget Password"} />

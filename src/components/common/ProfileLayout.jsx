@@ -1,6 +1,6 @@
 import React from "react";
 import Sidebox from "./Sidebox";
-import { NavLink, Outlet, useNavigate } from "react-router";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import Header from "../Header";
 import { sideBar } from "./constant";
 import { useDispatch } from "react-redux";

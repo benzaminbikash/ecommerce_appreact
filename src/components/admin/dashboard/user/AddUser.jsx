@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useRegistrationMutation } from "../../../../redux/Api/AuthApi";
 import Showmessage from "../../../common/Showmessage";
+import { useRegistrationMutation } from "../../../../redux/Api/AuthApi";
 
 function AddUser() {
   const [fullname, setFullName] = useState("");

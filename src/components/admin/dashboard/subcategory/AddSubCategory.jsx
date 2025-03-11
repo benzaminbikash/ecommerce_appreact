@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import Showmessage from "../../../common/Showmessage";
-import { useLocation } from "react-router";
+import { useLocation } from "react-router-dom";
 import { useGetCategoryQuery } from "../../../../redux/Api/admin/AdminCategory";
 import {
   useAddSubCategoryMutation,

@@ -7,6 +7,7 @@ import { Rating } from "@smastrom/react-rating";
 
 function Testimonial() {
   const { data } = useGetTestimonialQuery();
+  console.log("testominal", "data");
   return (
     <div className="container-fluid testimonial">
       <div className="container py-5">

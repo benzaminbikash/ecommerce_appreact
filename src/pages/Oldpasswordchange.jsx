@@ -39,13 +39,6 @@ function Oldpasswordchange() {
     }, 3000);
   }, [error, success]);
 
-  useEffect(() => {
-    scrollTo({
-      top: 0,
-      behavior: "instant",
-    });
-  });
-
   return (
     <div className=" d-flex justify-content-center align-items-center ">
       <div className="card w-100 shadow-lg">

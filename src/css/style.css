@@ -1362,3 +1362,8 @@ span {
 .footericoncursor:hover {
   color: #ffa500;
 }
+
+.signin {
+  width: 20px;
+  height: 20px;
+}

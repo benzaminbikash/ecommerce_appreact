@@ -4,7 +4,7 @@ import {
   useAddCategoryMutation,
   useUpdateCategoryMutation,
 } from "../../../../redux/Api/admin/AdminCategory";
-import { useLocation } from "react-router";
+import { useLocation } from "react-router-dom";
 
 function AddCategory() {
   const { state } = useLocation();

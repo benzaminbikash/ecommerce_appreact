@@ -2,7 +2,7 @@ import React from "react";
 import Header from "../components/Header";
 import { useGetBlogQuery } from "../redux/Api/admin/AdminBlog";
 import { constant, itemperPageforUser } from "../components/common/constant";
-import { useNavigate, useSearchParams } from "react-router";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 function BlogUser() {
   const navigate = useNavigate();
@@ -44,20 +44,21 @@ function BlogUser() {
                       className="img-fluid rounded"
                     />
                   </div>
-                  <div className="col-md-12 d-flex align-items-center">
-                    <h6 className="mt-1 text-uppercase">{item.title}</h6>
+                  <div className="col-md-12 mt-1 justify-content-between d-flex align-items-center">
+                    <h6 className=" stock text-uppercase">{item?.title}</h6>
+                    <p className="stock">{item.createdAt.split("T")[0]}</p>
                   </div>
                   <div className="col-md-12">
                     <div
                       className="stock mt-1"
                       dangerouslySetInnerHTML={{
-                        __html: item.description.substring(0, 1000),
+                        __html: item?.description.substring(0, 1000),
                       }}
                     ></div>
                   </div>
                   <button
                     onClick={() => {
-                      navigate(`/blogdetail/${item._id}`, {
+                      navigate(`/blogdetail/${item?._id}`, {
                         state: item,
                       });
                     }}

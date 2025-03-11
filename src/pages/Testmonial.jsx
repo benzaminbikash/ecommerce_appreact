@@ -1,18 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Header from "../components/Header";
 import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
-import SearchModal from "../components/SearchModal";
 
 function Testmonial() {
-  useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "instant",
-    });
-  }, []);
-
   return (
     <>
       <Header title={"Testimonial"} />

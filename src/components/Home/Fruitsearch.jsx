@@ -1,10 +1,11 @@
 import React, { useRef, useState } from "react";
 import { useGetProductQuery } from "../../redux/Api/admin/AdminProduct";
 import { constant } from "../common/constant";
-import { useNavigate, useSearchParams } from "react-router";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useGetCategoryQuery } from "../../redux/Api/admin/AdminCategory";
 import userNotfound from "../../img/usernotfound.json";
 import Lottie from "react-lottie";
+import Skeleton from "react-loading-skeleton";
 
 function Fruitsearch() {
   const { data: AllProduct } = useGetProductQuery();
@@ -15,7 +16,6 @@ function Fruitsearch() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // Get the current page from the URL query parameters, default to 1 if not present
   const currentPage = parseInt(searchParams.get("page")) || 1;
 
   const filterData = products?.filter((item) => {
@@ -67,7 +67,7 @@ function Fruitsearch() {
           <div className="d-flex gap-2">
             <i
               onClick={() => sliderLeft(elementRef.current)}
-              className="fas mt-2 nextproductbox fa-chevron-circle-left"
+              className="fas d-none d-lg-block mt-2 nextproductbox fa-chevron-circle-left"
             ></i>
             <ul
               ref={elementRef}
@@ -121,7 +121,7 @@ function Fruitsearch() {
                           select === item.title ? "text-white" : "text-dark"
                         }`}
                       >
-                        {item.title}
+                        {item.title || <Skeleton width={500} />}
                       </span>
                     </button>
                   </li>
@@ -130,7 +130,7 @@ function Fruitsearch() {
             </ul>
             <i
               onClick={() => sliderRight(elementRef.current)}
-              className="nextproductbox mt-2 fas fa-chevron-circle-right"
+              className="d-none d-lg-block nextproductbox mt-2 fas fa-chevron-circle-right"
             ></i>
           </div>
 
@@ -154,6 +154,11 @@ function Fruitsearch() {
                     <>
                       {displayedProducts?.map((item, index) => (
                         <div
+                          onClick={() => {
+                            navigate(`product-detail/${item._id}`, {
+                              state: item,
+                            });
+                          }}
                           key={index}
                           className="col-4 col-md-4 col-lg-4 col-xl-3 border-0 bg-transparent"
                         >
@@ -181,16 +186,7 @@ function Fruitsearch() {
                               </div>
 
                               <div className="my-2 d-flex">
-                                <button
-                                  onClick={() => {
-                                    navigate(`/product-detail/${item._id}`, {
-                                      state: item,
-                                    });
-                                  }}
-                                  className="buynow"
-                                >
-                                  Buy Now
-                                </button>
+                                <button className="buynow">Buy Now</button>
                               </div>
                             </div>
                           </div>

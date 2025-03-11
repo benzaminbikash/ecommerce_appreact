@@ -1,14 +1,8 @@
-import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
-
 const Scroller = () => {
-  const location = useLocation();
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [location]);
-
-  return null;
+  return window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
 };
 
 export default Scroller;

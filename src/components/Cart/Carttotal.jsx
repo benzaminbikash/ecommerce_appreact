@@ -1,6 +1,6 @@
 import React from "react";
 import { deliveryCharge } from "../common/constant";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 function Carttotal({ data }) {
   const navigate = useNavigate();
