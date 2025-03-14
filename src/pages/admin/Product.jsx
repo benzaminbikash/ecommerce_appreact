@@ -57,6 +57,11 @@ function Product() {
   useEffect(() => {
     refetch();
   }, []);
+  useEffect(() => {
+    if (search != "") {
+      setCurrentPage(1);
+    }
+  }, [search]);
 
   return (
     <main>

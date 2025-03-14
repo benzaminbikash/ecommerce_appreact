@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useUserInfoQuery } from "../../redux/Api/AuthApi";
+import {
+  useUpdateUserMutation,
+  useUserInfoQuery,
+} from "../../redux/Api/AuthApi";
 import { useAddAddressMutation } from "../../redux/Api/AddressApi";
 import { Provinces } from "../../db/provinces";
 import Productinfo from "../checkout/Productinfo";
@@ -8,14 +11,16 @@ import { paymentmethod } from "../common/paymentcash";
 import { useEmptyCartMutation } from "../../redux/Api/CartApi";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import LoadingButton from "../common/LoadingButton";
 
 const AddressForm = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
   const { data: USER } = useUserInfoQuery();
   const [ADDRESS] = useAddAddressMutation();
-  const [ORDER] = useAddOrderMutation();
+  const [ORDER, { isLoading }] = useAddOrderMutation();
   const [EMPTYCART] = useEmptyCartMutation();
+  const [UPDATEUSER] = useUpdateUserMutation();
   const cart = USER?.data?.cart;
 
   const [formData, setFormData] = useState({
@@ -448,7 +453,7 @@ const AddressForm = () => {
                 type="submit"
                 className="btn ratingbackground text-white w-100 mt-3"
               >
-                Place Order
+                {isLoading ? <LoadingButton /> : "Place Order"}
               </button>
             </div>
           </div>

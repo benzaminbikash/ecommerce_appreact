@@ -5,7 +5,7 @@ import {
 } from "../../../redux/Api/OrderApi";
 import BannerModal from "../../../components/admin/dashboard/AdminDataModal";
 import Showmessage from "../../../components/common/Showmessage";
-import { itemperPage } from "../../../components/common/constant";
+import { constant, itemperPage } from "../../../components/common/constant";
 
 function AllOrder() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -17,12 +17,12 @@ function AllOrder() {
       return item;
     } else {
       return (
-        item.user.fullname.toLowerCase().includes(search.toLowerCase()) ||
-        item.status.toLowerCase().includes(search.toLowerCase()) ||
-        item.deliveryid.toString().includes(search) ||
-        item.user.phone.toString().includes(search) ||
+        item?.user?.fullname?.toLowerCase()?.includes(search?.toLowerCase()) ||
+        item?.status?.toLowerCase()?.includes(search?.toLowerCase()) ||
+        item?.deliveryid?.toString()?.includes(search) ||
+        item?.user?.phone?.toString()?.includes(search) ||
         item?.products?.some((data) =>
-          data?.product?.title.toLowerCase().includes(search.toLowerCase())
+          data?.product?.title?.toLowerCase().includes(search?.toLowerCase())
         )
       );
     }
@@ -42,6 +42,7 @@ function AllOrder() {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const displayedProducts = sortedProducts?.slice(startIndex, endIndex);
+  console.log(displayedProducts);
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
 
@@ -77,6 +78,7 @@ function AllOrder() {
       setError("");
     }, 5000);
   }, [error, success]);
+  console.log(displayedProducts);
 
   return (
     <main>
@@ -116,9 +118,9 @@ function AllOrder() {
                   >
                     Date{" "}
                     {sortOrder === "asc" ? (
-                      <i class="fas fa-chevron-up"></i>
+                      <i className="fas fa-chevron-up"></i>
                     ) : (
-                      <i class="fas fa-chevron-down"></i>
+                      <i className="fas fa-chevron-down"></i>
                     )}
                   </th>
                   <th className="stock text-primary">Customer Name</th>
@@ -128,7 +130,9 @@ function AllOrder() {
                   <th className="stock text-primary">Quantity</th>
                   <th className="stock text-primary">Total Price (Rs)</th>
                   <th className="stock text-primary">Payment Method</th>
-                  <th className="stock text-primary">Transaction Id</th>
+                  <th className="stock text-primary">Transaction Code</th>
+                  <th className="stock text-primary">Payment Image</th>
+
                   <th className="stock text-primary">Status</th>
                   <th className="stock text-primary">More</th>
                 </tr>
@@ -141,7 +145,7 @@ function AllOrder() {
                       {product?.createdAt.split("T")[0]}
                     </td>
                     <td className="stock">{product?.user?.fullname}</td>
-                    <td className="stock">{product?.user?.phone}</td>
+                    <td className="stock">{product?.shippingAddress?.phone}</td>
                     <td>
                       {product?.products?.map((item, index) => (
                         <div className="stock d-block" key={index}>
@@ -171,7 +175,17 @@ function AllOrder() {
                       ))}
                     </td>
                     <td>{product?.payment_method}</td>
-                    <td>{product?.deliveryid}</td>
+                    <td>{product?.transactionid}</td>
+                    <td>
+                      {product?.onlinepayimage && (
+                        <img
+                          src={`${constant.IMAGEURL}/${product?.onlinepayimage}`}
+                          alt="randomImage"
+                          className="adminImage img-fluid"
+                        />
+                      )}
+                    </td>
+
                     <td>
                       <select
                         value={status[product._id] || product.status}

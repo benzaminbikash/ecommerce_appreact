@@ -3,7 +3,6 @@ import { jwtDecode } from "jwt-decode";
 
 const AuthRole = () => {
   const token = useSelector((state) => state?.auth?.accessToken);
-
   let isAdmin = false;
   let status = "user";
   if (token) {

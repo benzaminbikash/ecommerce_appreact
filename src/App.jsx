@@ -1,5 +1,5 @@
-import React, { useEffect, useLayoutEffect } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import React from "react";
+import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ScrollUp from "./components/ScrollUp";
@@ -8,26 +8,11 @@ import PersistLogin from "./components/common/PersistLogin";
 import AdminAuthRole from "./components/common/AdminRole";
 import UserAuthRole from "./components/common/UserRole";
 
-// const Wrapper = () => {
-//   const { pathname } = useLocation();
-
-//   useEffect(() => {
-//     window.scrollTo({
-//       top: 0,
-//       behavior: "instant",
-//     });
-//   }, [pathname]);
-
-//   return null;
-// };
-
 function App() {
   return (
     <>
       <ScrollUp />
       {!hideNavbarandFooter() ? <Navbar /> : null}
-
-      {/* <Wrapper /> */}
       <Routes>
         <Route element={<PersistLogin />}>
           <Route path="/" element={<routing.Home />}></Route>

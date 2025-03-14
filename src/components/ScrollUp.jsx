@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 function ScrollUp() {
   const [show, setShow] = useState(false);
   const handler = () => {
-    if (window.scrollY > 500) {
+    if (window.scrollY > 1500) {
       setShow(true);
     } else {
       setShow(false);

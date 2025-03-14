@@ -1,15 +1,14 @@
 import React from "react";
 import Header from "../components/Header";
 import { NavLink } from "react-router-dom";
-import SearchModal from "../components/SearchModal";
+
 import Lottie from "react-lottie";
 import NotfoundLottie from "../img/404.json";
 
 function Notfound() {
   return (
     <>
-      <SearchModal />
-      <Header title={""} />
+      <Header title={"Not Found"} />
       <div className="container-fluid contact">
         <div className="container d-flex flex-column align-items-center">
           <div className="lottie-container">

@@ -14,7 +14,6 @@ function CarsoualProduct({ state }) {
           autoPlaySpeed={1500}
           draggable
           infinite
-          itemClass="carousel-item-padding"
           keyBoardControl
           minimumTouchDrag={120}
           responsive={{

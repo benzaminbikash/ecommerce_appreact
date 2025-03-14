@@ -110,26 +110,8 @@ function ProductDetail() {
           <div className="row">
             <div className="col-md-5">
               <div className="row">
-                <div className="col-12 mb-2">
+                <div className="col-12 mb-2 ">
                   <CarsoualProduct state={state} />
-                </div>
-                <div className="d-flex gap-2 overflow-auto scroll-container ms-1 rounded">
-                  {state?.images.map((item, index) => {
-                    return (
-                      <img
-                        onMouseEnter={() => {
-                          setSelect(index);
-                        }}
-                        key={index}
-                        src={`${constant?.IMAGEURL}/${item}`}
-                        className="cardImage2 mb-1 rounded"
-                        style={{
-                          border: select == index ? "1px solid red " : "",
-                        }}
-                        alt="randomImage"
-                      />
-                    );
-                  })}
                 </div>
               </div>
             </div>
@@ -247,6 +229,35 @@ function ProductDetail() {
               className="mt-2 stock"
               dangerouslySetInnerHTML={{ __html: state?.description }}
             />
+          </div>
+          <div className="d-flex gap-2 overflow-auto scroll-container ms-1 rounded">
+            {state?.video && (
+              <iframe
+                width="100%"
+                height="400"
+                src={state?.video}
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              ></iframe>
+            )}
+            {/* {state?.images.map((item, index) => {
+                    return (
+                      <img
+                        onMouseEnter={() => {
+                          setSelect(index);
+                        }}
+                        key={index}
+                        src={`${constant?.IMAGEURL}/${item}`}
+                        className="cardImage2 mb-1 rounded"
+                        style={{
+                          border: select == index ? "1px solid red " : "",
+                        }}
+                        alt="randomImage"
+                      />
+                    );
+                  })} */}
           </div>
         </div>
       </div>

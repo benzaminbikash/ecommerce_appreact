@@ -12,7 +12,7 @@ function Login() {
     if (state) {
       navigate("/");
     }
-  }, []);
+  }, [state]);
 
   return (
     <>

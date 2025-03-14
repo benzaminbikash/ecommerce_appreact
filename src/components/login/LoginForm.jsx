@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { NavLink, replace, useNavigate } from "react-router-dom";
 import {
+  useGoogleLoginMutation,
   useLoginUserMutation,
   useResendOtpMutation,
 } from "../../redux/Api/AuthApi";
@@ -11,6 +12,7 @@ import LoadingButton from "../common/LoadingButton";
 import { toast } from "react-toastify";
 import PulseLoader from "react-spinners/PulseLoader";
 import GoogleImage from "../../img/google.png";
+import { useGoogleLogin } from "@react-oauth/google";
 
 function LoginForm() {
   const navigate = useNavigate();
@@ -20,6 +22,41 @@ function LoginForm() {
   const [error, setError] = useState("");
   const [loginUser, { isLoading }] = useLoginUserMutation();
   const [RESEND, { isLoading: resendLoading }] = useResendOtpMutation();
+  const [GOOGLE] = useGoogleLoginMutation();
+
+  const loginGoogle = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      const userInfoResponse = await fetch(
+        "https://www.googleapis.com/oauth2/v3/userinfo",
+        {
+          headers: {
+            Authorization: `Bearer ${tokenResponse.access_token}`,
+          },
+        }
+      );
+      const userInfo = await userInfoResponse.json();
+      const api = await GOOGLE({
+        email: userInfo?.email,
+        fullname: userInfo?.name,
+        isVerify: userInfo?.email_verified,
+        profilepicture: userInfo?.picture,
+      });
+      if (api.error) {
+        setError(api.error?.data?.message);
+      } else {
+        const { accessToken, refreshToken } = api?.data;
+        dispatch(
+          setCredentials({
+            accessToken: accessToken,
+            refreshToken: refreshToken,
+          })
+        );
+        setError("");
+        navigate("/", replace);
+      }
+    },
+    onError: (err) => console.log(err),
+  });
 
   const handleLoginform = async (e) => {
     e.preventDefault();
@@ -111,7 +148,6 @@ function LoginForm() {
           <input
             type="checkbox"
             name="remember"
-            id=""
             style={{ verticalAlign: "middle" }}
           />
           <p style={{ margin: 0 }} className="stock">
@@ -132,14 +168,14 @@ function LoginForm() {
       >
         {isLoading ? <LoadingButton /> : "Submit"}
       </button>
-      {/* <p className="text-center">or</p> */}
-      {/* <div
+      <p className="text-center">or</p>
+      <div
         onClick={loginGoogle}
-        className="bg-white p-2 d-flex  justify-content-center gap-2 align-items-center rounded stock sh "
+        className="bg-white p-2 d-flex  shadow-sm justify-content-center gap-2 align-items-center rounded stock mt-1 signinbutton "
       >
         <img className="signin" src={GoogleImage} alt="randomimage" />
         Sign In With Google
-      </div> */}
+      </div>
       <div className="mt-2 text-center stock">
         Don't have any account?{" "}
         <NavLink to="/signup" className="stock createhere  text-danger">

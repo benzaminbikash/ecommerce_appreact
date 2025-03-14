@@ -155,7 +155,7 @@ function Fruitshop() {
                                 className="nav-item"
                               >
                                 <button
-                                  className={`d-flex  py-1 border-0 rounded-pill 
+                                  className={`d-flex me-2  py-1 border-0 rounded-pill 
                                 ${
                                   selectCategory === item.title
                                     ? "ratingbackground"

@@ -165,3 +165,26 @@ export const routing = {
   ),
   ProfileLayout: lazy(() => import("../../components/common/ProfileLayout")),
 };
+
+export const dashboardOrderList = [
+  {
+    id: 1,
+    title: "Pending",
+  },
+  {
+    id: 2,
+    title: "Confirm",
+  },
+  {
+    id: 3,
+    title: "Processing",
+  },
+  {
+    id: 4,
+    title: "Delivered",
+  },
+  {
+    id: 5,
+    title: "Cancel",
+  },
+];

@@ -4,7 +4,7 @@ import SidebarImage from "../../../img/Sidebarlogo.png";
 
 function Sidebar({ setShow }) {
   return (
-    <div
+    <aside
       onClick={() => setShow(false)}
       style={{
         height: "100vh",
@@ -171,7 +171,7 @@ function Sidebar({ setShow }) {
           </Link>
         </li>
       </ul>
-    </div>
+    </aside>
   );
 }
 

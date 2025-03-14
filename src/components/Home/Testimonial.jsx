@@ -7,7 +7,6 @@ import { Rating } from "@smastrom/react-rating";
 
 function Testimonial() {
   const { data } = useGetTestimonialQuery();
-  console.log("testominal", "data");
   return (
     <div className="container-fluid testimonial">
       <div className="container py-5">
@@ -60,7 +59,10 @@ function Testimonial() {
               swipeable
             >
               {data?.data?.map((item) => (
-                <div className="col-12 img-border-radius bg-light rounded p-4">
+                <div
+                  key={item?._id}
+                  className="col-12 img-border-radius bg-light rounded p-4"
+                >
                   <div className="position-relative">
                     <div className="mb-4 border-bottom pb-2 border-secondary">
                       <p className="mb-0 stock text-center testimonialheight ">

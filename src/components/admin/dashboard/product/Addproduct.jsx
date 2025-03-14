@@ -27,6 +27,7 @@ function AddProduct() {
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
   const [rating, setRating] = useState("");
+  const [video, setVideo] = useState("");
   const [attributes, setAttributes] = useState([
     { attribute: "", subAttributes: [] },
   ]);
@@ -117,6 +118,9 @@ function AddProduct() {
         if (image) formData.append(`images`, image);
       });
     }
+    if (video) {
+      formData.append("video", video);
+    }
     attributes.forEach((attr, index) => {
       formData.append(`attributes[${index}][title]`, attr.attribute);
       attr.subAttributes.forEach((value, valueIndex) => {
@@ -147,6 +151,7 @@ function AddProduct() {
       setCategory("");
       setSubCategory("");
       setMainImage(null);
+      setVideo("");
       setRating("");
       if (mainImageRef.current) {
         mainImageRef.current.value = null;
@@ -186,6 +191,7 @@ function AddProduct() {
       setImages(state?.images || []);
       setBestSeller(state?.bestSeller);
       setRating(state?.rating);
+      setVideo(state?.video);
     }
   }, [state]);
 
@@ -444,6 +450,20 @@ function AddProduct() {
                 >
                   <span className="ps-2">Add More Attribute</span>
                 </i>
+              </div>
+
+              <div className="col-md-6">
+                <label htmlFor="video" className="form-label">
+                  Video
+                </label>
+                <input
+                  type="text"
+                  id="video"
+                  className="form-control bg-light"
+                  placeholder="Enter video link"
+                  onChange={(e) => setVideo(e.target.value)}
+                  value={video}
+                />
               </div>
             </div>
 

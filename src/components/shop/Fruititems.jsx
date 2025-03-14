@@ -78,6 +78,7 @@ function Fruititems({
           )}
           {[...Array(totalPages || 1)]?.map((item, index) => (
             <button
+              key={index}
               onClick={() => {
                 setCurrentPage(index + 1);
                 Scroller();

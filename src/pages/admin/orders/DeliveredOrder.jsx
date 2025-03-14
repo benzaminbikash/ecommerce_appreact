@@ -19,12 +19,14 @@ function DelieverdOrder() {
         return item;
       } else {
         return (
-          item.user.fullname.toLowerCase().includes(search.toLowerCase()) ||
-          item.status.toLowerCase().includes(search.toLowerCase()) ||
-          item.deliveryid.toString().includes(search) ||
-          item.user.phone.toString().includes(search) ||
+          item?.user?.fullname
+            ?.toLowerCase()
+            ?.includes(search?.toLowerCase()) ||
+          item?.status?.toLowerCase()?.includes(search?.toLowerCase()) ||
+          item?.deliveryid?.toString()?.includes(search) ||
+          item?.user?.phone?.toString()?.includes(search) ||
           item?.products?.some((data) =>
-            data?.product?.title.toLowerCase().includes(search.toLowerCase())
+            data?.product?.title?.toLowerCase()?.includes(search?.toLowerCase())
           )
         );
       }
@@ -118,9 +120,9 @@ function DelieverdOrder() {
                   >
                     Date{" "}
                     {sortOrder === "asc" ? (
-                      <i class="fas fa-chevron-up"></i>
+                      <i className="fas fa-chevron-up"></i>
                     ) : (
-                      <i class="fas fa-chevron-down"></i>
+                      <i className="fas fa-chevron-down"></i>
                     )}
                   </th>
                   <th className="stock text-primary">Customer Name</th>

@@ -118,9 +118,9 @@ function ConfirmOrder() {
                   >
                     Date{" "}
                     {sortOrder === "asc" ? (
-                      <i class="fas fa-chevron-up"></i>
+                      <i className="fas fa-chevron-up"></i>
                     ) : (
-                      <i class="fas fa-chevron-down"></i>
+                      <i className="fas fa-chevron-down"></i>
                     )}
                   </th>
                   <th className="stock text-primary">Customer Name</th>

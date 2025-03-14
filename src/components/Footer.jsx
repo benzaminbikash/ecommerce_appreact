@@ -45,13 +45,14 @@ function Footer() {
             <div className="footer-item">
               <h6 className="text-light mb-3">Contact Information</h6>
               <div className="d-flex align-items-center gap-2 mb-1">
-                <i class="fas text-white fa-map-marker-alt "></i> Gwarko
+                <i className="fas text-white fa-map-marker-alt "></i> Gwarko
               </div>
               <div className="d-flex align-items-center gap-2 mb-1">
-                <i class="fas text-white fa-envelope "></i> testing@gmail.com
+                <i className="fas text-white fa-envelope "></i>{" "}
+                testing@gmail.com
               </div>
               <div className="d-flex align-items-center gap-2">
-                <i class="fas text-white fa-phone-alt"></i> +977 9857451234
+                <i className="fas text-white fa-phone-alt"></i> +977 9857451234
               </div>
             </div>
           </div>

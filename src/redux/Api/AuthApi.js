@@ -73,6 +73,20 @@ export const AuthApi = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    googleLogin: builder.mutation({
+      query: (data) => ({
+        url: "/login-google",
+        method: "POST",
+        body: data,
+      }),
+    }),
+    updateUser: builder.mutation({
+      query: (data) => ({
+        url: "/user",
+        method: "PUT",
+        body: data,
+      }),
+    }),
     refresh: builder.mutation({
       query: () => ({
         url: "/refresh",
@@ -103,4 +117,6 @@ export const {
   usePasswordChangeWithOldMutation,
   useResendOtpMutation,
   useVerifyAccountMutation,
+  useGoogleLoginMutation,
+  useUpdateUserMutation,
 } = AuthApi;

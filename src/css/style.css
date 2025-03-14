@@ -1322,7 +1322,7 @@ span {
 
 .productdtailimage {
   height: 250px;
-  width: 100%;
+  /* width: 100%; */
   object-fit: cover;
 }
 
@@ -1366,4 +1366,7 @@ span {
 .signin {
   width: 20px;
   height: 20px;
+}
+.signinbutton {
+  cursor: pointer;
 }

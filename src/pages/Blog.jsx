@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "../components/Header";
 import { useGetBlogQuery } from "../redux/Api/admin/AdminBlog";
 import { constant, itemperPageforUser } from "../components/common/constant";
@@ -6,7 +6,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 
 function BlogUser() {
   const navigate = useNavigate();
-  const { data } = useGetBlogQuery();
+  const { data, refetch } = useGetBlogQuery();
   const [searchParams, setSearchParams] = useSearchParams();
   const currentPage = parseInt(searchParams.get("page")) || 1;
   const filterData = data?.data;
@@ -27,9 +27,12 @@ function BlogUser() {
       setSearchParams({ page: prevPage });
     }
   };
+  useEffect(() => {
+    refetch();
+  }, []);
 
   return (
-    <>
+    <main>
       <Header title="Blog" />
       <div className="container-fluid">
         <div className="container py-5">
@@ -46,7 +49,9 @@ function BlogUser() {
                   </div>
                   <div className="col-md-12 mt-1 justify-content-between d-flex align-items-center">
                     <h6 className=" stock text-uppercase">{item?.title}</h6>
-                    <p className="stock">{item.createdAt.split("T")[0]}</p>
+                    <p className="stock text-warning fw-bold">
+                      {item.createdAt.split("T")[0]}
+                    </p>
                   </div>
                   <div className="col-md-12">
                     <div
@@ -94,7 +99,7 @@ function BlogUser() {
           </div>
         </div>
       </div>
-    </>
+    </main>
   );
 }
 

@@ -41,9 +41,9 @@ function Oldpasswordchange() {
 
   return (
     <div className=" d-flex justify-content-center align-items-center ">
-      <div className="card w-50 shadow-lg">
+      <div className="px-2 px-lg-0 card mt-5 shadow-lg">
         <div className="form-header">
-          <img src={Adminc} alt="" className="w-25 h-25" />
+          <img src={Adminc} alt="randomimage" className="w-25 h-25" />
           <h6>Change Password</h6>
         </div>
         <div className="form-body">
@@ -95,7 +95,7 @@ function Oldpasswordchange() {
             </div>
             <button
               type="submit"
-              className="bg-secondary rounded btn text-white w-100 py-2 stock"
+              className="ratingbackground rounded btn text-white w-100 py-2 stock"
             >
               Change Password
             </button>

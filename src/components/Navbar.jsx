@@ -2,8 +2,10 @@ import React, { useEffect, useState, useRef } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useUserInfoQuery } from "../redux/Api/AuthApi";
+import AuthRole from "./common/AuthRole";
 
 function Navbar() {
+  const { isAdmin } = AuthRole();
   const [data, setData] = useState(false);
   const navbarCollapseRef = useRef(null);
   const { data: CART } = useUserInfoQuery();

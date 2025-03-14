@@ -16,12 +16,14 @@ function CancelOrder() {
         return item;
       } else {
         return (
-          item.user.fullname.toLowerCase().includes(search.toLowerCase()) ||
-          item.status.toLowerCase().includes(search.toLowerCase()) ||
-          item.deliveryid.toString().includes(search) ||
-          item.user.phone.toString().includes(search) ||
+          item?.user?.fullname
+            ?.toLowerCase()
+            ?.includes(search?.toLowerCase()) ||
+          item?.status?.toLowerCase()?.includes(search?.toLowerCase()) ||
+          item?.deliveryid?.toString()?.includes(search) ||
+          item?.user?.phone?.toString()?.includes(search) ||
           item?.products?.some((data) =>
-            data?.product?.title.toLowerCase().includes(search.toLowerCase())
+            data?.product?.title?.toLowerCase()?.includes(search?.toLowerCase())
           )
         );
       }
@@ -61,7 +63,7 @@ function CancelOrder() {
     <main>
       <BannerModal type="order" data={selectOrder} />
       <div className="mt-5">
-        <h3 className=" mt-3">Cancel Orders</h3>
+        <h6 className=" mt-3">Cancel Orders</h6>
       </div>
       <div className="d-flex gap-2 w-50 mb-4">
         <input
@@ -95,9 +97,9 @@ function CancelOrder() {
                   >
                     Date{" "}
                     {sortOrder === "asc" ? (
-                      <i class="fas fa-chevron-up"></i>
+                      <i className="fas fa-chevron-up"></i>
                     ) : (
-                      <i class="fas fa-chevron-down"></i>
+                      <i className="fas fa-chevron-down"></i>
                     )}
                   </th>
                   <th className="stock text-primary">Customer Name</th>
