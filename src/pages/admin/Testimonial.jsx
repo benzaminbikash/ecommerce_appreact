@@ -6,6 +6,7 @@ import {
   useGetTestimonialQuery,
 } from "../../redux/Api/admin/AdminTestimonial";
 import Showmessage from "../../components/common/Showmessage";
+import { itemperPage } from "../../components/common/constant";
 
 function Testimonial() {
   const { data: API, refetch } = useGetTestimonialQuery();
@@ -15,7 +16,7 @@ function Testimonial() {
   const navigate = useNavigate();
 
   const [currentPage, setCurrentPage] = useState(1);
-  const itemPerPage = 3;
+  const itemPerPage = itemperPage;
   const totalPages = Math.ceil(testimonial?.length / itemPerPage);
   const startIndex = (currentPage - 1) * itemPerPage;
   const endIndex = startIndex + itemPerPage;

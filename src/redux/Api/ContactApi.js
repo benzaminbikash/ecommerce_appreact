@@ -9,7 +9,13 @@ export const AuthApi = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    allContact: builder.query({
+      query: () => ({
+        url: "/contact",
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useContactMutation } = AuthApi;
+export const { useContactMutation, useAllContactQuery } = AuthApi;

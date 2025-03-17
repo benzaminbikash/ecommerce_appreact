@@ -147,6 +147,7 @@ function BannerModal({ data, type }) {
                 dangerouslySetInnerHTML={{ __html: data?.description }}
               ></div>
             )}
+            {type === "contact" && <div>{data.message}</div>}
           </div>
           <div className="modal-footer">
             <button

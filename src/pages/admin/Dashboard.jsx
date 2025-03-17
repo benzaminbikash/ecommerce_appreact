@@ -15,7 +15,7 @@ function Dashboard() {
   const { refetch } = useUserInfoQuery();
   const { data: Product } = useGetProductQuery();
   const { data: User } = useAllUsersQuery();
-  const { data: Order } = useAllOrderQuery();
+  const { data: Order, refetch: orderRefetch } = useAllOrderQuery();
   const { data: Blog } = useGetBlogQuery();
   const { data: Category } = useGetCategoryQuery();
   const { data: SubCategory } = useGetSubCategoryQuery();
@@ -40,6 +40,7 @@ function Dashboard() {
 
   useEffect(() => {
     refetch();
+    orderRefetch();
   }, []);
   return (
     <main>

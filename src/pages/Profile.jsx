@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useUserInfoQuery } from "../redux/Api/AuthApi";
+import Scroller from "../components/common/Scroller";
 
 function Profile() {
   const { data: User } = useUserInfoQuery();
   const user = User?.data;
+
+  useEffect(() => {
+    Scroller();
+  }, []);
 
   return (
     <div className=" card px-2">

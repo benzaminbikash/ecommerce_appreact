@@ -59,7 +59,7 @@ function Fruititems({
               </div>
 
               <div className="my-2 d-flex">
-                <button className="buynow">Buy Now</button>
+                <button className="buynow rounded">Buy Now</button>
               </div>
             </div>
           </div>

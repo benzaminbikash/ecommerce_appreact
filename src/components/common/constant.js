@@ -2,10 +2,10 @@ import { lazy } from "react";
 import { useLocation } from "react-router-dom";
 
 export const constant = {
+  // APIURL: "http://192.168.1.69:8000/api/v4",
+  // IMAGEURL: "http://192.168.1.69:8000/uploads",
   APIURL: "http://192.168.18.70:8000/api/v4",
   IMAGEURL: "http://192.168.18.70:8000/uploads",
-  // APIURL: "http://192.168.18.70:8000/api/v4",
-  // IMAGEURL: "http://192.168.18.70:8000/uploads",
 };
 
 export function hideNavbarandFooter() {
@@ -42,13 +42,12 @@ export function hideNavbarandFooter() {
     location.pathname === "/admin/users/updateuser" ||
     location.pathname === "/admin/blogs" ||
     location.pathname === "/admin/blogs/addblog" ||
+    location.pathname === "/admin/contact" ||
     location.pathname.startsWith("/admin/product/");
-
   return hideNavbarAndFooter;
 }
 
 export const deliveryCharge = 100;
-
 export const itemperPage = 10;
 export const itemperPageforUser = 20;
 
@@ -164,6 +163,7 @@ export const routing = {
     import("../../components/admin/dashboard/Dashboardlayout")
   ),
   ProfileLayout: lazy(() => import("../../components/common/ProfileLayout")),
+  ContactAdmin: lazy(() => import("../../pages/admin/Contact")),
 };
 
 export const dashboardOrderList = [

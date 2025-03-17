@@ -1,25 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, useNavigate } from "react-router";
-import Showmessage from "../../components/common/Showmessage";
-import {
-  useDeleteSubCategoryMutation,
-  useGetSubCategoryQuery,
-} from "../../redux/Api/admin/AdminSubCategory";
+import BannerModal from "../../components/admin/dashboard/AdminDataModal";
+import { useAllContactQuery } from "../../redux/Api/ContactApi";
 import { itemperPage } from "../../components/common/constant";
 
-function SubCategory() {
-  const { data: Api, refetch } = useGetSubCategoryQuery();
-  const subCategories = Api?.data;
-  const [deleteSubCategory] = useDeleteSubCategoryMutation();
-  const [message, setMessage] = useState("");
-  const navigate = useNavigate();
-
+function Contact() {
+  const { data: Api, refetch } = useAllContactQuery();
+  const blogs = Api?.data;
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = itemperPage;
-  const totalPages = Math.ceil(subCategories?.length / itemsPerPage);
+  const totalPages = Math.ceil(blogs?.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const displayedProducts = subCategories?.slice(startIndex, endIndex);
+  const displayedProducts = blogs?.slice(startIndex, endIndex);
 
   const handleNext = () => {
     if (currentPage < totalPages) setCurrentPage(currentPage + 1);
@@ -29,38 +21,20 @@ function SubCategory() {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
 
-  const handleDelete = async (id) => {
-    if (confirm("Do you want to delete this Sub Category?") == true) {
-      await deleteSubCategory(id);
-      setMessage("Delete Category Successfully.");
-      refetch();
-    } else {
-      setMessage("");
-    }
-  };
-  const selectUpdateData = (item) => {
-    navigate("/admin/subcategory/addsubcategory", {
-      state: item,
-    });
-  };
   useEffect(() => {
     refetch();
   }, []);
+  const [selectItem, setSelectItem] = useState({});
 
   return (
-    <>
+    <main>
+      <BannerModal data={selectItem} type="contact" />
       <div className="d-flex justify-content-between align-items-center mt-5 mb-4 ">
-        <h6>Sub Category List</h6>
-        <NavLink
-          to="/admin/subcategory/addsubcategory"
-          className="btn btn-primary text-white py-1 py-lg-2 stock"
-        >
-          <i className="bi bi-plus me-2"></i>Add Sub Category
-        </NavLink>
+        <h6>Contact List</h6>
       </div>
-      {message != "" && <Showmessage message={message} status={"success"} />}
+
       {displayedProducts?.length == 0 ? (
-        <p className="text-center fw-bold text-primary fs-5">No Sub Category</p>
+        <p className="text-center fw-bold text-primary fs-5">No Contact</p>
       ) : (
         <>
           <div className="table-responsive scroll-container card p-3 ">
@@ -68,9 +42,9 @@ function SubCategory() {
               <thead>
                 <tr>
                   <th className="text-dark">S.N</th>
-                  <th className="text-dark">Category Name</th>
-                  <th className="text-dark">Title</th>
-                  <th className="text-dark">Actions</th>
+                  <th className="text-dark">Name</th>
+                  <th className="text-dark">Email</th>
+                  <th className="text-dark">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -78,16 +52,15 @@ function SubCategory() {
                   displayedProducts?.map((product, index) => (
                     <tr key={product.id}>
                       <td>{startIndex + index + 1}</td>
-                      <td>{product?.category.title}</td>
-                      <td>{product?.title}</td>
+                      <td>{product?.name}</td>
+                      <td>{product?.name}</td>
+
                       <td>
                         <i
-                          className="bi bi-pencil-square adminactionupdate"
-                          onClick={() => selectUpdateData(product)}
-                        ></i>
-                        <i
-                          className="bi bi-trash ps-3 adminactiondelete"
-                          onClick={() => handleDelete(product._id)}
+                          onClick={() => setSelectItem(product)}
+                          className="fas ps-1 fa-eye adminactionupdate"
+                          data-bs-toggle="modal"
+                          data-bs-target="#exampleModal"
                         ></i>
                       </td>
                     </tr>
@@ -117,8 +90,8 @@ function SubCategory() {
           </div>
         </>
       )}
-    </>
+    </main>
   );
 }
 
-export default SubCategory;
+export default Contact;

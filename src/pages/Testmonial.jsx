@@ -53,7 +53,6 @@ function Testmonial() {
                 rtl={false}
                 shouldResetAutoplay
                 showDots
-                sliderClass=""
                 slidesToSlide={1}
                 swipeable
               >

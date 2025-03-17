@@ -58,6 +58,8 @@ function App() {
               <Route path="product/:id" element={<routing.Productdetail />} />
               <Route path="category" element={<routing.Category />} />
               <Route path="subcategory" element={<routing.SubCategory />} />
+              <Route path="contact" element={<routing.ContactAdmin />} />
+
               <Route
                 path="category/addcategory"
                 element={<routing.AddCategory />}

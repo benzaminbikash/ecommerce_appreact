@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Adminc from "../img/adminc.png";
 import { usePasswordChangeWithOldMutation } from "../redux/Api/AuthApi";
 import Showmessage from "../components/common/Showmessage";
+import Scroller from "../components/common/Scroller";
 
 function Oldpasswordchange() {
   const [CHANGEPASSWORD] = usePasswordChangeWithOldMutation();
@@ -38,6 +39,10 @@ function Oldpasswordchange() {
       setError("");
     }, 3000);
   }, [error, success]);
+
+  useEffect(() => {
+    Scroller();
+  }, []);
 
   return (
     <div className=" d-flex justify-content-center align-items-center ">

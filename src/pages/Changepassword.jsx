@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import { Link, useLocation } from "react-router-dom";
 import Lottie from "react-lottie";
 import changepassword from "../img/changepassword.json";
 import { useChangePasswordMutation } from "../redux/Api/AuthApi";
 import Showmessage from "../components/common/Showmessage";
+import Scroller from "../components/common/Scroller";
 
 function Changepassword() {
   const { state } = useLocation();
@@ -28,6 +29,9 @@ function Changepassword() {
       setError("");
     }
   };
+  useEffect(() => {
+    Scroller();
+  }, []);
 
   return (
     <>

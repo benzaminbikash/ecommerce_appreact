@@ -47,7 +47,7 @@ function Sidebar({ setShow }) {
             to="/admin/category"
             className=" d-flex align-items-center navitemofsidebar mb-2"
           >
-            <i className="bi bi-people me-2"></i> Category
+            <i className="fas fa-meh-blank me-2"></i> Category
           </Link>
         </li>
         <li className="nav-item">
@@ -55,7 +55,7 @@ function Sidebar({ setShow }) {
             to="/admin/subcategory"
             className=" d-flex align-items-center navitemofsidebar"
           >
-            <i className="bi bi-people me-2"></i>Sub Category
+            <i className="fas fa-meh-blank me-2"></i>Sub Category
           </Link>
         </li>
         <p className=" my-3 fw-bold titleofsidebar">PRODUCT</p>
@@ -64,7 +64,7 @@ function Sidebar({ setShow }) {
             to="/admin/product"
             className=" d-flex align-items-center navitemofsidebar"
           >
-            <i className="bi bi-people me-2"></i> Product
+            <i className="fas fa-paragraph me-2"></i> Product
           </Link>
         </li>
         <p className=" my-3 fw-bold titleofsidebar">ATTRIBUTE</p>
@@ -73,13 +73,13 @@ function Sidebar({ setShow }) {
             to="/admin/attribute"
             className=" d-flex align-items-center navitemofsidebar mb-2"
           >
-            <i className="bi bi-people me-2"></i> Attributes
+            <i className="fas fa-expand me-2"></i> Attributes
           </Link>
           <Link
             to="/admin/subattribute"
             className=" d-flex align-items-center navitemofsidebar mb-2"
           >
-            <i className="bi bi-people me-2"></i>Sub Attributes
+            <i className="fas fa-expand me-2"></i>Sub Attributes
           </Link>
         </li>
 
@@ -89,7 +89,7 @@ function Sidebar({ setShow }) {
             to="/admin/carousel"
             className=" d-flex align-items-center navitemofsidebar mb-2"
           >
-            <i className="bi bi-people me-2"></i> Carousel
+            <i className="fas fa-portrait me-2"></i> Carousel
           </Link>
         </li>
         <li className="nav-item ">
@@ -97,7 +97,7 @@ function Sidebar({ setShow }) {
             to="/admin/banner"
             className=" d-flex align-items-center navitemofsidebar"
           >
-            <i className="bi bi-people me-2"></i> Banner
+            <i className="fas fa-portrait me-2"></i> Banner
           </Link>
         </li>
 
@@ -107,7 +107,7 @@ function Sidebar({ setShow }) {
             to="/admin/testimonial"
             className=" d-flex align-items-center navitemofsidebar mb-2"
           >
-            <i className="bi bi-people me-2"></i> Testimonial
+            <i className="fas fa-users me-2"></i> Testimonial
           </Link>
         </li>
 
@@ -127,37 +127,37 @@ function Sidebar({ setShow }) {
             to="/admin/pending/orders"
             className=" d-flex align-items-center navitemofsidebar mb-2"
           >
-            <i className="bi bi-people me-2"></i> Pending Orders
+            <i className="fas fa-border-all me-2"></i> Pending Orders
           </Link>
           <Link
             to="/admin/confirm/orders"
             className=" d-flex align-items-center navitemofsidebar mb-2"
           >
-            <i className="bi bi-people me-2"></i> Accepted Orders
+            <i className="fas fa-border-all me-2"></i> Accepted Orders
           </Link>
           <Link
             to="/admin/onthedelivery/orders"
             className=" d-flex align-items-center navitemofsidebar mb-2"
           >
-            <i className="bi bi-people me-2"></i> On Delivery Orders
+            <i className="fas fa-border-all me-2"></i> On Delivery Orders
           </Link>
           <Link
             to="/admin/delivered/orders"
             className=" d-flex align-items-center navitemofsidebar mb-2"
           >
-            <i className="bi bi-people me-2"></i> Delivered Orders
+            <i className="fas fa-border-all me-2"></i> Delivered Orders
           </Link>
           <Link
             to="/admin/canceled/orders"
             className=" d-flex align-items-center navitemofsidebar mb-2"
           >
-            <i className="bi bi-people me-2"></i> Canceled Orders
+            <i className="fas fa-border-all me-2"></i> Canceled Orders
           </Link>
           <Link
             to="/admin/allorders"
             className=" d-flex align-items-center navitemofsidebar mb-2"
           >
-            <i className="bi bi-people me-2"></i> All Orders
+            <i className="fas fa-border-all me-2"></i> All Orders
           </Link>
         </li>
 
@@ -167,7 +167,17 @@ function Sidebar({ setShow }) {
             to="/admin/blogs"
             className=" d-flex align-items-center navitemofsidebar mb-2"
           >
-            <i className="bi bi-people me-2"></i> Blogs
+            <i className="fas fa-blog me-2"></i> Blogs
+          </Link>
+        </li>
+
+        <p className=" my-3 fw-bold titleofsidebar">Contact</p>
+        <li className="nav-item ">
+          <Link
+            to="/admin/contact"
+            className=" d-flex align-items-center navitemofsidebar mb-2"
+          >
+            <i className="fas fa-sms me-2"></i> Contact
           </Link>
         </li>
       </ul>

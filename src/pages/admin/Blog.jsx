@@ -6,6 +6,7 @@ import {
   useDeleteBlogMutation,
   useGetBlogQuery,
 } from "../../redux/Api/admin/AdminBlog";
+import { itemperPage } from "../../components/common/constant";
 
 function Blog() {
   const { data: Api, refetch } = useGetBlogQuery();
@@ -15,7 +16,7 @@ function Blog() {
   const navigate = useNavigate();
 
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 3;
+  const itemsPerPage = itemperPage;
   const totalPages = Math.ceil(blogs?.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;

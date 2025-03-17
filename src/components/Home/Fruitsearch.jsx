@@ -88,7 +88,7 @@ function Fruitsearch() {
                 className="nav-item"
               >
                 <button
-                  className={`d-flex m-2 py-1 border-0 rounded-pill ${
+                  className={`d-flex m-2 py-1 border-0 rounded ${
                     select === "All Products" ? "ratingbackground" : "bg-light"
                   }`}
                 >
@@ -112,7 +112,7 @@ function Fruitsearch() {
                     className="nav-item"
                   >
                     <button
-                      className={`d-flex m-2 py-1 border-0 rounded-pill ${
+                      className={`d-flex m-2 py-1 border-0 rounded ${
                         select === item.title ? "ratingbackground" : "bg-light"
                       }`}
                     >
@@ -186,7 +186,9 @@ function Fruitsearch() {
                               </div>
 
                               <div className="my-2 d-flex">
-                                <button className="buynow">Buy Now</button>
+                                <button className="buynow rounded">
+                                  Buy Now
+                                </button>
                               </div>
                             </div>
                           </div>

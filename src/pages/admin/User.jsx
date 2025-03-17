@@ -7,6 +7,7 @@ import {
 } from "../../redux/Api/admin/AdminUser";
 import usernotfound from "../../img/usernotfound.json";
 import Showmessage from "../../components/common/Showmessage";
+import { itemperPage } from "../../components/common/constant";
 
 function User() {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ function User() {
   const [DELETEUSER] = useDeleteUserMutation();
 
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
+  const itemsPerPage = itemperPage;
   const filteredUsers = User?.filter((item) => {
     if (search == "") {
       return item;

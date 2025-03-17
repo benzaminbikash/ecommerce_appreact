@@ -83,7 +83,7 @@ function BestSell() {
                   </div>
 
                   <div className="my-2 d-flex">
-                    <button className="buynow">Add To Cart</button>
+                    <button className="buynow rounded">Add To Cart</button>
                   </div>
                 </div>
               </div>
@@ -134,7 +134,7 @@ function BestSell() {
                           state: item,
                         });
                       }}
-                      className="mt-1 btn ratingbackground px-3 py-1 rounded-pill  text-white"
+                      className="mt-1 btn ratingbackground px-3 py-1 rounded  text-white"
                     >
                       <i className="fa fa-shopping-bag me-2 stock text-white fs-6"></i>
                       Add to cart

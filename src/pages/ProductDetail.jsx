@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import Header from "../components/Header";
 import { useUserInfoQuery } from "../redux/Api/AuthApi";
-import { constant } from "../components/common/constant";
 import Showmessage from "../components/common/Showmessage";
 import {
   useAddCartMutation,
   useRemoveCartMutation,
 } from "../redux/Api/CartApi";
 import CarsoualProduct from "../components/products/CarsoualProduct";
+import Scroller from "../components/common/Scroller";
 
 function ProductDetail() {
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ function ProductDetail() {
   const [REMOVE] = useRemoveCartMutation();
 
   const { state } = useLocation();
-  const [select, setSelect] = useState(0);
+
   const [attribute, setAttribute] = useState([]);
   const [quanity, setQuanity] = useState(1);
   const [CART] = useAddCartMutation();
@@ -101,6 +101,10 @@ function ProductDetail() {
     }, 5000);
   }, [success, error]);
 
+  useEffect(() => {
+    Scroller();
+  }, []);
+
   return (
     <>
       <Header title={"Product Detail"} />
@@ -162,7 +166,7 @@ function ProductDetail() {
                         key={valueIndex}
                         className={`m-1 rounded border-0 stock py-1 ${
                           attribute?.includes(value)
-                            ? "bg-secondary px-4 text-white my-2"
+                            ? "bg-danger px-4 text-white my-2"
                             : "px-4 my-2"
                         }`}
                       >
@@ -209,14 +213,14 @@ function ProductDetail() {
                 ) : (
                   <button
                     onClick={() => AddToCartHandler()}
-                    className="btn text-center btn-yellow w-50  w-25  me-2 text-white stock"
+                    className="btn text-center ratingbackground rounded  w-50  w-25  me-2 text-white stock"
                   >
                     ADD TO CART
                   </button>
                 )}
                 <button
                   onClick={() => BuyNow()}
-                  className="btn text-center w-25 w-50   border-danger rounded-button bg-white text-primary   stock"
+                  className="btn text-center w-25 w-50   border-danger rounded bg-white text-primary   stock"
                 >
                   BUY NOW
                 </button>

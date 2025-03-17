@@ -5,6 +5,7 @@ import {
   useGetCategoryQuery,
 } from "../../redux/Api/admin/AdminCategory";
 import Showmessage from "../../components/common/Showmessage";
+import { itemperPage } from "../../components/common/constant";
 
 function Category() {
   const { data: Api, refetch } = useGetCategoryQuery();
@@ -14,7 +15,7 @@ function Category() {
   const navigate = useNavigate();
 
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 3;
+  const itemsPerPage = itemperPage;
   const totalPages = Math.ceil(categorys?.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
