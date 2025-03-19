@@ -5,11 +5,12 @@ import Header from "../components/Header";
 import forgetpassword from "../img/forgetpassword.json";
 import Showmessage from "../components/common/Showmessage";
 import { useForgetPasswordMutation } from "../redux/Api/AuthApi";
+import LoadingButton from "../components/common/LoadingButton";
 
 function Forgetpassword() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
-  const [Forget] = useForgetPasswordMutation();
+  const [Forget, { isLoading }] = useForgetPasswordMutation();
   const [error, setError] = useState("");
   const handleForgetPassword = async (e) => {
     e.preventDefault();
@@ -61,7 +62,7 @@ function Forgetpassword() {
                     className="mx-auto w-100 mb-2 btn   py-2 ratingbackground text-white stock "
                     type="submit"
                   >
-                    Submit
+                    {isLoading ? <LoadingButton /> : "Submit"}
                   </button>
                 </form>
                 <Link to="/login" className="stock createhere text-danger">

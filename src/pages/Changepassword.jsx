@@ -6,10 +6,11 @@ import changepassword from "../img/changepassword.json";
 import { useChangePasswordMutation } from "../redux/Api/AuthApi";
 import Showmessage from "../components/common/Showmessage";
 import Scroller from "../components/common/Scroller";
+import LoadingButton from "../components/common/LoadingButton";
 
 function Changepassword() {
   const { state } = useLocation();
-  const [CHANGEPASSWORD] = useChangePasswordMutation();
+  const [CHANGEPASSWORD, { isLoading }] = useChangePasswordMutation();
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
   const [password, setPassword] = useState("");
@@ -76,7 +77,7 @@ function Changepassword() {
                     className="mx-auto w-100 mb-2 btn  stock py-2 ratingbackground text-white "
                     type="submit"
                   >
-                    Submit
+                    {isLoading ? <LoadingButton /> : "Submit"}
                   </button>
                 </form>
                 <Link to="/login" className=" stock text-danger backtologin">

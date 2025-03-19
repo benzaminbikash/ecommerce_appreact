@@ -6,12 +6,13 @@ import Header from "../components/Header";
 import Onetimepassword from "../img/otp.json";
 import { useOtpVerifyMutation } from "../redux/Api/AuthApi";
 import Showmessage from "../components/common/Showmessage";
+import LoadingButton from "../components/common/LoadingButton";
 
 function Otpverify() {
   const navigate = useNavigate();
   const { state } = useLocation();
   const [otp, setOtp] = useState("");
-  const [OTP] = useOtpVerifyMutation();
+  const [OTP, { isLoading }] = useOtpVerifyMutation();
   const [error, setError] = useState("");
 
   const formHanlder = async () => {
@@ -70,7 +71,7 @@ function Otpverify() {
                   className="d-block mt-3 w-100 mb-2 btn  py-2 ratingbackground text-white "
                   type="submit"
                 >
-                  Submit
+                  {isLoading ? <LoadingButton /> : "Submit"}
                 </button>
                 <Link
                   to="/login"

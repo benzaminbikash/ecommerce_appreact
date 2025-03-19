@@ -29,7 +29,7 @@ function BlogUser() {
   };
   useEffect(() => {
     refetch();
-  }, []);
+  }, [data]);
 
   return (
     <main>
