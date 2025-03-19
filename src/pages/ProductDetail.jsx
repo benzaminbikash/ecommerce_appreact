@@ -11,6 +11,7 @@ import {
 } from "../redux/Api/CartApi";
 import CarsoualProduct from "../components/products/CarsoualProduct";
 import Scroller from "../components/common/Scroller";
+import Seo from "../components/common/Seo";
 
 function ProductDetail() {
   const navigate = useNavigate();
@@ -107,6 +108,7 @@ function ProductDetail() {
 
   return (
     <>
+      <Seo title={state?.title} description={state?.description} />
       <Header title={"Product Detail"} />
       {/* Product INFO */}
       <div className="container py-5">
@@ -230,15 +232,14 @@ function ProductDetail() {
             </div>
 
             <div
-              className="mt-2 stock"
+              className="mt-2 stock description"
               dangerouslySetInnerHTML={{ __html: state?.description }}
             />
           </div>
-          <div className="d-flex gap-2 overflow-auto scroll-container ms-1 rounded">
+          <div className="d-flex mt-5 gap-2 video  rounded">
             {state?.video && (
               <iframe
                 width="100%"
-                height="400"
                 src={state?.video}
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

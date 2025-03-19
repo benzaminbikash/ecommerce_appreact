@@ -13,6 +13,15 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { constant } from "../../../common/constant";
 
 function AddProduct() {
+  const modules = {
+    toolbar: [
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      ["bold", "italic", "underline", "strike", "blockquote"],
+      [{ align: ["right", "center", "justify"] }],
+      [{ list: "ordered" }, { list: "bullet" }],
+      ["link", "image"],
+    ],
+  };
   const navigate = useNavigate();
   const { state } = useLocation();
   const [value, setValue] = useState("");
@@ -366,7 +375,7 @@ function AddProduct() {
                     <h6>Selected Image:</h6>
                     <div className="d-flex gap-2 mb-2">
                       {images.map((item, index) => (
-                        <div className="row ">
+                        <div key={index} className="row ">
                           <div className="col-12">
                             <img
                               src={
@@ -428,8 +437,8 @@ function AddProduct() {
 
                     {SUBATTRIBUTE?.data
                       .find((opt) => opt.attribute._id === attr.attribute)
-                      ?.title.map((subAttr) => (
-                        <div key={subAttr} className="form-check">
+                      ?.title.map((subAttr, index) => (
+                        <div key={index} className="form-check">
                           <input
                             type="checkbox"
                             className="form-check-input"
@@ -500,10 +509,11 @@ function AddProduct() {
                 Description
               </label>
               <ReactQuill
+                modules={modules}
                 theme="snow"
                 value={value}
                 onChange={setValue}
-                style={{ height: 200 }}
+                style={{ height: 350 }}
               />
             </div>
 

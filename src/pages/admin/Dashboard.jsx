@@ -45,19 +45,10 @@ function Dashboard() {
   return (
     <main>
       <BannerModal type="order" data={selectOrder} />
-
       <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h5 className="h2">Dashboard</h5>
       </div>
       <div className="row">
-        <div className="col-md-3">
-          <div className="card shadow-lg  text-primary bg-white mb-3">
-            <div className="card-body">
-              <h6 className="card-title">Total Income</h6>
-              <p className="card-text">Rs1000</p>
-            </div>
-          </div>
-        </div>
         <div className="col-md-3">
           <div className="card shadow-lg text-primary bg-white mb-3">
             <div className="card-body">

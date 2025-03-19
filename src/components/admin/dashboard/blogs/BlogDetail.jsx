@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import Header from "../../../Header";
 import { useLocation } from "react-router-dom";
 import { constant } from "../../../common/constant";
+import Seo from "../../../common/Seo";
 
 function BlogDetail() {
   const { state } = useLocation();
@@ -13,6 +14,14 @@ function BlogDetail() {
   }, []);
   return (
     <>
+      <Seo
+        title={state?.title}
+        description={
+          state?.description?.length > 1000
+            ? state?.description?.substring(0, 1000) + "..."
+            : state?.description
+        }
+      />
       <Header title={"Blog Detail"} />
       <div className="container-fluid">
         <div className="container py-5">

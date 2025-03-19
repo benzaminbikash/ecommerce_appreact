@@ -188,3 +188,13 @@ export const dashboardOrderList = [
     title: "Cancel",
   },
 ];
+export const removeTag = (html) => {
+  if (!html) return ""; // Handle null or undefined input
+  // Remove HTML tags
+  const doc = new DOMParser().parseFromString(html, "text/html");
+  let textContent = doc.body.textContent || "";
+  // Replace &nbsp; with a regular space
+  textContent = textContent.replace(/\u00a0/g, " "); // Replace non-breaking spaces
+
+  return textContent;
+};

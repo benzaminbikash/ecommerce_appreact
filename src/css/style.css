@@ -1252,6 +1252,17 @@ p {
     height: 200px !important;
     border-radius: 10px;
   }
+  .description img {
+    width: 100% !important;
+    height: auto;
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+  .video > iframe {
+    height: 200px !important;
+    border-radius: 10px;
+  }
 }
 .myimageforbanner {
   height: 430px;
@@ -1368,4 +1379,19 @@ span {
 }
 .signinbutton {
   cursor: pointer;
+}
+.logo {
+  width: 120px;
+  /* height: 100px; */
+}
+.description img {
+  width: 50%; /* Full width */
+  /* max-width: 500px; Limit max width */
+  height: auto;
+  border-radius: 10px; /* Maintain aspect ratio */
+}
+
+.video > iframe {
+  height: 500px;
+  border-radius: 10px;
 }

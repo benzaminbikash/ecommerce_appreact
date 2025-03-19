@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Link, NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Link, NavLink } from "react-router-dom";
 import { useUserInfoQuery } from "../redux/Api/AuthApi";
-import AuthRole from "./common/AuthRole";
+import Logo from "./../img/logo.png";
 
 function Navbar() {
   const [data, setData] = useState(false);
@@ -56,9 +56,8 @@ function Navbar() {
 
       <div className="container px-0">
         <nav className="navbar navbar-light bg-white navbar-expand-xl">
-          <Link to="/" className="navbar-brand">
-            <h3 className="text-primary">Tech-G</h3>
-          </Link>
+          <img src={Logo} alt="randomimage" className="logo" />
+
           <button
             className="navbar-toggler py-2 px-3"
             type="button"

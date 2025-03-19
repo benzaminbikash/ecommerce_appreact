@@ -44,7 +44,7 @@ function CarsoualProduct({ state }) {
           {state?.images?.map((item) => (
             <img
               src={`${constant?.IMAGEURL}/${item}`}
-              className="img-fluid  rounded productdtailimage"
+              className="img-fluid w-100 rounded productdtailimage"
               alt="mainProduct"
             />
           ))}

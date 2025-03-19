@@ -18,8 +18,10 @@ function Order() {
   });
 
   useEffect(() => {
-    refetch();
     Scroller();
+  }, []);
+  useEffect(() => {
+    refetch();
   }, []);
 
   if (data?.data?.length == 0) {

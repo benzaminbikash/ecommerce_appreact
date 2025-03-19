@@ -7,7 +7,7 @@ function Footer() {
         <div className="pb-4 mb-1 footermain">
           <div className="row g-4">
             <div className="col-lg-3">
-              <h4 className=" text-white mb-0">ShopSphere</h4>
+              <h6 className=" text-white mb-0">Revolution Technology</h6>
               <p className="text-white stock mb-0">Tech Products</p>
             </div>
             <div className="col-lg-3">
