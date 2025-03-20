@@ -13,7 +13,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { constant, modules } from "../../../common/constant";
 
 function AddProduct() {
-
   const navigate = useNavigate();
   const { state } = useLocation();
   const [value, setValue] = useState("");

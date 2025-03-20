@@ -114,6 +114,8 @@ function App() {
                 path="subcategory/addsubcategory"
                 element={<routing.AddSubCategory />}
               />
+              <Route path="coupon" element={<routing.Coupon />} />
+              <Route path="coupon/addcoupon" element={<routing.AddCoupon />} />
             </Route>
             {/* </Route> */}
             <Route

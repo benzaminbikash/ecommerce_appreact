@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import SidebarImage from "../../../img/Sidebarlogo.png";
+import Lofo from "/logo.png";
 
 function Sidebar({ setShow }) {
   return (
@@ -21,11 +21,11 @@ function Sidebar({ setShow }) {
         }}
       >
         <img
-          src={SidebarImage}
+          src={Lofo}
           alt="randomimage"
           style={{
-            width: 80,
-            height: 80,
+            width: 150,
+
             color: "white",
           }}
         />
@@ -65,6 +65,16 @@ function Sidebar({ setShow }) {
             className=" d-flex align-items-center navitemofsidebar"
           >
             <i className="fas fa-paragraph me-2"></i> Product
+          </Link>
+        </li>
+
+        <p className=" my-3 fw-bold titleofsidebar">Coupon</p>
+        <li className="nav-item ">
+          <Link
+            to="/admin/coupon"
+            className=" d-flex align-items-center navitemofsidebar"
+          >
+            <i className="fab fa-buffer me-2"></i> Coupon
           </Link>
         </li>
         <p className=" my-3 fw-bold titleofsidebar">ATTRIBUTE</p>

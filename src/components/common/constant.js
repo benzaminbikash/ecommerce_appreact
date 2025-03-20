@@ -43,6 +43,8 @@ export function hideNavbarandFooter() {
     location.pathname === "/admin/blogs" ||
     location.pathname === "/admin/blogs/addblog" ||
     location.pathname === "/admin/contact" ||
+    location.pathname === "/admin/coupon" ||
+    location.pathname === "/admin/coupon/addcoupon" ||
     location.pathname.startsWith("/admin/product/");
   return hideNavbarAndFooter;
 }
@@ -164,6 +166,10 @@ export const routing = {
   ),
   ProfileLayout: lazy(() => import("../../components/common/ProfileLayout")),
   ContactAdmin: lazy(() => import("../../pages/admin/Contact")),
+  Coupon: lazy(() => import("../../pages/admin/Coupon")),
+  AddCoupon: lazy(() =>
+    import("../../components/admin/dashboard/coupon/AddCoupon")
+  ),
 };
 
 export const dashboardOrderList = [
