@@ -32,7 +32,7 @@ function Header() {
           ></i>
         </div>
 
-        <div className="d-flex align-items-center">
+        <div className="d-flex align-items-center gap-2">
           <div className="dropdown">
             <button
               className="border-0 text-dark bg-white text-decoration-none dropdown-toggle"

@@ -5,6 +5,7 @@ import Header from "../Header";
 import { sideBar } from "./constant";
 import { useDispatch } from "react-redux";
 import { logout } from "../../redux/Slice/AuthSlice";
+import { toast } from "react-toastify";
 
 function ProfileLayout() {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ function ProfileLayout() {
             </div>
             <div className=" col-md-9 ">
               <div className="profilemobileview d-lg-none  d-flex align-items-center  p-3  w-100  justify-content-center  gap-5">
-                {sideBar.map((item, index) => (
+                {sideBar?.map((item, index) => (
                   <NavLink
                     className={({ isActive }) =>
                       `d ${isActive ? "active-link" : ""}`

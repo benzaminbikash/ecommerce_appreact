@@ -67,7 +67,7 @@ function BlogUser() {
                         state: item,
                       });
                     }}
-                    className="border-0 ratingbackground w-25 text-center text-white rounded py-2 mx-2 mt-1"
+                    className="border-0 ratingbackground blogbutton text-center text-white rounded py-2 mx-2 mt-1 stock"
                   >
                     Read More
                   </button>

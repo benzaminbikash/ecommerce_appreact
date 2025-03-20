@@ -35,6 +35,7 @@ function LoginForm() {
         }
       );
       const userInfo = await userInfoResponse.json();
+      console.log(userInfo);
       const api = await GOOGLE({
         email: userInfo?.email,
         fullname: userInfo?.name,
@@ -119,7 +120,7 @@ function LoginForm() {
     </div>
   );
   return (
-    <form onSubmit={handleLoginform}>
+    <form>
       {error != "" &&
         (error == "Please Verify Your Account." ? (
           <Showmessage message={message} status="fail" />
@@ -163,6 +164,7 @@ function LoginForm() {
         </NavLink>
       </div>
       <button
+        onClick={handleLoginform}
         className="w-100 btn  text-white stock py-2 ratingbackground text-dark "
         type="submit"
       >

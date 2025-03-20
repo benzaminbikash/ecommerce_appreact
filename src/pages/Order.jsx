@@ -113,10 +113,7 @@ function Order() {
                 <th scope="row">
                   <div className=" ">
                     {item?.products?.map((item, index) => (
-                      <Link
-                        to={`${constant.IMAGEURL}/${item?.product?.mainimage}`}
-                        className="d-flex align-items-center "
-                      >
+                      <>
                         <img
                           key={index}
                           src={`${constant?.IMAGEURL}/${item?.product?.mainimage}`}
@@ -124,7 +121,7 @@ function Order() {
                           alt="randomImage"
                         />{" "}
                         <br />
-                      </Link>
+                      </>
                     ))}
                   </div>
                 </th>
@@ -164,17 +161,12 @@ function Order() {
                 <td className="stock">{item?.payment_method}</td>
                 {item?.onlinepayimage ? (
                   <th scope="row">
-                    <Link
-                      to={`${constant.IMAGEURL}/${item.onlinepayimage}`}
-                      className="d-flex align-items-center "
-                    >
-                      <img
-                        key={index}
-                        src={`${constant?.IMAGEURL}/${item?.onlinepayimage}`}
-                        className="orderimage"
-                        alt="randomImage"
-                      />
-                    </Link>
+                    <img
+                      key={index}
+                      src={`${constant?.IMAGEURL}/${item?.onlinepayimage}`}
+                      className="orderimage"
+                      alt="randomImage"
+                    />
                   </th>
                 ) : (
                   <h1></h1>

@@ -1382,16 +1382,17 @@ span {
 }
 .logo {
   width: 120px;
-  /* height: 100px; */
 }
 .description img {
-  width: 50%; /* Full width */
-  /* max-width: 500px; Limit max width */
+  width: 50%;
   height: auto;
-  border-radius: 10px; /* Maintain aspect ratio */
+  border-radius: 10px;
 }
 
 .video > iframe {
   height: 500px;
   border-radius: 10px;
+}
+.blogbutton {
+  width: 120px;
 }

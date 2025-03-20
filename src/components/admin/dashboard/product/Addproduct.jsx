@@ -10,18 +10,10 @@ import {
 } from "../../../../redux/Api/admin/AdminProduct";
 import Showmessage from "../../../common/Showmessage";
 import { useLocation, useNavigate } from "react-router-dom";
-import { constant } from "../../../common/constant";
+import { constant, modules } from "../../../common/constant";
 
 function AddProduct() {
-  const modules = {
-    toolbar: [
-      [{ header: [1, 2, 3, 4, 5, 6, false] }],
-      ["bold", "italic", "underline", "strike", "blockquote"],
-      [{ align: ["right", "center", "justify"] }],
-      [{ list: "ordered" }, { list: "bullet" }],
-      ["link", "image"],
-    ],
-  };
+
   const navigate = useNavigate();
   const { state } = useLocation();
   const [value, setValue] = useState("");

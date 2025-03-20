@@ -13,7 +13,6 @@ function Seo({ title, description }) {
         content={"ecommerce website revotek/revolution technology"}
       />
       <meta property="og:title" content={title} />
-      <meta property="og:description" content={removeTag(description)} />
     </Helmet>
   );
 }

@@ -1,14 +1,15 @@
 import React, { useState, useRef, useEffect } from "react";
 import Showmessage from "../../../common/Showmessage";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import ReactQuill from "react-quill";
-import { constant } from "../../../common/constant";
+import { constant, modules } from "../../../common/constant";
 import {
   useAddBlogMutation,
   useUpdateBlogMutation,
 } from "../../../../redux/Api/admin/AdminBlog";
 
 function AddBlog() {
+  const navigate = useNavigate();
   const { state } = useLocation();
   const [selectImage, setSelectImage] = useState(null);
   const [title, setTitle] = useState("");
@@ -29,9 +30,7 @@ function AddBlog() {
     if (selectImage instanceof File) {
       formData.append("image", selectImage);
     }
-
     const api = await BLOG(formData);
-
     if (api?.error) {
       setSuccess("");
       setError(api?.error?.data?.message);
@@ -66,12 +65,7 @@ function AddBlog() {
       setError(api?.error?.data?.message);
     } else {
       setSuccess(api?.data?.message);
-      setTitle("");
-      setDescription("");
-      setSelectImage(null);
-      if (imageRef.current) {
-        imageRef.current.value = null;
-      }
+      navigate("/admin/blogs");
     }
   };
   useEffect(() => {
@@ -161,10 +155,11 @@ function AddBlog() {
                   Description
                 </label>
                 <ReactQuill
+                  modules={modules}
                   theme="snow"
                   value={description}
                   onChange={setDescription}
-                  style={{ height: 200 }}
+                  style={{ height: 350 }}
                 />
               </div>
             </div>
