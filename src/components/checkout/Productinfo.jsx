@@ -1,7 +1,7 @@
 import React from "react";
 import { constant } from "../common/constant";
 
-function Productinfo({ items }) {
+function Productinfo({ items, discount }) {
   const totalprice = Array.isArray(items)
     ? items?.reduce(
         (pre, cur) => pre + cur?.quantity * cur?.product?.priceafterdiscount,
@@ -71,11 +71,31 @@ function Productinfo({ items }) {
           <tr className="">
             <td className="">
               <p className="stock mb-0 text-dark py-3 fw-bold">Total</p>
+              {discount != 0 && (
+                <>
+                  <p className="stock mb-0 text-dark py-3 fw-bold">Discount</p>
+                  <p className="stock mb-0 text-dark py-3 fw-bold">
+                    Price After Discount
+                  </p>
+                </>
+              )}
             </td>
             <td className="">
               <div className="py-3 border-bottom border-top fw-bold">
                 <p className="stock mb-0 text-dark">Rs {totalprice}</p>
               </div>
+              {discount != 0 && (
+                <>
+                  <div className="py-3 border-bottom border-top fw-bold">
+                    <p className="stock mb-0 text-dark">{discount}%</p>
+                  </div>
+                  <div className="py-3 border-bottom border-top fw-bold">
+                    <p className="stock mb-0 text-dark">
+                      Rs {totalprice - (discount / 100) * totalprice}
+                    </p>
+                  </div>
+                </>
+              )}
             </td>
           </tr>
         </tbody>

@@ -1,21 +1,13 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router";
 import Lottie from "react-lottie";
-import {
-  useAllUsersQuery,
-  useDeleteUserMutation,
-} from "../../redux/Api/admin/AdminUser";
+import { useAllUsersQuery } from "../../redux/Api/admin/AdminUser";
 import usernotfound from "../../img/usernotfound.json";
-import Showmessage from "../../components/common/Showmessage";
 import { itemperPage } from "../../components/common/constant";
 
 function User() {
-  const navigate = useNavigate();
   const [search, setSearch] = useState("");
-  const [message, setMessage] = useState("");
-  const { data: API, refetch } = useAllUsersQuery();
+  const { data: API } = useAllUsersQuery();
   const User = API?.data;
-  const [DELETEUSER] = useDeleteUserMutation();
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = itemperPage;
@@ -41,32 +33,10 @@ function User() {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
 
-  const deletUser = async (id) => {
-    if (confirm("Do you want to delete this User?") == true) {
-      await DELETEUSER(id);
-      setMessage("Delete Category Successfully.");
-      refetch();
-    } else {
-      setMessage("");
-    }
-  };
-
-  const selectUpdate = (data) => {
-    navigate("/admin/users/updateuser", {
-      state: data,
-    });
-  };
-
   return (
     <main className="">
       <div className="d-flex justify-content-between align-items-center mt-5 mb-4">
         <h6>Users List</h6>
-        <Link
-          to="/admin/users/adduser"
-          className="btn btn-primary  text-white stock py-lg-2 py-1 "
-        >
-          <i className="bi bi-plus me-2"></i>Add User
-        </Link>
       </div>
 
       <div className="d-flex gap-2 w-50 mb-4">
@@ -78,7 +48,6 @@ function User() {
           aria-label="Search"
         />
       </div>
-      {message != "" && <Showmessage message={message} status={"success"} />}
       {displayUsers?.length == 0 ? (
         <p className="text-center fw-bold text-primary fs-5">No User</p>
       ) : (
@@ -101,7 +70,6 @@ function User() {
                   <th>Email</th>
                   <th>Phone</th>
                   <th>Role</th>
-                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -112,16 +80,6 @@ function User() {
                     <td>{item.email}</td>
                     <td>{item.phone}</td>
                     <td>{item.role}</td>
-                    <td>
-                      <i
-                        onClick={() => selectUpdate(item)}
-                        className="bi bi-pencil-square adminactionupdate"
-                      ></i>
-                      <i
-                        onClick={() => deletUser(item._id)}
-                        className="bi bi-trash ps-3 adminactiondelete"
-                      ></i>
-                    </td>
                   </tr>
                 ))}
               </tbody>

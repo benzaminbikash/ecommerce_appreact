@@ -12,6 +12,10 @@ import { useEmptyCartMutation } from "../../redux/Api/CartApi";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import LoadingButton from "../common/LoadingButton";
+import {
+  useGetCouponQuery,
+  useUpdateCouponMutation,
+} from "../../redux/Api/admin/AdminCoupon";
 
 const AddressForm = () => {
   const { state } = useLocation();
@@ -20,8 +24,60 @@ const AddressForm = () => {
   const [ADDRESS] = useAddAddressMutation();
   const [ORDER, { isLoading }] = useAddOrderMutation();
   const [EMPTYCART] = useEmptyCartMutation();
-  const [UPDATEUSER] = useUpdateUserMutation();
   const cart = USER?.data?.cart;
+  const [showcoupon, setShowCoupon] = useState(false);
+  const [coupon, setCoupon] = useState("");
+  const [discount, setDicount] = useState(0);
+  const [UPDATECOUPON] = useUpdateCouponMutation();
+
+  const { data: COUPON } = useGetCouponQuery();
+  const COUPONONE = COUPON?.data[0];
+
+  const updateCoupon = async () => {
+    const coupon = {
+      id: COUPONONE._id,
+      data: {
+        used_count: COUPONONE?.used_count + 1,
+      },
+    };
+    await UPDATECOUPON(coupon);
+  };
+
+  const currentDate = new Date();
+  const isCouponValid =
+    COUPONONE?.valid_from &&
+    COUPONONE?.valid_to &&
+    new Date(COUPONONE.valid_from) <= currentDate &&
+    new Date(COUPONONE.valid_to) >= currentDate &&
+    COUPONONE?.status === "active";
+
+  const totalprice = Array.isArray(state)
+    ? state?.reduce(
+        (pre, cur) => pre + cur?.quantity * cur?.product?.priceafterdiscount,
+        0
+      )
+    : state?.quantity * state?.product?.priceafterdiscount;
+
+  const checkCoupon = () => {
+    const filter = COUPONONE?.code.includes(coupon);
+    if (filter) {
+      if (COUPONONE?.used_count >= COUPONONE?.used_limit) {
+        toast.error(
+          `Coupon is already used by ${COUPONONE?.used_count} users.`
+        );
+      } else {
+        if (COUPONONE?.minimum_spend > totalprice) {
+          toast.error(
+            `You must have to spend atleast ${COUPONONE?.minimum_spend}`
+          );
+        } else {
+          setDicount(COUPONONE?.discount);
+        }
+      }
+    } else {
+      toast.error("Code is not correct.");
+    }
+  };
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -98,6 +154,8 @@ const AddressForm = () => {
     });
   };
 
+  const couponappliedprice = totalprice - (discount / 100) * totalprice;
+  console.log(couponappliedprice);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const billing = await ADDRESS({
@@ -134,7 +192,9 @@ const AddressForm = () => {
         products: state ? JSON.stringify(state) : JSON.stringify(cart),
         payment_method: formData.paymentMethod,
         transactionid: formData.transactionid,
+        priceaftercoupon: discount != 0 && couponappliedprice,
       });
+      updateCoupon();
       await EMPTYCART();
       navigate("/account/order");
       toast.success("Your order is successfully.");
@@ -150,8 +210,12 @@ const AddressForm = () => {
       formdata.append("payment_method", formData.paymentMethod);
       formdata.append("image", formData.uploadImage);
       formdata.append("transactionid", formData.transactionid);
+      if (discount != 0) {
+        formdata.append("priceaftercoupon", couponappliedprice);
+      }
       await ORDER(formdata);
       await EMPTYCART();
+      updateCoupon();
       navigate("/account/order");
       toast.success("Your order is successfully.");
     }
@@ -387,13 +451,42 @@ const AddressForm = () => {
 
           {/* Paymant */}
           <div className="col-lg-5">
+            {isCouponValid && (
+              <div className="shadow mb-2 rounded  p-2">
+                <section
+                  onClick={() => setShowCoupon(!showcoupon)}
+                  className="showcoupon d-flex align-items-center justify-content-between"
+                >
+                  <p className="border-0">Do you have Copoun?</p>
+                  <i class="fas fa-angle-down"></i>
+                </section>
+                {showcoupon && (
+                  <>
+                    <input
+                      type="text"
+                      className="form-control mt-2"
+                      onChange={(e) => setCoupon(e.target.value)}
+                      value={coupon}
+                    />
+                    <p
+                      onClick={checkCoupon}
+                      className="ratingbackground text-center text-white mt-2 border-0 w-25 py-1 px-2 rounded"
+                    >
+                      Check
+                    </p>
+                  </>
+                )}
+              </div>
+            )}
+
             <div className="shadow mb-2 rounded">
               {state ? (
-                <Productinfo items={state} />
+                <Productinfo items={state} discount={discount} />
               ) : (
-                <Productinfo items={cart} />
+                <Productinfo items={cart} discount={discount} />
               )}
             </div>
+
             <div className="p-2 p-lg-4 border rounded shadow bg-light">
               <h6>Payment Method</h6>
 

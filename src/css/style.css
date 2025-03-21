@@ -1396,3 +1396,17 @@ span {
 .blogbutton {
   width: 120px;
 }
+.marquee > span {
+  color: #ffa500;
+}
+.marquee {
+  color: white;
+  font-size: 14px;
+}
+.marqueecode {
+  font-weight: bold;
+  text-decoration: underline;
+}
+.showcoupon {
+  cursor: pointer;
+}

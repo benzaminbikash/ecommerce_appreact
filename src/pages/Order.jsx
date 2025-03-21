@@ -80,6 +80,9 @@ function Order() {
                 Total(Rs)
               </th>
               <th scope="col" className="total">
+                After Coupon Applied(Rs)
+              </th>
+              <th scope="col" className="total">
                 Status
               </th>
               <th scope="col" className="paymentmethodorder">
@@ -111,7 +114,7 @@ function Order() {
                   {item?.createdAt.toString().split("T")[0]}
                 </th>
                 <th scope="row">
-                  <div className=" ">
+                  <div>
                     {item?.products?.map((item, index) => (
                       <>
                         <img
@@ -157,6 +160,8 @@ function Order() {
                     </>
                   ))}
                 </td>
+                <td className="stock">{item?.priceaftercoupon}</td>
+
                 <td className="stock">{item?.status}</td>
                 <td className="stock">{item?.payment_method}</td>
                 {item?.onlinepayimage ? (

@@ -1,27 +1,60 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import {
+  useAddCouponMutation,
+  useUpdateCouponMutation,
+} from "../../../../redux/Api/admin/AdminCoupon";
 import Showmessage from "../../../common/Showmessage";
-import { useLocation } from "react-router-dom";
 
 function AddCoupon() {
+  const navigate = useNavigate();
   const { state } = useLocation();
+  const [COUPON] = useAddCouponMutation();
+  const [UPDATECOUPON] = useUpdateCouponMutation();
+
   const [code, setCode] = useState("");
   const [discount, setDiscount] = useState("");
   const [spend, setSpend] = useState("");
-  const [validform, setValidForm] = useState("");
-  const [validto, setValidTo] = useState("");
+  const [validform, setValidForm] = useState(null);
+  const [validto, setValidTo] = useState(null);
   const [status, setStatus] = useState("");
   const [usedLimit, setUsedLimit] = useState("");
+  const [error, setError] = useState("");
 
   const handleAddBanner = async (e) => {
     e.preventDefault();
+    const data = {
+      code,
+      discount,
+      minimum_spend: spend,
+      valid_from: validform,
+      valid_to: validto,
+      status: status,
+      used_limit: usedLimit,
+    };
+    const coupon = {
+      id: state?._id,
+      data: data,
+    };
+    const api = state ? await UPDATECOUPON(coupon) : await COUPON(data);
     if (api?.error) {
+      setError(api?.error?.data?.message);
     } else {
+      navigate("/admin/coupon");
     }
   };
 
-  const handleUpdateBanner = async (e) => {
-    e.preventDefault();
-  };
+  useEffect(() => {
+    if (state) {
+      setCode(state?.code);
+      setDiscount(state?.discount);
+      setSpend(state?.minimum_spend);
+      setValidForm(state?.valid_from ? state.valid_from.split("T")[0] : "");
+      setValidTo(state?.valid_to ? state.valid_to.split("T")[0] : "");
+      setStatus(state?.status);
+      setUsedLimit(state?.used_limit);
+    }
+  }, [state]);
 
   return (
     <main className="">
@@ -31,8 +64,7 @@ function AddCoupon() {
             {state ? "Update Coupon" : "Add Coupon"}
           </h5>
         </div>
-        {/* {error && <Showmessage status="fail" message={error} />}
-        {success && <Showmessage status="success" message={success} />} */}
+        {error && <Showmessage status="fail" message={error} />}
         <div className="card-body">
           <form>
             <div className="row g-3">
@@ -61,7 +93,7 @@ function AddCoupon() {
               </div>
 
               <div className="col-md-6">
-                <label className="form-label">Minimum Spend (%)</label>
+                <label className="form-label">Minimum Spend</label>
                 <input
                   type="text"
                   className="form-control p-2 bg-light"
@@ -74,9 +106,8 @@ function AddCoupon() {
               <div className="col-md-6">
                 <label className="form-label">Valid From</label>
                 <input
-                  type="text"
+                  type="date"
                   className="form-control p-2 bg-light"
-                  placeholder="Enter Valid From"
                   required
                   onChange={(e) => setValidForm(e.target.value)}
                   value={validform}
@@ -86,9 +117,8 @@ function AddCoupon() {
               <div className="col-md-6">
                 <label className="form-label">Valid To</label>
                 <input
-                  type="text"
+                  type="date"
                   className="form-control p-2 bg-light"
-                  placeholder="Enter Valid To"
                   required
                   onChange={(e) => setValidTo(e.target.value)}
                   value={validto}
@@ -96,14 +126,19 @@ function AddCoupon() {
               </div>
               <div className="col-md-6">
                 <label className="form-label">Status</label>
-                <input
-                  type="text"
-                  className="form-control p-2 bg-light"
-                  placeholder="Enter Status"
-                  required
+
+                <select
                   onChange={(e) => setStatus(e.target.value)}
                   value={status}
-                />
+                  className="form-control p-2 bg-light"
+                >
+                  <option disabled value={""}>
+                    Select Status
+                  </option>
+                  <option value="active">Active</option>
+                  <option value="inactive">In-Active</option>
+                  <option value="cancelled">Cancelled</option>
+                </select>
               </div>
 
               <div className="col-md-6">
@@ -121,7 +156,7 @@ function AddCoupon() {
 
             <div className="mt-4">
               <button
-                onClick={state ? handleUpdateBanner : handleAddBanner}
+                onClick={handleAddBanner}
                 type="submit"
                 className="btn btn-primary text-white py-2"
               >

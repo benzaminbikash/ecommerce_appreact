@@ -7,6 +7,7 @@ function Shop() {
   useEffect(() => {
     Scroller();
   }, []);
+
   return (
     <>
       <Header title="Shop" />
