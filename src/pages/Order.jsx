@@ -22,7 +22,7 @@ function Order() {
   }, []);
   useEffect(() => {
     refetch();
-  }, []);
+  }, [data]);
 
   if (data?.data?.length == 0) {
     return (
@@ -160,7 +160,11 @@ function Order() {
                     </>
                   ))}
                 </td>
-                <td className="stock">{item?.priceaftercoupon}</td>
+                {item?.priceaftercoupon != null ? (
+                  <td className="stock">{item?.priceaftercoupon}</td>
+                ) : (
+                  <p></p>
+                )}
 
                 <td className="stock">{item?.status}</td>
                 <td className="stock">{item?.payment_method}</td>

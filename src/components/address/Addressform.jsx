@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  useUpdateUserMutation,
-  useUserInfoQuery,
-} from "../../redux/Api/AuthApi";
+import { useUserInfoQuery } from "../../redux/Api/AuthApi";
 import { useAddAddressMutation } from "../../redux/Api/AddressApi";
 import { Provinces } from "../../db/provinces";
 import Productinfo from "../checkout/Productinfo";
@@ -51,15 +48,18 @@ const AddressForm = () => {
     new Date(COUPONONE.valid_to) >= currentDate &&
     COUPONONE?.status === "active";
 
-  const totalprice = Array.isArray(state)
-    ? state?.reduce(
+  const totalprice = !state
+    ? cart?.reduce(
         (pre, cur) => pre + cur?.quantity * cur?.product?.priceafterdiscount,
         0
       )
     : state?.quantity * state?.product?.priceafterdiscount;
 
+  console.log(totalprice);
+
   const checkCoupon = () => {
     const filter = COUPONONE?.code.includes(coupon);
+    console.log(filter);
     if (filter) {
       if (COUPONONE?.used_count >= COUPONONE?.used_limit) {
         toast.error(
@@ -213,7 +213,8 @@ const AddressForm = () => {
       if (discount != 0) {
         formdata.append("priceaftercoupon", couponappliedprice);
       }
-      await ORDER(formdata);
+      const api = await ORDER(formdata);
+      console.log(api);
       await EMPTYCART();
       updateCoupon();
       navigate("/account/order");

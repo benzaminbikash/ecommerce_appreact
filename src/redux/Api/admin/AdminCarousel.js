@@ -1,6 +1,7 @@
 import { apiSlice } from "../../Slice/apiSlice";
 
 export const AdminCarousel = apiSlice.injectEndpoints({
+  tagTypes: ["Carousel"],
   endpoints: (builder) => ({
     getCarousel: builder.query({
       query: () => ({

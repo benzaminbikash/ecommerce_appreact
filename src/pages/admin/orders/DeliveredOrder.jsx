@@ -131,8 +131,11 @@ function DelieverdOrder() {
                   <th className="stock text-primary">Price(Rs)</th>
                   <th className="stock text-primary">Quantity</th>
                   <th className="stock text-primary">Total Price (Rs)</th>
+                  <th className="stock text-primary">
+                    Price After Coupon (Rs)
+                  </th>
                   <th className="stock text-primary">Payment Method</th>
-                  <th className="stock text-primary">Transaction Id</th>
+                  <th className="stock text-primary">Transaction Code</th>
                   <th className="stock text-primary">Status</th>
                   <th className="stock text-primary">More</th>
                 </tr>
@@ -174,8 +177,10 @@ function DelieverdOrder() {
                         </div>
                       ))}
                     </td>
+                    <td>{product?.priceaftercoupon}</td>
+
                     <td>{product?.payment_method}</td>
-                    <td>{product?.deliveryid}</td>
+                    <td>{product?.transactionid}</td>
                     <td>
                       <select
                         value={status[product._id] || product.status}

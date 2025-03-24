@@ -129,6 +129,10 @@ function AllOrder() {
                   <th className="stock text-primary">Price(Rs)</th>
                   <th className="stock text-primary">Quantity</th>
                   <th className="stock text-primary">Total Price (Rs)</th>
+                  <th className="stock text-primary">
+                    Price After Coupon (Rs)
+                  </th>
+
                   <th className="stock text-primary">Payment Method</th>
                   <th className="stock text-primary">Transaction Code</th>
                   <th className="stock text-primary">Payment Image</th>
@@ -167,6 +171,7 @@ function AllOrder() {
                         </div>
                       ))}
                     </td>
+
                     <td>
                       {product?.products?.map((item, index) => (
                         <div key={index} className="stock d-block">
@@ -174,6 +179,8 @@ function AllOrder() {
                         </div>
                       ))}
                     </td>
+                    <td>{product?.priceaftercoupon}</td>
+
                     <td>{product?.payment_method}</td>
                     <td>{product?.transactionid}</td>
                     <td>

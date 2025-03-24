@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Rating } from "@smastrom/react-rating";
-
 import { constant } from "../common/constant";
 import { useGetProductQuery } from "../../redux/Api/admin/AdminProduct";
 

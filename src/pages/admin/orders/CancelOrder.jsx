@@ -83,7 +83,7 @@ function CancelOrder() {
         <>
           {error && <Showmessage status="fail" message={error} />}
           {success && <Showmessage status="success" message={success} />}
-          <div className="table-responsive card p-3">
+          <div className="table-responsive scroll-container card p-3">
             <table className="table table-bordered table-sm">
               <thead>
                 <tr>
@@ -108,8 +108,11 @@ function CancelOrder() {
                   <th className="stock text-primary">Price(Rs)</th>
                   <th className="stock text-primary">Quantity</th>
                   <th className="stock text-primary">Total Price (Rs)</th>
+                  <th className="stock text-primary">
+                    Price After Coupon (Rs)
+                  </th>
                   <th className="stock text-primary">Payment Method</th>
-                  <th className="stock text-primary">Transaction Id</th>
+                  <th className="stock text-primary">Transaction Code</th>
                   <th className="stock text-primary">Status</th>
                   <th className="stock text-primary">More</th>
                 </tr>
@@ -151,8 +154,9 @@ function CancelOrder() {
                         </div>
                       ))}
                     </td>
+                    <td>{product?.priceaftercoupon}</td>
                     <td>{product?.payment_method}</td>
-                    <td>{product?.deliveryid}</td>
+                    <td>{product?.transactionid}</td>
                     <td>{product?.status}</td>
                     <td>
                       <i

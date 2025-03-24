@@ -1,6 +1,7 @@
 import { apiSlice } from "../../Slice/apiSlice";
 
 export const AdminBlog = apiSlice.injectEndpoints({
+  tagTypes: ["Blog"],
   endpoints: (builder) => ({
     getBlog: builder.query({
       query: () => ({

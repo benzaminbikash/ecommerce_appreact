@@ -22,7 +22,6 @@ function PendingOrder() {
           item?.user?.fullname
             ?.toLowerCase()
             ?.includes(search?.toLowerCase()) ||
-          item?.status?.toLowerCase()?.includes(search?.toLowerCase()) ||
           item?.deliveryid?.toString()?.includes(search) ||
           item?.user?.phone?.toString()?.includes(search) ||
           item?.products?.some((data) =>
@@ -96,7 +95,7 @@ function PendingOrder() {
           }}
           type="text"
           className="productinput my-2"
-          placeholder="Search by name, status, product phone, transaction_id"
+          placeholder="Search by name, product phone, transaction_id"
           aria-label="Search"
         />
       </div>
@@ -135,7 +134,7 @@ function PendingOrder() {
                     After Coupon Applied(Rs)
                   </th>
                   <th className="stock text-primary">Payment Method</th>
-                  <th className="stock text-primary">Transaction Id</th>
+                  <th className="stock text-primary">Transaction Code</th>
                   <th className="stock text-primary">Status</th>
                   <th className="stock text-primary">More</th>
                 </tr>
@@ -179,7 +178,7 @@ function PendingOrder() {
                     </td>
                     <td>{product?.priceaftercoupon}</td>
                     <td>{product?.payment_method}</td>
-                    <td>{product?.deliveryid}</td>
+                    <td>{product?.transactionid}</td>
                     <td>
                       <select
                         value={status[product._id] || product.status}

@@ -8,8 +8,6 @@ import AuthRole from "../components/common/AuthRole";
 import { useNavigate } from "react-router";
 
 function Home() {
-  const apiurl = import.meta.env.VITE_APIURL;
-  console.log(apiurl);
   const { isAdmin } = AuthRole();
   const navigate = useNavigate();
   useLayoutEffect(() => {
