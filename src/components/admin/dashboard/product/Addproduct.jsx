@@ -217,6 +217,7 @@ function AddProduct() {
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
                   className="form-control bg-light"
+                  required
                 >
                   <option value="" disabled>
                     Select Category
@@ -262,6 +263,7 @@ function AddProduct() {
                   placeholder="Enter product name"
                   onChange={(e) => setProduct(e.target.value)}
                   value={product}
+                  required
                 />
               </div>
 
@@ -276,6 +278,7 @@ function AddProduct() {
                   placeholder="Enter price"
                   onChange={(e) => setPrice(e.target.value)}
                   value={price}
+                  required
                 />
               </div>
 
@@ -290,6 +293,7 @@ function AddProduct() {
                   placeholder="Enter discount price"
                   onChange={(e) => setDiscountPrice(e.target.value)}
                   value={discountPrice}
+                  required
                 />
               </div>
 
@@ -303,6 +307,7 @@ function AddProduct() {
                   className="form-control bg-light"
                   ref={mainImageRef}
                   onChange={(e) => setMainImage(e.target.files[0])}
+                  required
                 />
                 {mainImage && (
                   <div className="mt-3">
@@ -335,7 +340,7 @@ function AddProduct() {
                   className="form-control bg-light"
                   placeholder="Enter stock"
                   onChange={(e) => setStock(e.target.value)}
-                  value={stock}
+                  required
                 />
               </div>
 
@@ -448,7 +453,7 @@ function AddProduct() {
                   className="fas fa-plus-circle form-control text-white w-50 btn bg-secondary"
                   onClick={addMoreAttributes}
                 >
-                  <span className="ps-2">Add More Attribute</span>
+                  <span className="ps-2">Add Attribute</span>
                 </i>
               </div>
 
@@ -509,7 +514,7 @@ function AddProduct() {
             </div>
 
             {/* Submit */}
-            <div className="mt-5">
+            <div className="submitformt">
               <button
                 type="submit"
                 className="btn form-control w-25  bg-secondary text-white py-2"

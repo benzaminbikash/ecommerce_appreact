@@ -200,7 +200,11 @@ const AddressForm = () => {
                     select Municipality
                   </option>
                   {filtermunicipality?.municipalities?.map((item, index) => {
-                    return <option value={item.name}>{item.name}</option>;
+                    return (
+                      <option key={index} value={item.name}>
+                        {item.name}
+                      </option>
+                    );
                   })}
                 </select>
               </div>

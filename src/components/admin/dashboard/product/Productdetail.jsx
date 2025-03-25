@@ -27,10 +27,10 @@ function Productdetail() {
                 {state.images.map((item, index) => {
                   return (
                     <img
+                      key={index}
                       onMouseEnter={() => {
                         setSelect(index);
                       }}
-                      key={index}
                       src={`${constant.IMAGEURL}/${item}`}
                       className="cardImage2 mb-1"
                       style={{

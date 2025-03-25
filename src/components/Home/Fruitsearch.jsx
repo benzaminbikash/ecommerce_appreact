@@ -146,9 +146,7 @@ function Fruitsearch() {
                           animationData: userNotfound,
                         }}
                       />
-                      <p className="stock">
-                        Products of this {select} will be added soon.
-                      </p>
+                      <p className="stock">{select} will be added soon.</p>
                     </>
                   ) : (
                     <>

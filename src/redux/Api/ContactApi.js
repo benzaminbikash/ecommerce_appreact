@@ -16,7 +16,17 @@ export const AuthApi = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    deleteContact: builder.mutation({
+      query: (id) => ({
+        url: `/contact/${id}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
-export const { useContactMutation, useAllContactQuery } = AuthApi;
+export const {
+  useContactMutation,
+  useAllContactQuery,
+  useDeleteContactMutation,
+} = AuthApi;

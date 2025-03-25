@@ -66,7 +66,7 @@ function AddCoupon() {
         </div>
         {error && <Showmessage status="fail" message={error} />}
         <div className="card-body">
-          <form>
+          <form onSubmit={handleAddBanner}>
             <div className="row g-3">
               <div className="col-md-6">
                 <label className="form-label">Code</label>
@@ -74,9 +74,9 @@ function AddCoupon() {
                   type="text"
                   className="form-control p-2 bg-light"
                   placeholder="Enter Code"
-                  required
                   onChange={(e) => setCode(e.target.value)}
                   value={code}
+                  required
                 />
               </div>
 
@@ -86,9 +86,9 @@ function AddCoupon() {
                   type="text"
                   className="form-control p-2 bg-light"
                   placeholder="Enter Discount"
-                  required
                   onChange={(e) => setDiscount(e.target.value)}
                   value={discount}
+                  required
                 />
               </div>
 
@@ -155,11 +155,7 @@ function AddCoupon() {
             </div>
 
             <div className="mt-4">
-              <button
-                onClick={handleAddBanner}
-                type="submit"
-                className="btn btn-primary text-white py-2"
-              >
+              <button type="submit" className="btn btn-primary text-white py-2">
                 {state ? "Update Coupon" : "Add Coupon"}
               </button>
             </div>

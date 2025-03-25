@@ -10,7 +10,7 @@ import {
   useRemoveCartMutation,
 } from "../redux/Api/CartApi";
 import CarsoualProduct from "../components/products/CarsoualProduct";
-// import Scroller from "../components/common/Scroller";
+
 import Seo from "../components/common/Seo";
 
 function ProductDetail() {
@@ -101,10 +101,6 @@ function ProductDetail() {
       setError("");
     }, 5000);
   }, [success, error]);
-
-  // useEffect(() => {
-  //   Scroller();
-  // }, []);
 
   return (
     <>

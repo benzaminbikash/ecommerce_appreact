@@ -1263,6 +1263,9 @@ p {
     height: 200px !important;
     border-radius: 10px;
   }
+  .submitformt {
+    margin-top: 70px !important;
+  }
 }
 .myimageforbanner {
   height: 430px;
@@ -1409,4 +1412,7 @@ span {
 }
 .showcoupon {
   cursor: pointer;
+}
+.submitformt {
+  margin-top: 50px;
 }

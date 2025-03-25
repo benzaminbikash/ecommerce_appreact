@@ -105,23 +105,25 @@ function Product() {
               </thead>
               <tbody>
                 {displayedProducts?.map((product, index) => (
-                  <tr key={product.id}>
+                  <tr key={product._id}>
                     <td>{startIndex + index + 1}</td>
                     <td>{product.title}</td>
                     <td>{product.category.title}</td>
                     <td>{product.price}</td>
                     <td>{product.priceafterdiscount}</td>
                     <td>{product.stock}</td>
-                    <Link
-                      to={`http://localhost:8000/uploads/${product?.mainimage}`}
-                    >
-                      <img
-                        className="adminImage"
-                        src={`http://localhost:8000/uploads/${product?.mainimage}`}
-                        st
-                        alt="randomImage"
-                      />
-                    </Link>
+                    <td>
+                      <Link
+                        to={`http://localhost:8000/uploads/${product?.mainimage}`}
+                      >
+                        <img
+                          className="adminImage"
+                          src={`http://localhost:8000/uploads/${product?.mainimage}`}
+                          st
+                          alt="randomImage"
+                        />
+                      </Link>
+                    </td>
                     <td>
                       <i
                         onClick={() => selectUpdate(product)}

@@ -88,7 +88,7 @@ function Testimonial() {
               <tbody>
                 {displayTestimonial &&
                   displayTestimonial?.map((item, index) => (
-                    <tr key={index + 1}>
+                    <tr key={index}>
                       <td>{index + 1 + startIndex}</td>
                       <td>{item.name}</td>
                       <td>{item.profession}</td>

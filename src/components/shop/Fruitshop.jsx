@@ -152,7 +152,6 @@ function Fruitshop() {
                               <li
                                 key={index}
                                 onClick={() => {
-                                  Scroller();
                                   setSearchParams({ page: 1 });
                                   setSearch("");
                                   setSelectCategory(item.title);

@@ -140,19 +140,19 @@ function Dashboard() {
       </div>
       <hr />
       <h6>Order Information</h6>
-      <div className="row mt-2  mb-5">
+      <div className="row mt-2 mb-5">
         {/* left side */}
         <div className="col-md-3">
           <div className="d-flex flex-column gap-2">
-            {dashboardOrderList.map((item) => (
+            {dashboardOrderList?.map((item) => (
               <button
+                key={item?._id}
                 className={`border-0 py-2 rounded  ${
-                  status == item.title
+                  status == item?.title
                     ? "bg-secondary text-white "
                     : "bg-light text-primary"
                 }`}
-                onClick={() => setstatus(item.title)}
-                key={item.id}
+                onClick={() => setstatus(item?.title)}
               >
                 {item.title}
               </button>
@@ -203,29 +203,29 @@ function Dashboard() {
                       <td className="stock">{product?.user?.fullname}</td>
                       <td className="stock">{product?.user?.phone}</td>
                       <td>
-                        {product?.products?.map((item, index) => (
-                          <div className="stock d-block" key={index}>
+                        {product?.products?.map((item) => (
+                          <div key={item?._id} className="stock d-block">
                             {item?.product?.title}
                           </div>
                         ))}
                       </td>
                       <td>
-                        {product?.products?.map((item, index) => (
-                          <div className="stock d-block" key={index}>
+                        {product?.products?.map((item) => (
+                          <div key={item._id} className="stock d-block">
                             {item?.product?.priceafterdiscount}
                           </div>
                         ))}
                       </td>
                       <td>
-                        {product?.products?.map((item, index) => (
-                          <div className="stock d-block" key={index}>
+                        {product?.products?.map((item) => (
+                          <div key={item?._id} className="stock d-block">
                             {item?.quantity}
                           </div>
                         ))}
                       </td>
                       <td>
                         {product?.products?.map((item, index) => (
-                          <div key={index} className="stock d-block">
+                          <div key={item?._id} className="stock d-block">
                             {item?.quantity * item?.product?.priceafterdiscount}
                           </div>
                         ))}

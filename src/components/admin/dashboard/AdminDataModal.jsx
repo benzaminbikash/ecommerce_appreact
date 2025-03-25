@@ -86,7 +86,7 @@ function BannerModal({ data, type }) {
                       />
                       <div className="mx-2">
                         {item?.attributes?.map((d, index) => (
-                          <div className="text-primary" key={index}>
+                          <div key={index} className="text-primary">
                             {d?.title?.title}: [{d?.values}]
                           </div>
                         ))}

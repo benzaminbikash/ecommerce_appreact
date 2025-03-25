@@ -2,6 +2,7 @@ import { apiSlice } from "../../Slice/apiSlice";
 
 export const AdminBlog = apiSlice.injectEndpoints({
   tagTypes: ["Blog"],
+  reducerPath: "BlogApi",
   endpoints: (builder) => ({
     getBlog: builder.query({
       query: () => ({

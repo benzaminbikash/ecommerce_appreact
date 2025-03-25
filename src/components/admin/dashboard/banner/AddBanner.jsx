@@ -93,7 +93,7 @@ function AddBanner() {
     }
   };
   return (
-    <main className="">
+    <main>
       <div className="card shadow-sm  mt-4">
         <div className="card-header bg-white ">
           <h5 className="text-primary  my-3 ">
@@ -103,7 +103,7 @@ function AddBanner() {
         {error && <Showmessage status="fail" message={error} />}
         {success && <Showmessage status="success" message={success} />}
         <div className="card-body">
-          <form>
+          <form onSubmit={state ? handleUpdateBanner : handleAddBanner}>
             <div className="row g-3">
               <div className="col-md-6">
                 <label htmlFor="categoryName" className="form-label">
@@ -203,11 +203,7 @@ function AddBanner() {
 
             {/* Submit Button */}
             <div className="mt-4">
-              <button
-                onClick={state ? handleUpdateBanner : handleAddBanner}
-                type="submit"
-                className="btn btn-primary text-white py-2"
-              >
+              <button type="submit" className="btn btn-primary text-white py-2">
                 {state ? "Update Banner" : "Add Banner"}
               </button>
             </div>
