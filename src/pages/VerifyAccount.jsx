@@ -23,7 +23,7 @@ function VerifyAccount() {
 
   const formHanlder = async () => {
     const api = await VERIFY({ otp });
-    console.log(api);
+
     if (api.error) {
       setError(api.error?.data?.message);
     } else {

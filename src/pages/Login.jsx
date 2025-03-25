@@ -3,7 +3,6 @@ import Header from "../components/Header";
 import LoginForm from "../components/login/LoginForm";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import Scroller from "../components/common/Scroller";
 
 function Login() {
   const navigate = useNavigate();
@@ -14,9 +13,6 @@ function Login() {
       navigate("/");
     }
   }, [state]);
-  useEffect(() => {
-    Scroller();
-  }, []);
 
   return (
     <>

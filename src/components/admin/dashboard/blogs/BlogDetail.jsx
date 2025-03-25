@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Header from "../../../Header";
 import { useLocation } from "react-router-dom";
 import { constant } from "../../../common/constant";
@@ -6,12 +6,6 @@ import Seo from "../../../common/Seo";
 
 function BlogDetail() {
   const { state } = useLocation();
-  useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: "instant",
-    });
-  }, []);
   return (
     <>
       <Seo

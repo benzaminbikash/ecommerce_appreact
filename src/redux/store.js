@@ -1,5 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit";
-import CartSlice from "./Slice/Cart";
 import { AdminLogin } from "./Api/admin/AdminLogin";
 import { AuthApi } from "./Api/AuthApi";
 import { setupListeners } from "@reduxjs/toolkit/query";
@@ -28,7 +27,6 @@ export const store = configureStore({
     [AdminSubAttibute.reducerPath]: AdminSubAttibute.reducer,
     [AdminSubCategory.reducerPath]: AdminSubCategory.reducer,
     [AdminProduct.reducerPath]: AdminProduct.reducer,
-    CART: CartSlice,
     auth: AuthSlice,
   },
   middleware: (getDefaultMiddleware) =>

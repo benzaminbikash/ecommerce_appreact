@@ -77,7 +77,7 @@ function Category() {
               <tbody>
                 {displayedProducts &&
                   displayedProducts?.map((product, index) => (
-                    <tr key={product.id}>
+                    <tr key={product._id}>
                       <td>{startIndex + index + 1}</td>
                       <td>{product?.title}</td>
                       <Link

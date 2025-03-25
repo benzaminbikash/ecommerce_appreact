@@ -1,5 +1,4 @@
 import { StrictMode } from "react";
-import { BrowserRouter } from "react-router-dom";
 import { createRoot } from "react-dom/client";
 import App from "./App.jsx";
 import { Provider } from "react-redux";
@@ -16,17 +15,15 @@ createRoot(document.getElementById("root")).render(
   <StrictMode>
     <GoogleOAuthProvider clientId="623888077753-sdd86bpugjj2q1vm1bc6qb3gicjuhg3t.apps.googleusercontent.com">
       <Provider store={store}>
-        <BrowserRouter>
-          <App />
-          <ToastContainer
-            position="top-right"
-            autoClose={2000}
-            hideProgressBar={true}
-            closeButton={true}
-            transition={Zoom}
-            limit={1}
-          />
-        </BrowserRouter>
+        <App />
+        <ToastContainer
+          position="top-right"
+          autoClose={2000}
+          hideProgressBar={true}
+          closeButton={true}
+          transition={Zoom}
+          limit={1}
+        />
       </Provider>
     </GoogleOAuthProvider>
   </StrictMode>

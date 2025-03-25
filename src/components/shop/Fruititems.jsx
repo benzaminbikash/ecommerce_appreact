@@ -80,8 +80,8 @@ function Fruititems({
             <button
               key={index}
               onClick={() => {
-                setCurrentPage(index + 1);
                 Scroller();
+                setCurrentPage({ page: index + 1 });
               }}
               className={`rounded btn   px-3 ${
                 currentPage == index + 1

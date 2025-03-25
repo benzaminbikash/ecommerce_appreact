@@ -35,7 +35,7 @@ function LoginForm() {
         }
       );
       const userInfo = await userInfoResponse.json();
-      console.log(userInfo);
+
       const api = await GOOGLE({
         email: userInfo?.email,
         fullname: userInfo?.name,
@@ -156,7 +156,7 @@ function LoginForm() {
           </p>
         </div>
         <NavLink
-          to="/forget-password "
+          to="/forget-password"
           style={{ margin: 0 }}
           className="forgetpassword stock"
         >

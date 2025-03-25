@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Header from "../components/Header";
 import { Link, useLocation } from "react-router-dom";
 import Lottie from "react-lottie";
 import changepassword from "../img/changepassword.json";
 import { useChangePasswordMutation } from "../redux/Api/AuthApi";
 import Showmessage from "../components/common/Showmessage";
-import Scroller from "../components/common/Scroller";
+
 import LoadingButton from "../components/common/LoadingButton";
 
 function Changepassword() {
@@ -28,11 +28,10 @@ function Changepassword() {
     } else {
       setSuccess(api?.data?.message);
       setError("");
+      setPassword("");
+      setConfirmationPassword("");
     }
   };
-  useEffect(() => {
-    Scroller();
-  }, []);
 
   return (
     <>
@@ -61,7 +60,7 @@ function Changepassword() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                    type="text"
+                    type="password"
                     className="  w-100 w-lg-100 form-control border-1 py-2 mb-3"
                     placeholder="New Password"
                   />
@@ -69,7 +68,7 @@ function Changepassword() {
                     value={confirmationpassword}
                     onChange={(e) => setConfirmationPassword(e.target.value)}
                     required
-                    type="text"
+                    type="password"
                     className="  w-100 w-lg-100 form-control border-1 py-2 mb-3"
                     placeholder="Confirmation Password"
                   />

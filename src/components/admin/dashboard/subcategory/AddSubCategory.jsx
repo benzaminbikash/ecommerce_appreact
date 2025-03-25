@@ -17,8 +17,6 @@ function AddSubCategory() {
   const [ADDSUBCATEGORY] = useAddSubCategoryMutation();
   const [UPDATESUBCATEGORY] = useUpdateSubCategoryMutation();
 
-  console.log(category);
-
   const addCategoryForm = async (e) => {
     e.preventDefault();
     const api = await ADDSUBCATEGORY({

@@ -71,7 +71,6 @@ function AddCategory() {
       }
     }
   };
-  console.log(selectImage);
   useEffect(() => {
     if (state) {
       setTitle(state.title);

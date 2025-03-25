@@ -1,6 +1,7 @@
 import { apiSlice } from "../../Slice/apiSlice";
 
 export const AdminCoupon = apiSlice.injectEndpoints({
+  tagTypes: ["Coupon"],
   endpoints: (builder) => ({
     getCoupon: builder.query({
       query: () => ({

@@ -19,8 +19,6 @@ function AddTestimonial() {
   const [error, setError] = useState("");
   const imageRef = useRef();
 
-  console.log(selectImage);
-
   const { refetch } = useGetTestimonialQuery();
   const [TESTIMONIAL] = useAddTestimonialMutation();
   const [TESTIMONIALUPDATE] = useUpdateTestimonialMutation();
@@ -34,7 +32,6 @@ function AddTestimonial() {
     formData.append("rating", rating);
     formData.append("image", selectImage);
     const api = await TESTIMONIAL(formData);
-    console.log(api);
     if (api?.error) {
       setError(api?.error?.data?.message);
       setSuccess("");

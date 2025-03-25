@@ -1,6 +1,7 @@
 import { apiSlice } from "../Slice/apiSlice";
 
 export const AuthApi = apiSlice.injectEndpoints({
+  tagTypes: ["Contact"],
   endpoints: (builder) => ({
     contact: builder.mutation({
       query: (data) => ({

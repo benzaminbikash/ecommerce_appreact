@@ -42,7 +42,7 @@ function AllOrder() {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const displayedProducts = sortedProducts?.slice(startIndex, endIndex);
-  console.log(displayedProducts);
+
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
 
@@ -78,7 +78,6 @@ function AllOrder() {
       setError("");
     }, 5000);
   }, [error, success]);
-  console.log(displayedProducts);
 
   return (
     <main>

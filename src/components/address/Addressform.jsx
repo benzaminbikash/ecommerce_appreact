@@ -55,11 +55,8 @@ const AddressForm = () => {
       )
     : state?.quantity * state?.product?.priceafterdiscount;
 
-  console.log(totalprice);
-
   const checkCoupon = () => {
     const filter = COUPONONE?.code.includes(coupon);
-    console.log(filter);
     if (filter) {
       if (COUPONONE?.used_count >= COUPONONE?.used_limit) {
         toast.error(
@@ -155,7 +152,6 @@ const AddressForm = () => {
   };
 
   const couponappliedprice = totalprice - (discount / 100) * totalprice;
-  console.log(couponappliedprice);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const billing = await ADDRESS({
@@ -214,7 +210,7 @@ const AddressForm = () => {
         formdata.append("priceaftercoupon", couponappliedprice);
       }
       const api = await ORDER(formdata);
-      console.log(api);
+
       await EMPTYCART();
       updateCoupon();
       navigate("/account/order");

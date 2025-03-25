@@ -23,7 +23,7 @@ function Header() {
           borderBottom: "1px solid red",
         }}
       >
-        <div className=" d-flex align-items-center">
+        <div className="d-flex align-items-center">
           <i
             onClick={() => {
               setShow(true);

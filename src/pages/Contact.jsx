@@ -1,12 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Header from "../components/Header";
 import Contactform from "../components/contact/Contactform";
-import Scroller from "../components/common/Scroller";
 
 function Contact() {
-  useEffect(() => {
-    Scroller();
-  }, []);
   return (
     <>
       <Header title={"Contact"} />

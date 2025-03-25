@@ -8,7 +8,6 @@ import {
 import Carttotal from "../components/Cart/cartTotal";
 import { constant } from "../components/common/constant";
 import Empty from "../img/emptyCart.jpg";
-import Scroller from "../components/common/Scroller";
 
 function ProfileCart() {
   const { data, refetch } = useUserInfoQuery();
@@ -64,7 +63,6 @@ function ProfileCart() {
 
   useEffect(() => {
     refetch();
-    Scroller();
   }, []);
 
   if (cart?.length == 0) {

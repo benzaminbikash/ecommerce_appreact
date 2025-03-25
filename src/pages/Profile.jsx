@@ -17,14 +17,10 @@ function Profile() {
       phone: phone,
     };
     const response = await UPDATE(data);
-    console.log(response);
+   
     setMessage(response?.data?.message);
     refetch();
   }
-
-  useEffect(() => {
-    Scroller();
-  }, []);
 
   useEffect(() => {
     if (user) {

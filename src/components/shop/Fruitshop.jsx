@@ -4,6 +4,7 @@ import Bannerf from "../../img/shopimage.jpg";
 import { useGetCategoryQuery } from "../../redux/Api/admin/AdminCategory";
 import { useGetProductQuery } from "../../redux/Api/admin/AdminProduct";
 import Scroller from "../common/Scroller";
+import { useSearchParams } from "react-router";
 
 function Fruitshop() {
   const [search, setSearch] = useState("");
@@ -36,7 +37,9 @@ function Fruitshop() {
   }
 
   // paginated
-  const [currentPage, setCurrentPage] = useState(1);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const currentPage = parseInt(searchParams.get("page") || 1);
+
   const itemsPerPage = 12;
   const totalPages = Math.ceil(filterData?.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -44,13 +47,13 @@ function Fruitshop() {
   const displayedProducts = filterData?.slice(startIndex, endIndex);
 
   const handleNext = () => {
-    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
     Scroller();
+    if (currentPage < totalPages) setSearchParams({ page: currentPage + 1 });
   };
 
   const handlePrevious = () => {
     Scroller();
-    if (currentPage > 1) setCurrentPage(currentPage - 1);
+    if (currentPage > 1) setSearchParams({ page: currentPage - 1 });
   };
 
   return (
@@ -149,8 +152,10 @@ function Fruitshop() {
                               <li
                                 key={index}
                                 onClick={() => {
+                                  Scroller();
+                                  setSearchParams({ page: 1 });
+                                  setSearch("");
                                   setSelectCategory(item.title);
-                                  setCurrentPage(1);
                                 }}
                                 className="nav-item"
                               >
@@ -185,6 +190,7 @@ function Fruitshop() {
                           <li
                             key={index}
                             onClick={() => {
+                              setSearchParams({ page: 1 });
                               setSearch("");
                               setSelectCategory(item.title);
                             }}
@@ -224,7 +230,7 @@ function Fruitshop() {
                   totalPages={totalPages}
                   nextPage={handleNext}
                   prePage={handlePrevious}
-                  setCurrentPage={setCurrentPage}
+                  setCurrentPage={setSearchParams}
                 />
               </div>
             </div>

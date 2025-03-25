@@ -12,7 +12,7 @@ import { useAllOrderQuery } from "../../redux/Api/OrderApi";
 import BannerModal from "../../components/admin/dashboard/AdminDataModal";
 
 function Dashboard() {
-  const { refetch } = useUserInfoQuery();
+  const { data: myInfo, refetch } = useUserInfoQuery();
   const { data: Product } = useGetProductQuery();
   const { data: User } = useAllUsersQuery();
   const { data: Order, refetch: orderRefetch } = useAllOrderQuery();
@@ -41,7 +41,7 @@ function Dashboard() {
   useEffect(() => {
     refetch();
     orderRefetch();
-  }, []);
+  }, [myInfo, Order]);
   return (
     <main>
       <BannerModal type="order" data={selectOrder} />

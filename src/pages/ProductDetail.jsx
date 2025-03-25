@@ -10,7 +10,7 @@ import {
   useRemoveCartMutation,
 } from "../redux/Api/CartApi";
 import CarsoualProduct from "../components/products/CarsoualProduct";
-import Scroller from "../components/common/Scroller";
+// import Scroller from "../components/common/Scroller";
 import Seo from "../components/common/Seo";
 
 function ProductDetail() {
@@ -102,9 +102,9 @@ function ProductDetail() {
     }, 5000);
   }, [success, error]);
 
-  useEffect(() => {
-    Scroller();
-  }, []);
+  // useEffect(() => {
+  //   Scroller();
+  // }, []);
 
   return (
     <>
@@ -241,10 +241,10 @@ function ProductDetail() {
               <iframe
                 width="100%"
                 src={state?.video}
-                frameborder="0"
+                frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin"
-                allowfullscreen
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
               ></iframe>
             )}
             {/* {state?.images.map((item, index) => {

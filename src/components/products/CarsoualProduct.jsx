@@ -41,8 +41,9 @@ function CarsoualProduct({ state }) {
           slidesToSlide={1}
           swipeable
         >
-          {state?.images?.map((item) => (
+          {state?.images?.map((item, index) => (
             <img
+              key={index}
               src={`${constant?.IMAGEURL}/${item}`}
               className="img-fluid w-100 rounded productdtailimage"
               alt="mainProduct"

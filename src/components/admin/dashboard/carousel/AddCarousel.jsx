@@ -6,7 +6,6 @@ import {
 } from "../../../../redux/Api/admin/AdminCarousel";
 import Showmessage from "../../../common/Showmessage";
 import { constant } from "../../../common/constant";
-import { useGetCategoryQuery } from "../../../../redux/Api/admin/AdminCategory";
 
 function AddCarousel() {
   const navigate = useNavigate();
@@ -18,11 +17,9 @@ function AddCarousel() {
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
   const imagesRef = useRef([]);
-  console.log(images);
 
   const [ADDCAROUSEL] = useAddCarouselMutation();
   const [UPDATECAROUSEL] = useUpdateCarouselMutation();
-  const { data, refetch } = useGetCategoryQuery();
 
   useEffect(() => {
     if (state) {

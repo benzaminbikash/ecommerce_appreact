@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useRegistrationMutation } from "../../../../redux/Api/AuthApi";
+
 import Showmessage from "../../../common/Showmessage";
 import { useLocation } from "react-router-dom";
 
 function EditUser() {
   const { state } = useLocation();
-  console.log(state);
+
   const [role, setRole] = useState("");
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState("");
-
-  console.log(role);
   const handleAddUser = async (e) => {
     e.preventDefault();
     // const api = await USERREGISTRATION({
@@ -26,7 +24,7 @@ function EditUser() {
     //   setRole(false);
     // }
   };
-  console.log(state.role);
+
   useEffect(() => {
     if (state.role == "admin") {
       setRole(true);

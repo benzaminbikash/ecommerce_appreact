@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { Rating } from "@smastrom/react-rating";
 import { constant } from "../common/constant";
 import { useGetProductQuery } from "../../redux/Api/admin/AdminProduct";
@@ -10,7 +10,8 @@ function BestSell() {
   const products = data?.data?.filter((i) => i?.bestSeller == true);
 
   // paginated
-  const [currentPage, setCurrentPage] = useState(1);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const currentPage = parseInt(searchParams.get("page") || 1);
   const itemsPerPage = 6;
   const totalPages = Math.ceil(products?.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -18,11 +19,11 @@ function BestSell() {
   const displayedProducts = products?.slice(startIndex, endIndex);
 
   const handleNext = () => {
-    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+    if (currentPage < totalPages) setSearchParams({ page: currentPage + 1 });
   };
 
   const handlePrevious = () => {
-    if (currentPage > 1) setCurrentPage(currentPage - 1);
+    if (currentPage > 1) setSearchParams({ page: currentPage - 1 });
   };
 
   return (

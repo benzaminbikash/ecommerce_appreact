@@ -5,7 +5,7 @@ import BestSell from "../components/Home/BestSell";
 import Fruitsearch from "../components/Home/Fruitsearch";
 import Testimonial from "../components/Home/Testimonial";
 import AuthRole from "../components/common/AuthRole";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
   const { isAdmin } = AuthRole();
@@ -15,6 +15,7 @@ function Home() {
       navigate("/admin");
     }
   }, []);
+
   return (
     <>
       <Hero />

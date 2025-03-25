@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useMyOrderQuery } from "../redux/Api/OrderApi";
 import { constant } from "../components/common/constant";
-import { Link } from "react-router-dom";
 import Empty from "../img/emptyCart.jpg";
-import Scroller from "../components/common/Scroller";
 
 function Order() {
   const [select, setSelect] = useState("Default");
@@ -17,9 +15,6 @@ function Order() {
     }
   });
 
-  useEffect(() => {
-    Scroller();
-  }, []);
   useEffect(() => {
     refetch();
   }, [data]);
